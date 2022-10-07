@@ -1,0 +1,20 @@
+.header {
+  max-width: 1920px;
+}
+
+.nav {
+  max-width: 1280px;
+  margin: auto;
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.menu__item {
+  display: flex;
+  align-items: center;
+}
