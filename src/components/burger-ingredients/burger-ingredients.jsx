@@ -8,7 +8,7 @@ import data from '../../utils/data.json';
 class BurgerIngredients extends React.Component {
   render() {
     return (
-      <section>
+      <section className={`pl-5 pr-5`}>
         <h1>Соберите бургер</h1>
         {/* <TypesTab /> */}
       </section>
