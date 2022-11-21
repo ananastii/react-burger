@@ -1,20 +1,35 @@
 .header {
   max-width: 1920px;
-}
-
-.nav {
-  max-width: 1280px;
-  margin: auto;
+  background-color: #1c1c21;
 }
 
 .menu {
   margin: 0;
   padding: 0;
+  max-width: 1280px;
+  margin: auto;
   list-style: none;
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+}
+
+.menu_section_left {
+  justify-self: start;
   display: flex;
 }
 
-.menu__item {
+.menu_section_right {
+  justify-self: end;
+}
+
+.header__item {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.header__logo {
+  composes: header__item;
+  justify-self: center;
 }

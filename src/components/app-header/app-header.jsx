@@ -6,24 +6,24 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-dev
 const AppHeader = () => {
   return (
     <header className={`pt-4 pb-4 ${styles.header}`}>
-      <nav className={styles.nav}>
-        <ul className={styles.menu}>
-          <li className={`pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.menu__item}`}>
-            <BurgerIcon type="primary" className="mr-3"/>
-            <span className="ml-2 text">Конструктор</span>
-          </li>
-          <li className={`pr-5 pl-5 ${styles.menu__item}`}>
+      <nav className={styles.menu}>
+        <div className={styles.menu_section_left}>
+          <a href="#" className={`pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.header__item}`}>
+            <BurgerIcon type="primary"/>
+            <span className="ml-2 text text_type_main-default">Конструктор</span>
+          </a>
+          <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.header__item}`}>
             <ListIcon type="secondary" />
-            <span className="ml-2 text">Лента заказов</span>
-          </li>
-          <li className={`pt-4 pr-5 pb-4 pl-5 ${styles.menu__item}`}>
-            <Logo />
-          </li>
-          <li className={`pt-4 pr-5 pb-4 pl-5 ${styles.menu__item}`}>
+            <span className="ml-2 text text_type_main-default">Лента заказов</span>
+          </a>
+        </div>
+        <div className={`${styles.header__logo}`}>
+          <Logo />
+        </div>
+        <a href="#" className={`pt-4 pr-5 pb-4 pl-5 ${styles.header__item} ${styles.menu_section_right}`}>
           <ProfileIcon type="primary" />
-            <span className="ml-2 text">Лента заказов</span>
-          </li>
-        </ul>
+          <span className="ml-2 text text_type_main-default">Личный кабинет</span>
+        </a>
       </nav>
     </header>
   )
