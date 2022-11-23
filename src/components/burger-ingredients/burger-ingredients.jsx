@@ -13,7 +13,7 @@ const BurgerIngredients = ({data}) => {
     <section className={`${styles.list} pl-5 pr-5`}>
       <h1 className={`pt-10 text text_type_main-large`}>Соберите бургер</h1>
       <TypesTab />
-      <div className={`custom-scroll ${styles.list__scroll}`}>
+      <div className={`${styles.list__scroll} custom-scroll`}>
         <IngredientsList title={'Булки'} data={buns}/>
         <IngredientsList title={'Соусы'} data={sauces}/>
         <IngredientsList title={'Начинки'} data={fillings}/>
