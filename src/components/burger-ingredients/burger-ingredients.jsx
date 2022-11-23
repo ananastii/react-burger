@@ -1,21 +1,25 @@
-import React from 'react';
-
 import styles from './burger-ingredients.module.css';
-import TypesTab from '../types-tab/types-tab';
+import TypesTab from '../ingredients-tab/ingredients-tab';
+import IngredientsList from '../ingredients-list/ingredients-list';
 import { } from '@ya.praktikum/react-developer-burger-ui-components';
-import data from '../../utils/data.json';
 
-class BurgerIngredients extends React.Component {
-  render() {
-    return (
-      <section className={`pl-5 pr-5`}>
-        <h1>Соберите бургер</h1>
-        {/* <TypesTab /> */}
-      </section>
-    )
-  }
+const BurgerIngredients = ({data}) => {
+
+  const buns = data.filter((item) => item.type === 'bun');
+  const sauces = data.filter((item) => item.type === 'sauce');
+  const fillings = data.filter((item) => item.type === 'main');
+
+  return (
+    <section className={`${styles.list} pl-5 pr-5`}>
+      <h1 className={`pt-10 text text_type_main-large`}>Соберите бургер</h1>
+      <TypesTab />
+      <div className={`custom-scroll ${styles.list__scroll}`}>
+        <IngredientsList title={'Булки'} data={buns}/>
+        <IngredientsList title={'Соусы'} data={sauces}/>
+        <IngredientsList title={'Начинки'} data={fillings}/>
+      </div>
+    </section>
+  )
 }
-
-
 
 export default BurgerIngredients;
