@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './burger-constructor.module.css';
-import {ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerConstructor = ({data}) =>  {
 
@@ -14,7 +14,7 @@ const BurgerConstructor = ({data}) =>  {
   return (
     <section className={`${styles.section} pl-5 pr-5`}>
       <div className={`${styles.list} mt-25 mb-13`}>
-        <div className={`${styles.list__item} ml-8`}>
+        <div className={`${styles.list__item} ml-8 pl-4 pr-4`}>
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -26,7 +26,7 @@ const BurgerConstructor = ({data}) =>  {
         </div>
         <ul className={`${styles.list__scroll} custom-scroll`}>
           {fillings.map(item => (
-            <li className={`${styles.list__item}`}>
+            <li className={`${styles.list__item} pl-4 pr-4`}>
               <DragIcon type="primary"/>
               <ConstructorElement
                 isLocked={false}
@@ -38,7 +38,7 @@ const BurgerConstructor = ({data}) =>  {
             </li>
           ))}
         </ul>
-        <div className={`${styles.list__item} ml-8`}>
+        <div className={`${styles.list__item} ml-8 pl-4 pr-4`}>
           <ConstructorElement
             type="bottom"
             isLocked={true}
@@ -48,6 +48,13 @@ const BurgerConstructor = ({data}) =>  {
             thumbnail={bunBottom.image}
           />
         </div>
+      </div>
+      <div className={`${styles.order} pt-10 pb-3`}>
+        <div className={`${styles.price} mr-10`} >
+          <span className='mr-2 text text_type_digits-medium'>{`42`}</span>
+          <span className={styles.price__icon}><CurrencyIcon type="primary"/></span>
+        </div>
+        <Button type="primary" size="large">Оформить заказ</Button>
       </div>
     </section>
   )
