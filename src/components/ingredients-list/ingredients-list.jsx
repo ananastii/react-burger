@@ -1,5 +1,6 @@
 import styles from './ingredients-list.module.css';
 import Ingredient from '../ingredient/ingredient';
+import PropTypes from 'prop-types';
 
 const IngredientsList = ({title, data}) => {
   return (
@@ -10,6 +11,11 @@ const IngredientsList = ({title, data}) => {
       </ul>
     </div>
   )
-}
+};
+
+IngredientsList.propTypes = {
+  title: PropTypes.string.isRequired,
+  data: PropTypes.array.isRequired
+};
 
 export default IngredientsList;

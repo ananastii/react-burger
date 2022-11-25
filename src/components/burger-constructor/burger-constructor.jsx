@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './burger-constructor.module.css';
 import {ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -54,10 +54,14 @@ const BurgerConstructor = ({data}) =>  {
           <span className='mr-2 text text_type_digits-medium'>{`42`}</span>
           <span className={styles.price__icon}><CurrencyIcon type="primary"/></span>
         </div>
-        <Button type="primary" size="large">Оформить заказ</Button>
+        <Button type="primary" size="large" htmlType="button">Оформить заказ</Button>
       </div>
     </section>
   )
 }
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.array.isRequired
+};
 
 export default BurgerConstructor;

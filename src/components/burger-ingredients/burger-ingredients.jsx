@@ -2,6 +2,7 @@ import styles from './burger-ingredients.module.css';
 import TypesTab from '../ingredients-tab/ingredients-tab';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import { } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 const BurgerIngredients = ({data}) => {
 
@@ -21,5 +22,9 @@ const BurgerIngredients = ({data}) => {
     </section>
   )
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.array.isRequired
+};
 
 export default BurgerIngredients;
