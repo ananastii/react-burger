@@ -33,6 +33,7 @@ const BurgerConstructor = ({data}) =>  {
                 text={item.name}
                 price={item.price}
                 index={item._id}
+                thumbnail={item.image}
               />
             </li>
           ))}
