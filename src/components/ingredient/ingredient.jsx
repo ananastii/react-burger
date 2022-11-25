@@ -11,7 +11,7 @@ const Ingredient = ({data}) => (
       <span className="mr-2 text text_type_digits-default">{data.price}</span>
       <CurrencyIcon type="primary" />
     </div>
-    <p className="text text_type_main-default">
+    <p className={`${styles.name} text text_type_main-default`}>
       {data.name}
     </p>
   </li>
