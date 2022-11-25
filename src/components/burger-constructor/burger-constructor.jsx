@@ -26,14 +26,13 @@ const BurgerConstructor = ({data}) =>  {
         </div>
         <ul className={`${styles.list__scroll} custom-scroll`}>
           {fillings.map(item => (
-            <li className={`${styles.list__item} pl-4 pr-4`}>
+            <li className={`${styles.list__item} pl-4 pr-4`} key={item._id}>
               <DragIcon type="primary"/>
               <ConstructorElement
                 isLocked={false}
                 text={item.name}
                 price={item.price}
                 index={item._id}
-                thumbnail={item.image}
               />
             </li>
           ))}
