@@ -3,43 +3,30 @@ import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-//import data from '../../utils/data.json';
+import {getIngredientsData} from '../../utils/api';
 import {url} from '../../utils/constants';
 
 const App = () => {
 
   const [state, setState] = useState({
-    success: false,
+    hasError: false,
     data: []
   });
 
   useEffect(() => {
-    const getIngredientsData = () => {
-      fetch(url, {
-        method: 'GET',
-        headers: {
-          authorization: '',
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(dataFromServer => dataFromServer.json())
-      .then(dataFromServer => setState({ data: dataFromServer.data, success: dataFromServer.success}))
-        .catch(e => {
-          console.log(`Ошибка при загрузке данных: ${e}`);
-        });
-      }
-
-    getIngredientsData(url);
-  }, []) //если вписать state, то вызывает постоянную перерисовку
+    getIngredientsData(url, state, setState);
+  }, []);
 
   return (
     <>
       <AppHeader />
-      {!state.success ? (
+      {state.hasError && (
         <>
           <h1>Хьюстон, у нас ошибка!</h1>
           <h2>Попробуйте обновить страницу или зайдите позднее</h2>
-        </>) : (
+        </>)}
+      {!state.hasError &&
+        state.data.length && (
         <main className={styles.main}>
           <BurgerIngredients data={state.data}/>
           <BurgerConstructor data={state.data}/>

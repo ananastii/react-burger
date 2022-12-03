@@ -1,12 +1,17 @@
-
-
-
-const getIngredientsData = (url) => {
-  setState({ ...state, hasError: false, isLoading: true });
-  fetch(url)
-    .then(data => data.json())
-    .then(data => setState({ ...state, data: data, isLoading: false }))
+const getIngredientsData = (url, state, setState) => {
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      authorization: '',
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(dataFromServer => dataFromServer.json())
+  .then(dataFromServer => setState({data: dataFromServer.data, hasError: false}))
     .catch(e => {
-      setState({ ...state, hasError: true, success: false });
+      setState({...state, hasError: true})
+      console.log(`Ошибка при загрузке данных: ${e}`);
     });
-  }
+}
+
+export { getIngredientsData };
