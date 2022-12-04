@@ -30,7 +30,9 @@ const BurgerIngredients = ({data}) => {
       </div>
     </section>
     {ingredientModal &&
-      <Modal onOverlayClick={closeModal}/>
+      <Modal onOverlayClick={closeModal}>
+        <div>текст</div>
+      </Modal>
     }
     </>
   )
