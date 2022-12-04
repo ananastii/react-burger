@@ -8,8 +8,7 @@ const BurgerConstructor = ({data}) =>  {
   const buns = data.filter(item => item.type === 'bun');
   const fillings = data.filter(item => item.type !== 'bun');
 
-  const bunTop = buns[Math.floor(Math.random()*buns.length)];
-  const bunBottom = buns[Math.floor(Math.random()*buns.length)];
+  const bun = buns[Math.floor(Math.random()*buns.length)];
 
   return (
     <section className={`${styles.section} pl-5 pr-5`}>
@@ -18,10 +17,10 @@ const BurgerConstructor = ({data}) =>  {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={bunTop.name}
-            price={bunTop.price}
-            index={bunTop._id}
-            thumbnail={bunTop.image}
+            text={bun.name}
+            price={bun.price}
+            index={bun._id}
+            thumbnail={bun.image}
           />
         </div>
         <ul className={`${styles.list__scroll} custom-scroll`}>
@@ -42,10 +41,10 @@ const BurgerConstructor = ({data}) =>  {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={bunBottom.name}
-            price={bunBottom.price}
-            index={bunBottom._id}
-            thumbnail={bunBottom.image}
+            text={bun.name}
+            price={bun.price}
+            index={bun._id}
+            thumbnail={bun.image}
           />
         </div>
       </div>
