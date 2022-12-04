@@ -6,7 +6,7 @@ function IngredientDetail ({ingredientData}) {
 
   return (
     <div>
-      <h2 className="pt-10 pl-10 pr-10 text text_type_main-large">Детали ингредиента</h2>
+      <h2 className="mt-10 pt-3 pl-10 pr-10 text text_type_main-large">Детали ингредиента</h2>
       <div className={`${styles.properties} ml-25 mr-25 pb-15`}>
         <img className={`${styles.img} ml-5 mr-5`} src={ingredientData.image} alt={ingredientData.name}></img>
         <p className={`text text_type_main-medium pt-4`}>
