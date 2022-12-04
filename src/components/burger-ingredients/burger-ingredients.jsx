@@ -3,7 +3,8 @@ import styles from './burger-ingredients.module.css';
 import TypesTab from '../ingredients-tab/ingredients-tab';
 import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
-import { } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientDetail from '../ingredient-detail/ingredient-detail';
+// import { } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
 const BurgerIngredients = ({data}) => {
@@ -31,7 +32,7 @@ const BurgerIngredients = ({data}) => {
     </section>
     {ingredientModal &&
       <Modal onOverlayClick={closeModal}>
-        <div>текст</div>
+        <IngredientDetail ingredientData={ingredientModal}/>
       </Modal>
     }
     </>
