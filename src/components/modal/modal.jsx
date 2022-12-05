@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 const Modal = ({onOverlayClick, onEscKeydown, children}) => {
 
@@ -32,6 +33,12 @@ const Modal = ({onOverlayClick, onEscKeydown, children}) => {
     , modalContainer
   )
 
+};
+
+Modal.propTypes = {
+  onOverlayClick: PropTypes.func.isRequired,
+  onEscKeydown: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default Modal;

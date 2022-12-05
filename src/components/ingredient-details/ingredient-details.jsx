@@ -1,6 +1,7 @@
-import styles from './ingredient-detail.module.css';
+import styles from './ingredient-details.module.css';
+import { ingredientPropTypes } from '../../utils/types';
 
-function IngredientDetail ({ingredientData}) {
+function IngredientDetails ({ingredientData}) {
 
   return (
     <div>
@@ -31,6 +32,10 @@ function IngredientDetail ({ingredientData}) {
       </div>
     </div>
   )
-}
+};
 
-export default IngredientDetail;
+IngredientDetails.propTypes = {
+  ingredientData: ingredientPropTypes.isRequired
+};
+
+export default IngredientDetails;

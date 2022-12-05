@@ -3,8 +3,7 @@ import styles from './burger-ingredients.module.css';
 import TypesTab from '../ingredients-tab/ingredients-tab';
 import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
-import IngredientDetail from '../ingredient-detail/ingredient-detail';
-// import { } from '@ya.praktikum/react-developer-burger-ui-components';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 import PropTypes from 'prop-types';
 
 const BurgerIngredients = ({data}) => {
@@ -19,7 +18,7 @@ const BurgerIngredients = ({data}) => {
     setIngredientModal(null);
   };
 
-  const handleEscKeydown = (e) => {
+  const onEscKeydown = (e) => {
     e.key === "Escape" && closeModal();
   };
 
@@ -35,8 +34,8 @@ const BurgerIngredients = ({data}) => {
       </div>
     </section>
     {ingredientModal &&
-      <Modal onOverlayClick={closeModal} onEscKeydown={handleEscKeydown}>
-        <IngredientDetail ingredientData={ingredientModal}/>
+      <Modal onOverlayClick={closeModal} onEscKeydown={onEscKeydown}>
+        <IngredientDetails ingredientData={ingredientModal}/>
       </Modal>
     }
     </>

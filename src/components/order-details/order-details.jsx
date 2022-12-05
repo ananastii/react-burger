@@ -1,5 +1,5 @@
 import styles from './order-details.module.css';
-import { Icon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 function OrderDetails ({orderData}) {
 
@@ -14,5 +14,11 @@ function OrderDetails ({orderData}) {
     </div>
   )
 }
+
+OrderDetails.propTypes = {
+  orderData: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }).isRequired
+};
 
 export default OrderDetails;

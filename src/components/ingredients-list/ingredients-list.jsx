@@ -6,14 +6,15 @@ const IngredientsList = ({title, data, onImgClick, onEscKeydown}) => (
   <div className={`pt-10`}>
     <h2 className={`text text_type_main-medium`}>{title}</h2>
     <ul className={`${styles.grid} pt-6 pl-4 pr-4`}>
-      { data.map(item => (<Ingredient data={item} key={item._id} onImgClick={onImgClick} onEscKeydown={onEscKeydown}/>))}
+      { data.map(item => (<Ingredient data={item} key={item._id} onImgClick={onImgClick}/>))}
     </ul>
   </div>
 );
 
 IngredientsList.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  onImgClick: PropTypes.func.isRequired
 };
 
 export default IngredientsList;

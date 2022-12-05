@@ -23,7 +23,6 @@ const BurgerConstructor = ({data}) =>  {
   };
 
   // хардкод с данными заказа:
-
   const orderData = {
     id: "034536"
   };
