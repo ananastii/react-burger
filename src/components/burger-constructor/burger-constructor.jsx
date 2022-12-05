@@ -22,6 +22,12 @@ const BurgerConstructor = ({data}) =>  {
     e.key === "Escape" && closeModal();
   };
 
+  // хардкод с данными заказа:
+
+  const orderData = {
+    id: "034536"
+  };
+
   return (
     <>
       <section className={`${styles.section} pl-5 pr-5`}>
@@ -66,12 +72,12 @@ const BurgerConstructor = ({data}) =>  {
             <span className='mr-2 text text_type_digits-medium'>{`42`}</span>
             <span className={styles.price__icon}><CurrencyIcon type="primary"/></span>
           </div>
-          <Button type="primary" size="large" htmlType="button" onClick={() => setOrderModal(true)}>Оформить заказ</Button>
+          <Button type="primary" size="large" htmlType="button" onClick={() => setOrderModal(orderData)}>Оформить заказ</Button>
         </div>
       </section>
       {orderModal &&
         <Modal onOverlayClick={closeModal} onEscKeydown={handleEscKeydown}>
-          <OrderDetails />
+          <OrderDetails orderData={orderModal}/>
         </Modal>
       }
     </>
