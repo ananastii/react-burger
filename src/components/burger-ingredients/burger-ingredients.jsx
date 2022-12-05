@@ -17,7 +17,11 @@ const BurgerIngredients = ({data}) => {
 
   const closeModal = () => {
     setIngredientModal(null);
-  }
+  };
+
+  const handleEscKeydown = (e) => {
+    e.key === "Escape" && closeModal();
+  };
 
   return (
     <>
@@ -25,13 +29,13 @@ const BurgerIngredients = ({data}) => {
       <h1 className={`pt-10 text text_type_main-large`}>Соберите бургер</h1>
       <TypesTab />
       <div className={`${styles.list__scroll} custom-scroll`}>
-        <IngredientsList title={'Булки'} data={buns} onImgClick={setIngredientModal} />
-        <IngredientsList title={'Соусы'} data={sauces} onImgClick={setIngredientModal} />
-        <IngredientsList title={'Начинки'} data={fillings} onImgClick={setIngredientModal} />
+        <IngredientsList title={'Булки'} data={buns} onImgClick={setIngredientModal}/>
+        <IngredientsList title={'Соусы'} data={sauces} onImgClick={setIngredientModal}/>
+        <IngredientsList title={'Начинки'} data={fillings} onImgClick={setIngredientModal}/>
       </div>
     </section>
     {ingredientModal &&
-      <Modal onOverlayClick={closeModal}>
+      <Modal onOverlayClick={closeModal} onEscKeydown={handleEscKeydown}>
         <IngredientDetail ingredientData={ingredientModal}/>
       </Modal>
     }

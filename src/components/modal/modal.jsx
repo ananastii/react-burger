@@ -1,11 +1,21 @@
 import ReactDOM from 'react-dom';
+import {useEffect} from 'react';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const modalContainer = document.querySelector('#modal');
+const Modal = ({onOverlayClick, onEscKeydown, children}) => {
 
-const Modal = ({onOverlayClick, children}) => {
+  const modalContainer = document.querySelector('#modal');
+
+  useEffect(() => {
+    document.addEventListener('keydown', onEscKeydown);
+
+    return () => {
+      document.removeEventListener('keydown', onEscKeydown);
+    };
+  }, []);
+
 
   return ReactDOM.createPortal (
     <>
