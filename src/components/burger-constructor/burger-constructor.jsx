@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
+import OrderDetails from '../order-details/order-details';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerConstructor = ({data}) =>  {
@@ -70,8 +71,7 @@ const BurgerConstructor = ({data}) =>  {
       </section>
       {orderModal &&
         <Modal onOverlayClick={closeModal} onEscKeydown={handleEscKeydown}>
-          {/* <IngredientDetail ingredientData={ingredientModal}/> */}
-          <p>тест</p>
+          <OrderDetails />
         </Modal>
       }
     </>
