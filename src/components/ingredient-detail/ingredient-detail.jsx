@@ -2,8 +2,6 @@ import styles from './ingredient-detail.module.css';
 
 function IngredientDetail ({ingredientData}) {
 
-  console.log(ingredientData)
-
   return (
     <div>
       <h2 className="mt-10 pt-3 pl-10 pr-10 text text_type_main-large">Детали ингредиента</h2>
