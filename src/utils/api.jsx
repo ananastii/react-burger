@@ -6,7 +6,7 @@ const getIngredientsData = (url, state, setState) => {
       'Content-Type': 'application/json'
     }
   })
-  .then(dataFromServer => dataFromServer.json())
+  .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
   .then(dataFromServer => setState({data: dataFromServer.data, hasError: false}))
     .catch(e => {
       setState({...state, hasError: true})
