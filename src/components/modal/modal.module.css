@@ -1,6 +1,6 @@
 .modal {
   max-width: 100%;
-  position: absolute;
+  position: fixed;
   z-index: 2;
   top: 50%;
   left: 50%;
