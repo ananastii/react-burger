@@ -17,7 +17,7 @@ function OrderDetails ({orderData}) {
 
 OrderDetails.propTypes = {
   orderData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
   }).isRequired
 };
 
