@@ -5,7 +5,7 @@ import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-const Modal = ({onOverlayClick, onEscKeydown, children}) => {
+const Modal = ({onClose, onEscKeydown, children}) => {
 
   const modalContainer = document.querySelector('#modal');
 
@@ -22,13 +22,13 @@ const Modal = ({onOverlayClick, onEscKeydown, children}) => {
     <>
       <section className={styles.modal}>
         <button type="button"
-                onClick={onOverlayClick}
+                onClick={onClose}
                 className={styles.closeBtn}>
           <CloseIcon type="primary" />
         </button>
         {children}
       </section>
-      <ModalOverlay onClick={onOverlayClick} />
+      <ModalOverlay onClick={onClose} />
     </>
     , modalContainer
   )
@@ -36,7 +36,7 @@ const Modal = ({onOverlayClick, onEscKeydown, children}) => {
 };
 
 Modal.propTypes = {
-  onOverlayClick: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   onEscKeydown: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired
 };

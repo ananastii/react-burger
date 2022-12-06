@@ -41,7 +41,7 @@ const BurgerIngredients = ({data}) => {
       </div>
     </section>
     {ingredientModal &&
-      <Modal onOverlayClick={closeModal} onEscKeydown={onEscKeydown}>
+      <Modal onClose={closeModal} onEscKeydown={onEscKeydown}>
         <IngredientDetails ingredientData={ingredientModal}/>
       </Modal>
     }

@@ -75,7 +75,7 @@ const BurgerConstructor = ({data}) =>  {
         </div>
       </section>
       {orderModal &&
-        <Modal onOverlayClick={closeModal} onEscKeydown={handleEscKeydown}>
+        <Modal onClose={closeModal} onEscKeydown={handleEscKeydown}>
           <OrderDetails orderData={orderModal}/>
         </Modal>
       }
