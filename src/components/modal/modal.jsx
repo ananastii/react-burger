@@ -5,11 +5,16 @@ import styles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-const Modal = ({onClose, onEscKeydown, children}) => {
+const Modal = ({onClose, children}) => {
 
   const modalContainer = document.querySelector('#modal');
 
   useEffect(() => {
+
+    const onEscKeydown = (e) => {
+      e.key === "Escape" && onClose();
+    };
+
     document.addEventListener('keydown', onEscKeydown);
 
     return () => {
@@ -37,7 +42,6 @@ const Modal = ({onClose, onEscKeydown, children}) => {
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onEscKeydown: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired
 };
 

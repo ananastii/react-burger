@@ -18,10 +18,6 @@ const BurgerConstructor = ({data}) =>  {
     setOrderModal(null);
   };
 
-  const handleEscKeydown = (e) => {
-    e.key === "Escape" && closeModal();
-  };
-
   // хардкод с данными заказа:
   const orderData = {
     id: "034536"
@@ -75,7 +71,7 @@ const BurgerConstructor = ({data}) =>  {
         </div>
       </section>
       {orderModal &&
-        <Modal onClose={closeModal} onEscKeydown={handleEscKeydown}>
+        <Modal onClose={closeModal}>
           <OrderDetails orderData={orderModal}/>
         </Modal>
       }

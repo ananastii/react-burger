@@ -25,10 +25,6 @@ const BurgerIngredients = ({data}) => {
     setIngredientModal(null);
   };
 
-  const onEscKeydown = (e) => {
-    e.key === "Escape" && closeModal();
-  };
-
   return (
     <>
     <section className={`${styles.list} pl-5 pr-5`}>
@@ -41,7 +37,7 @@ const BurgerIngredients = ({data}) => {
       </div>
     </section>
     {ingredientModal &&
-      <Modal onClose={closeModal} onEscKeydown={onEscKeydown}>
+      <Modal onClose={closeModal}>
         <IngredientDetails ingredientData={ingredientModal}/>
       </Modal>
     }
