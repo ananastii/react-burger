@@ -1,0 +1,15 @@
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  min-height: 48px;
+}

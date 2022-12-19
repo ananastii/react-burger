@@ -1,0 +1,10 @@
+.list {
+  max-height: calc(100vh - 88px - 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+.list__scroll {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
