@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.img:hover {
+  cursor: pointer;
+}
+
 .price {
   display: flex;
   align-items: center;

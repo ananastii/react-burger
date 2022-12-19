@@ -1,0 +1,21 @@
+.properties {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img {
+  width: 100%;
+}
+
+.nutrients {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.amount {
+  text-align: center;
+  min-width: 112px;
+}
