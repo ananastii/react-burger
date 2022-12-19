@@ -3,35 +3,38 @@ import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import {getIngredientsData} from '../../utils/api';
-import {url} from '../../utils/constants';
+import { getIngredientsData } from '../../utils/api';
+import { url } from '../../utils/constants';
+import { BurgerConstructorContext } from "../../utils/context";
 
 const App = () => {
 
-  const [state, setState] = useState({
+  const [ingredients, setIngredients] = useState({
     hasError: false,
     data: []
   });
 
   useEffect(() => {
-    getIngredientsData(url, state, setState);
+    getIngredientsData(url, ingredients, setIngredients);
   }, []);
 
   return (
     <>
       <AppHeader />
-      {state.hasError && (
-        <>
-          <h1>Хьюстон, у нас ошибка!</h1>
-          <h2>Попробуйте обновить страницу или зайдите позднее</h2>
-        </>)}
-      {!state.hasError &&
-        state.data.length && (
-        <main className={styles.main}>
-          <BurgerIngredients data={state.data}/>
-          <BurgerConstructor data={state.data}/>
-        </main>
-      )}
+      <BurgerConstructorContext.Provider value={{ingredients}}>
+        {ingredients.hasError && (
+          <>
+            <h1>Хьюстон, у нас ошибка!</h1>
+            <h2>Попробуйте обновить страницу или зайдите позднее</h2>
+          </>)}
+        {!ingredients.hasError &&
+          ingredients.data.length && (
+          <main className={styles.main}>
+            <BurgerIngredients/>
+            <BurgerConstructor/>
+          </main>
+        )}
+      </BurgerConstructorContext.Provider>
     </>
   )
 
