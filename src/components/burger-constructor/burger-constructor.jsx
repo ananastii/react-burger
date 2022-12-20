@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerConstructorContext } from "../../utils/context";
+import { BurgerConstructorContext, TotalPriceContext } from "../../utils/context";
 
 const BurgerConstructor = () =>  {
 
@@ -12,7 +12,8 @@ const BurgerConstructor = () =>  {
   const buns = data.filter(item => item.type === 'bun');
   const fillings = data.filter(item => item.type !== 'bun');
 
-  const bun = buns[Math.floor(Math.random()*buns.length)];
+  //const bun = buns[Math.floor(Math.random()*buns.length)];
+  const bun=buns[0];
 
   const [orderModal, setOrderModal] = useState(null);
 
@@ -24,6 +25,20 @@ const BurgerConstructor = () =>  {
   const orderData = {
     id: "034536"
   };
+
+  const { totalPrice, totalPriceDispatcher } = useContext(TotalPriceContext);
+
+  useEffect(
+    () => {
+      let orderPrice = 0;
+      totalPriceDispatcher({type: 'reset'});
+
+      totalPriceDispatcher({type: 'add', price: bun.price*2});
+      fillings.map(item => (orderPrice += item.price));
+      totalPriceDispatcher({type: 'add', price: orderPrice});
+    },
+    []
+  );
 
   return (
     <>
@@ -41,7 +56,7 @@ const BurgerConstructor = () =>  {
           </div>
           <ul className={`${styles.list__scroll} custom-scroll`}>
             {fillings.map(item => (
-              <li className={`${styles.list__item} pl-4 pr-4`} key={item._id}>
+                <li className={`${styles.list__item} pl-4 pr-4`} key={item._id}>
                 <DragIcon type="primary"/>
                 <ConstructorElement
                   isLocked={false}
@@ -66,7 +81,7 @@ const BurgerConstructor = () =>  {
         </div>
         <div className={`${styles.order} pt-10 pb-3`}>
           <div className={`${styles.price} mr-10`} >
-            <span className='mr-2 text text_type_digits-medium'>{`42`}</span>
+            <span className='mr-2 text text_type_digits-medium'>{totalPrice.price}</span>
             <span className={styles.price__icon}><CurrencyIcon type="primary"/></span>
           </div>
           <Button type="primary" size="large" htmlType="button" onClick={() => setOrderModal(orderData)}>Оформить заказ</Button>

@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { getIngredientsData } from '../../utils/api';
 import { url } from '../../utils/constants';
-import { BurgerConstructorContext } from "../../utils/context";
+import { BurgerConstructorContext, TotalPriceContext } from "../../utils/context";
 
 const App = () => {
 
@@ -17,6 +17,21 @@ const App = () => {
   useEffect(() => {
     getIngredientsData(url, ingredients, setIngredients);
   }, []);
+
+  const initialPrice = { price: 0 };
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'add':
+        return { ...state, price: state.price + action.price };
+      case 'reset':
+        return { ...state, price: 0 };
+      default:
+        return state;
+    }
+  }
+
+  const [totalPrice, totalPriceDispatcher] = useReducer(reducer, initialPrice, undefined);
 
   return (
     <>
@@ -31,13 +46,14 @@ const App = () => {
           ingredients.data.length && (
           <main className={styles.main}>
             <BurgerIngredients/>
-            <BurgerConstructor/>
+            <TotalPriceContext.Provider value={{totalPrice, totalPriceDispatcher}}>
+              <BurgerConstructor/>
+            </TotalPriceContext.Provider>
           </main>
         )}
       </BurgerConstructorContext.Provider>
     </>
   )
-
 };
 
 export default App;
