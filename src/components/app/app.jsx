@@ -4,7 +4,7 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { getIngredientsData } from '../../utils/api';
-import { url } from '../../utils/constants';
+import { urlIngredients } from '../../utils/constants';
 import { BurgerConstructorContext, TotalPriceContext } from "../../utils/context";
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    getIngredientsData(url, ingredients, setIngredients);
+    getIngredientsData(urlIngredients, ingredients, setIngredients);
   }, []);
 
   const initialPrice = { price: 0 };

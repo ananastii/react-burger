@@ -14,4 +14,20 @@ const getIngredientsData = (url, state, setState) => {
     });
 }
 
-export { getIngredientsData };
+const placeOrder = (url, ingredients) => {
+  return (
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        authorization: '',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({"ingredients" : ingredients})
+    })
+    .then((res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+  )
+
+
+};
+
+export { getIngredientsData, placeOrder };

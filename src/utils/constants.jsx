@@ -1,3 +1,4 @@
-const url = "https://norma.nomoreparties.space/api/ingredients";
+const urlIngredients = "https://norma.nomoreparties.space/api/ingredients";
+const urlOrder = "https://norma.nomoreparties.space/api/orders";
 
-export {url};
+export {urlIngredients, urlOrder};

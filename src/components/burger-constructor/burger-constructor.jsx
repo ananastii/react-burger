@@ -4,6 +4,8 @@ import styles from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerConstructorContext, TotalPriceContext } from "../../utils/context";
+import { placeOrder } from '../../utils/api';
+import { urlOrder } from '../../utils/constants';
 
 const BurgerConstructor = () =>  {
 
@@ -21,10 +23,10 @@ const BurgerConstructor = () =>  {
     setOrderModal(null);
   };
 
-  // хардкод с данными заказа:
-  const orderData = {
-    id: "034536"
-  };
+  const handleOrderClick = () => {
+    placeOrder(urlOrder, data.map(item => item._id))
+    .then(orderData => setOrderModal(orderData))
+  }
 
   const { totalPrice, totalPriceDispatcher } = useContext(TotalPriceContext);
 
@@ -84,7 +86,7 @@ const BurgerConstructor = () =>  {
             <span className='mr-2 text text_type_digits-medium'>{totalPrice.price}</span>
             <span className={styles.price__icon}><CurrencyIcon type="primary"/></span>
           </div>
-          <Button type="primary" size="large" htmlType="button" onClick={() => setOrderModal(orderData)}>Оформить заказ</Button>
+          <Button type="primary" size="large" htmlType="button" onClick={handleOrderClick}>Оформить заказ</Button>
         </div>
       </section>
       {orderModal &&
