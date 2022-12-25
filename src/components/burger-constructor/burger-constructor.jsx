@@ -24,8 +24,7 @@ const BurgerConstructor = () =>  {
   };
 
   const handleOrderClick = () => {
-    placeOrder(urlOrder, data.map(item => item._id))
-    .then(orderData => setOrderModal(orderData))
+    placeOrder(urlOrder, data.map(item => item._id), orderModal, setOrderModal)
   }
 
   const { totalPrice, totalPriceDispatcher } = useContext(TotalPriceContext);
