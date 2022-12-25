@@ -5,7 +5,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { getIngredientsData } from '../../utils/api';
 import { urlIngredients } from '../../utils/constants';
-import { BurgerConstructorContext, TotalPriceContext } from "../../utils/context";
+import { IngredientsContext, TotalPriceContext } from "../../utils/context";
 
 const App = () => {
 
@@ -36,7 +36,7 @@ const App = () => {
   return (
     <>
       <AppHeader />
-      <BurgerConstructorContext.Provider value={{ingredients}}>
+      <IngredientsContext.Provider value={{ingredients}}>
         {ingredients.hasError && (
           <>
             <h1>Хьюстон, у нас ошибка!</h1>
@@ -51,7 +51,7 @@ const App = () => {
             </TotalPriceContext.Provider>
           </main>
         )}
-      </BurgerConstructorContext.Provider>
+      </IngredientsContext.Provider>
     </>
   )
 };

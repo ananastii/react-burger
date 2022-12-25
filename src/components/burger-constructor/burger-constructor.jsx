@@ -3,13 +3,13 @@ import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerConstructorContext, TotalPriceContext } from "../../utils/context";
+import { IngredientsContext, TotalPriceContext } from "../../utils/context";
 import { placeOrder } from '../../utils/api';
 import { urlOrder } from '../../utils/constants';
 
 const BurgerConstructor = () =>  {
 
-  const data = useContext(BurgerConstructorContext).ingredients.data;
+  const data = useContext(IngredientsContext).ingredients.data;
 
   const buns = data.filter(item => item.type === 'bun');
   const fillings = data.filter(item => item.type !== 'bun');

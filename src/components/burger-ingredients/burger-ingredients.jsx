@@ -4,11 +4,11 @@ import IngredientsTab from '../ingredients-tab/ingredients-tab';
 import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { BurgerConstructorContext } from "../../utils/context";
+import { IngredientsContext } from "../../utils/context";
 
 const BurgerIngredients = () => {
 
-  const data = useContext(BurgerConstructorContext).ingredients.data;
+  const data = useContext(IngredientsContext).ingredients.data;
 
   const buns = data.filter((item) => item.type === 'bun');
   const sauces = data.filter((item) => item.type === 'sauce');
