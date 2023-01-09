@@ -1,18 +1,22 @@
-import { useState, useContext  } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import IngredientsTab from '../ingredients-tab/ingredients-tab';
 import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { IngredientsContext } from "../../utils/context";
+import { getIngredients } from '../../services/actions/ingredients';
+import { isConditionalExpression } from 'typescript';
 
 const BurgerIngredients = () => {
 
-  const data = useContext(IngredientsContext).ingredients.data;
+  const { ingredients } = useSelector(store => store.ingredients);
+  const buns = ingredients.filter((item) => item.type === 'bun');
+  const sauces = ingredients.filter((item) => item.type === 'sauce');
+  const fillings = ingredients.filter((item) => item.type === 'main');
 
-  const buns = data.filter((item) => item.type === 'bun');
-  const sauces = data.filter((item) => item.type === 'sauce');
-  const fillings = data.filter((item) => item.type === 'main');
+
 
   const [currentTab, setCurrentTab] = useState('buns');
 

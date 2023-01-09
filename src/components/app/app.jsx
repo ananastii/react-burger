@@ -1,22 +1,22 @@
 import { useState, useEffect, useReducer } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import { getIngredientsData } from '../../utils/api';
+import { getIngredients} from '../../services/actions/ingredients';
 import { urlIngredients } from '../../utils/constants';
 import { IngredientsContext, TotalPriceContext } from "../../utils/context";
 
 const App = () => {
 
-  const [ingredients, setIngredients] = useState({
-    hasError: false,
-    data: []
-  });
+  const dispatch = useDispatch();
+
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(store => store.ingredients);
 
   useEffect(() => {
-    getIngredientsData(urlIngredients, ingredients, setIngredients);
-  }, []);
+    dispatch(getIngredients(urlIngredients));
+  }, [dispatch]);
 
   const initialPrice = { price: 0 };
 
@@ -36,22 +36,22 @@ const App = () => {
   return (
     <>
       <AppHeader />
-      <IngredientsContext.Provider value={{ingredients}}>
-        {ingredients.hasError && (
+        {ingredientsFailed && (
           <>
             <h1>Хьюстон, у нас ошибка!</h1>
             <h2>Попробуйте обновить страницу или зайдите позднее</h2>
           </>)}
-        {!ingredients.hasError &&
-          ingredients.data.length && (
+        {!ingredientsRequest &&
+          !ingredientsFailed &&
+          ingredients.length &&
+          (
           <main className={styles.main}>
             <BurgerIngredients/>
-            <TotalPriceContext.Provider value={{totalPrice, totalPriceDispatcher}}>
+            {/* <TotalPriceContext.Provider value={{totalPrice, totalPriceDispatcher}}>
               <BurgerConstructor/>
-            </TotalPriceContext.Provider>
+            </TotalPriceContext.Provider> */}
           </main>
         )}
-      </IngredientsContext.Provider>
     </>
   )
 };
