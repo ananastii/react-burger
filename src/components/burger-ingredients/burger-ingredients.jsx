@@ -5,9 +5,7 @@ import IngredientsTab from '../ingredients-tab/ingredients-tab';
 import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { IngredientsContext } from "../../utils/context";
-import { getIngredients } from '../../services/actions/ingredients';
-import { isConditionalExpression } from 'typescript';
+import { closeIngredientDetails } from '../../services/actions/ingredient-details';
 
 const BurgerIngredients = () => {
 
@@ -16,8 +14,6 @@ const BurgerIngredients = () => {
   const sauces = ingredients.filter((item) => item.type === 'sauce');
   const fillings = ingredients.filter((item) => item.type === 'main');
 
-
-
   const [currentTab, setCurrentTab] = useState('buns');
 
   const clickOnTab = (id) => {
@@ -25,10 +21,11 @@ const BurgerIngredients = () => {
     document.querySelector(`#${id}`).scrollIntoView({behavior: 'smooth'});
   }
 
-  const [ingredientModal, setIngredientModal] = useState(null);
+  const dispatch = useDispatch();
+  const { ingredient } = useSelector(store => store.ingredient);
 
   const closeModal = () => {
-    setIngredientModal(null);
+    dispatch(closeIngredientDetails());
   };
 
   return (
@@ -37,14 +34,14 @@ const BurgerIngredients = () => {
       <h1 className={`pt-10 text text_type_main-large`}>Соберите бургер</h1>
       <IngredientsTab setCurrent={clickOnTab} currentTab={currentTab}/>
       <div className={`${styles.list__scroll} custom-scroll`}>
-        <IngredientsList title={'Булки'} data={buns} onImgClick={setIngredientModal} id={'buns'}/>
-        <IngredientsList title={'Соусы'} data={sauces} onImgClick={setIngredientModal} id={'sauces'}/>
-        <IngredientsList title={'Начинки'} data={fillings} onImgClick={setIngredientModal} id={'fillings'}/>
+        <IngredientsList title={'Булки'} data={buns} id={'buns'}/>
+        <IngredientsList title={'Соусы'} data={sauces} id={'sauces'}/>
+        <IngredientsList title={'Начинки'} data={fillings} id={'fillings'}/>
       </div>
     </section>
-    {ingredientModal &&
+    {ingredient &&
       <Modal onClose={closeModal}>
-        <IngredientDetails ingredientData={ingredientModal}/>
+        <IngredientDetails ingredientData={ingredient}/>
       </Modal>
     }
     </>
