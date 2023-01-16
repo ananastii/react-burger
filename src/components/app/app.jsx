@@ -1,12 +1,13 @@
 import { useState, useEffect, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { getIngredients} from '../../services/actions/ingredients';
 import { urlIngredients } from '../../utils/constants';
-import { IngredientsContext, TotalPriceContext } from "../../utils/context";
 
 const App = () => {
 
@@ -31,8 +32,6 @@ const App = () => {
     }
   }
 
-  const [totalPrice, totalPriceDispatcher] = useReducer(reducer, initialPrice, undefined);
-
   return (
     <>
       <AppHeader />
@@ -46,10 +45,10 @@ const App = () => {
           ingredients.length &&
           (
           <main className={styles.main}>
-            <BurgerIngredients/>
-            {/* <TotalPriceContext.Provider value={{totalPrice, totalPriceDispatcher}}>
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients/>
               <BurgerConstructor/>
-            </TotalPriceContext.Provider> */}
+            </DndProvider>
           </main>
         )}
     </>
