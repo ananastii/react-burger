@@ -18,6 +18,11 @@
   align-items: stretch;
   gap: 16px;
   overflow-y: scroll;
+  height: 100%;
+}
+
+.list__bun {
+  margin-top: auto;
 }
 
 .order {
