@@ -7,7 +7,7 @@ export const addIngredient = (ingredient) => ({
   data: {info: ingredient, id: uuid()}
 });
 
-export const deleteIngredient = (ingredient) => ({
+export const deleteIngredient = (id) => ({
   type: DELETE_INGREDIENT,
-  data: ingredient,
+  id: id,
 });
