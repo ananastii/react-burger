@@ -8,8 +8,7 @@ export function getIngredients(url) {
   return function(dispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST
-    })
-
+    });
     getIngredientsData(url)
     .then(res => {
       if (res && res.success) {
