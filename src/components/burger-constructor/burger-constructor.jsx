@@ -66,14 +66,14 @@ const BurgerConstructor = () =>  {
               thumbnail={bun.info.image}
             />
           </div>}
-          <ul className={`${styles.list__scroll} custom-scroll`}>
-            {
-              fillings && fillings.length &&
-              fillings.map(item => (
+          { fillings.length ?
+            <ul className={`${styles.list__scroll} custom-scroll`}>
+              { fillings.map(item => (
                   <BurgerIngredient data={item} key={item.id}/>
-              ))}
-
-          </ul>
+                ))}
+            </ul> :
+            <p>Выберите начинки и соусы</p>
+          }
           { bun && <div className={`${styles.list__item} ml-8 pl-4 pr-4`}>
             <ConstructorElement
               type="bottom"
