@@ -3,12 +3,13 @@ import { useDrop } from "react-dnd";
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
+import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsContext, TotalPriceContext } from "../../utils/context";
 import { placeOrder } from '../../utils/api';
 import { urlOrder } from '../../utils/constants';
-import { addIngredient } from '../../services/actions/burger-constructor';
+import { addIngredient, deleteIngredient } from '../../services/actions/burger-constructor';
 
 const BurgerConstructor = () =>  {
 
@@ -66,18 +67,12 @@ const BurgerConstructor = () =>  {
             />
           </div>}
           <ul className={`${styles.list__scroll} custom-scroll`}>
-            {fillings && fillings.length && fillings.map(item => (
-                <li className={`${styles.list__item} pl-4 pr-4`} key={item.info._id}>
-                <DragIcon type="primary"/>
-                <ConstructorElement
-                  isLocked={false}
-                  text={item.info.name}
-                  price={item.info.price}
-                  index={item.info._id}
-                  thumbnail={item.info.image}
-                />
-              </li>
-            ))}
+            {
+              fillings && fillings.length &&
+              fillings.map(item => (
+                  <BurgerIngredient data={item} key={item.id}/>
+              ))}
+
           </ul>
           { bun && <div className={`${styles.list__item} ml-8 pl-4 pr-4`}>
             <ConstructorElement
