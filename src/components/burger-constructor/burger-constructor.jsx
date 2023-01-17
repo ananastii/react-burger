@@ -36,7 +36,7 @@ const BurgerConstructor = () =>  {
       ...fillings?.map(item => item.info._id),
       bun.info._id,
     ]
-    dispatch(checkoutOrder(urlOrder+1, orderIngredients));
+    dispatch(checkoutOrder(urlOrder, orderIngredients));
   };
 
   const closeOrderModal = (orderFailed) => {
