@@ -6,7 +6,7 @@ const IngredientsList = ({title, data, onImgClick, id}) => (
   <div className={`pt-10`} id={id}>
     <h2 className={`text text_type_main-medium`}>{title}</h2>
     <ul className={`${styles.grid} pt-6 pl-4 pr-4`}>
-      { data.map(item => (<Ingredient data={item} key={item._id}/>))}
+      { data.map(item => (<Ingredient data={item.info} key={item.info._id}/>))}
     </ul>
   </div>
 );

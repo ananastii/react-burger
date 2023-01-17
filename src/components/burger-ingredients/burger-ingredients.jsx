@@ -10,9 +10,9 @@ import { closeIngredientDetails } from '../../services/actions/ingredient-detail
 const BurgerIngredients = () => {
 
   const { ingredients } = useSelector(store => store.ingredients);
-  const buns = ingredients.filter((item) => item.type === 'bun');
-  const sauces = ingredients.filter((item) => item.type === 'sauce');
-  const fillings = ingredients.filter((item) => item.type === 'main');
+  const buns = ingredients.filter((item) => item.info.type === 'bun');
+  const sauces = ingredients.filter((item) => item.info.type === 'sauce');
+  const fillings = ingredients.filter((item) => item.info.type === 'main');
 
   const [currentTab, setCurrentTab] = useState('buns');
 

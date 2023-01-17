@@ -23,7 +23,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ...state,
         ingredientsRequest: false,
         ingredientsFailed: false,
-        ingredients: action.data
+        ingredients: action.data.map(item => ({info: item , count: 0}))
       }
     }
     case GET_INGREDIENTS_FAILED: {
