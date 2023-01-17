@@ -1,12 +1,11 @@
-import { useState, useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDrop } from "react-dnd";
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 import { useDispatch, useSelector } from 'react-redux';
-import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsContext, TotalPriceContext } from "../../utils/context";
+import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { urlOrder } from '../../utils/constants';
 import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
 import { checkoutOrder, resetOrderId } from '../../services/actions/order';
@@ -54,8 +53,6 @@ const BurgerConstructor = () =>  {
     !orderFailed && dispatch(resetOrderIngredients());
   };
 
-  //const { totalPrice, totalPriceDispatcher } = useContext(TotalPriceContext);
-
   // useEffect(
   //   () => {
   //     let orderPrice = 0;
@@ -67,7 +64,7 @@ const BurgerConstructor = () =>  {
   //   },
   //   []
   // );
-  const totalPrice = {price: 0}
+  const totalPrice = { price: 0}
 
   return (
     <>

@@ -2,7 +2,7 @@ import styles from './ingredients-list.module.css';
 import Ingredient from '../ingredient/ingredient';
 import PropTypes from 'prop-types';
 
-const IngredientsList = ({title, data, onImgClick, id}) => (
+const IngredientsList = ({title, data, id}) => (
   <div className={`pt-10`} id={id}>
     <h2 className={`text text_type_main-medium`}>{title}</h2>
     <ul className={`${styles.grid} pt-6 pl-4 pr-4`}>

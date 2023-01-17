@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import IngredientsTab from '../ingredients-tab/ingredients-tab';
