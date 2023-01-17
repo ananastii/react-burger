@@ -40,7 +40,8 @@ export const orderReducer = (state = initialState, action) => {
     case CLOSE_ORDER: {
       return {
         ...state,
-        orderId: null
+        orderId: null,
+        openModal: false
       }
     }
     default: {

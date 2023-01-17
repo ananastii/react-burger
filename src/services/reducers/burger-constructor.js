@@ -2,7 +2,8 @@ import { v4 as uuid } from 'uuid';
 
 import {
   ADD_INGREDIENT,
-  DELETE_INGREDIENT
+  DELETE_INGREDIENT,
+  RESET_INGREDIENTS
 } from '../actions/burger-constructor';
 
 const initialState = {
@@ -31,6 +32,13 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         fillings: [...state.fillings].filter(item => item.id !== action.id)
+      }
+    }
+    case RESET_INGREDIENTS: {
+      return {
+        ...state,
+        fillings: [],
+        bun: null
       }
     }
     default: {

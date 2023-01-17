@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsContext, TotalPriceContext } from "../../utils/context";
 import { urlOrder } from '../../utils/constants';
-import { addIngredient } from '../../services/actions/burger-constructor';
-import { checkoutOrder } from '../../services/actions/order';
+import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
+import { checkoutOrder, resetOrderId } from '../../services/actions/order';
 
 const BurgerConstructor = () =>  {
 
@@ -27,11 +27,8 @@ const BurgerConstructor = () =>  {
     }
   });
 
-  const [orderModal, setOrderModal] = useState(null);
-
-  const closeModal = () => {
-    setOrderModal(null);
-  };
+  // оформление заказа
+  const { orderId, openModal, orderFailed } = useSelector(store => store.order);
 
   const handleOrderClick = () => {
     const orderIngredients = [
@@ -39,10 +36,13 @@ const BurgerConstructor = () =>  {
       ...fillings?.map(item => item.info._id),
       bun.info._id,
     ]
-    dispatch(checkoutOrder(urlOrder, orderIngredients));
-  }
+    dispatch(checkoutOrder(urlOrder+1, orderIngredients));
+  };
 
-  const { orderId, openModal } = useSelector(store => store.order);
+  const closeOrderModal = (orderFailed) => {
+    dispatch(resetOrderId());
+    !orderFailed && dispatch(resetOrderIngredients());
+  };
 
   //const { totalPrice, totalPriceDispatcher } = useContext(TotalPriceContext);
 
@@ -101,7 +101,7 @@ const BurgerConstructor = () =>  {
         </div>
       </section>
       {openModal &&
-        <Modal onClose={closeModal}>
+        <Modal onClose={() => closeOrderModal(orderFailed)}>
           <OrderDetails orderId={orderId}/>
         </Modal>
       }

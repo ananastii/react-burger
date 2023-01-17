@@ -32,6 +32,6 @@ export const checkoutOrder = (url, ingredients) => {
   };
 }
 
-export const resetOrder = () => ({
+export const resetOrderId = () => ({
   type: CLOSE_ORDER
 });
