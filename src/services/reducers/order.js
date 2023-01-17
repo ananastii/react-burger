@@ -8,7 +8,8 @@ import {
 const initialState = {
   orderRequest: false,
   orderFailed: false,
-  orderId: null
+  orderId: null,
+  openModal: false
 };
 
 export const orderReducer = (state = initialState, action) => {
@@ -24,7 +25,8 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderRequest: false,
         orderFailed: false,
-        ingredients: action.order
+        orderId: action.id.number,
+        openModal: true
       }
     }
     case ORDER_CHECKOUT_FAILED: {
@@ -32,6 +34,7 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderRequest: false,
         orderFailed: true,
+        openModal: true
       }
     }
     case CLOSE_ORDER: {

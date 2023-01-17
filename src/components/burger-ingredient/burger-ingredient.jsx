@@ -8,7 +8,6 @@ const BurgerIngredient = ({data}) => {
   const {_id, name, price, image } = data.info;
 
   const dispatch = useDispatch();
-  console.log(data.id);
 
   return (
     <li className={`${styles.item} pl-4 pr-4`}>

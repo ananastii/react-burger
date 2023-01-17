@@ -7,9 +7,9 @@ import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientsContext, TotalPriceContext } from "../../utils/context";
-import { placeOrder } from '../../utils/api';
 import { urlOrder } from '../../utils/constants';
-import { addIngredient, deleteIngredient } from '../../services/actions/burger-constructor';
+import { addIngredient } from '../../services/actions/burger-constructor';
+import { checkoutOrder } from '../../services/actions/order';
 
 const BurgerConstructor = () =>  {
 
@@ -34,8 +34,15 @@ const BurgerConstructor = () =>  {
   };
 
   const handleOrderClick = () => {
-  //   placeOrder(urlOrder, data.map(item => item._id), orderModal, setOrderModal)
+    const orderIngredients = [
+      bun.info._id,
+      ...fillings?.map(item => item.info._id),
+      bun.info._id,
+    ]
+    dispatch(checkoutOrder(urlOrder, orderIngredients));
   }
+
+  const { orderId, openModal } = useSelector(store => store.order);
 
   //const { totalPrice, totalPriceDispatcher } = useContext(TotalPriceContext);
 
@@ -93,9 +100,9 @@ const BurgerConstructor = () =>  {
           <Button type="primary" size="large" htmlType="button" onClick={handleOrderClick}>Оформить заказ</Button>
         </div>
       </section>
-      {orderModal &&
+      {openModal &&
         <Modal onClose={closeModal}>
-          <OrderDetails orderData={orderModal}/>
+          <OrderDetails orderId={orderId}/>
         </Modal>
       }
     </>
