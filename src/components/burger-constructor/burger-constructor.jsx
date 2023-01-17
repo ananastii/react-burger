@@ -10,7 +10,7 @@ import { IngredientsContext, TotalPriceContext } from "../../utils/context";
 import { urlOrder } from '../../utils/constants';
 import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
 import { checkoutOrder, resetOrderId } from '../../services/actions/order';
-import { increaseCount, decreaseCount, setCount } from '../../services/actions/ingredients';
+import { increaseCount, setCount } from '../../services/actions/ingredients';
 
 const BurgerConstructor = () =>  {
 
