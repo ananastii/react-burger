@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { useDrop } from "react-dnd";
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
@@ -53,18 +53,10 @@ const BurgerConstructor = () =>  {
     !orderFailed && dispatch(resetOrderIngredients());
   };
 
-  // useEffect(
-  //   () => {
-  //     let orderPrice = 0;
-  //     totalPriceDispatcher({type: 'reset'});
-
-  //     totalPriceDispatcher({type: 'add', price: bun.price*2});
-  //     fillings.map(item => (orderPrice += item.price));
-  //     totalPriceDispatcher({type: 'add', price: orderPrice});
-  //   },
-  //   []
-  // );
-  const totalPrice = { price: 0}
+  let totalPrice = useMemo(() => fillings.reduce(
+      (price, item) => (price += item.info.price),
+      bun?.info.price *2),
+      [bun, fillings]);
 
   return (
     <>
@@ -101,7 +93,7 @@ const BurgerConstructor = () =>  {
         </div>
         <div className={`${styles.order} pt-10 pb-3`}>
           <div className={`${styles.price} mr-10`} >
-            {<span className='mr-2 text text_type_digits-medium'>{totalPrice.price}</span>}
+            {<span className='mr-2 text text_type_digits-medium'>{totalPrice ? totalPrice : 0}</span>}
             <span className={styles.price__icon}><CurrencyIcon type="primary"/></span>
           </div>
           <Button type="primary" size="large" htmlType="button" onClick={handleOrderClick}>Оформить заказ</Button>
