@@ -13,7 +13,7 @@ function IngredientsTab({currentTab, setCurrent}) {
       <Tab value="sauces" active={currentTab === 'sauces'} onClick={setCurrent}>
         Соусы
       </Tab>
-      <Tab value="fillings" active={currentTab === 'fillings'} onClick={setCurrent}>
+      <Tab value="mains" active={currentTab === 'mains'} onClick={setCurrent}>
         Начинки
       </Tab>
     </div>

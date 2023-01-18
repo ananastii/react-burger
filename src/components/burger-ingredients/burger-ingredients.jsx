@@ -12,7 +12,7 @@ const BurgerIngredients = () => {
   const { ingredients } = useSelector(store => store.ingredients);
   const buns = ingredients.filter((item) => item.info.type === 'bun');
   const sauces = ingredients.filter((item) => item.info.type === 'sauce');
-  const fillings = ingredients.filter((item) => item.info.type === 'main');
+  const mains = ingredients.filter((item) => item.info.type === 'main');
 
   const [currentTab, setCurrentTab] = useState('buns');
 
@@ -36,7 +36,7 @@ const BurgerIngredients = () => {
       <div className={`${styles.list__scroll} custom-scroll`}>
         <IngredientsList title={'Булки'} data={buns} id={'buns'}/>
         <IngredientsList title={'Соусы'} data={sauces} id={'sauces'}/>
-        <IngredientsList title={'Начинки'} data={fillings} id={'fillings'}/>
+        <IngredientsList title={'Начинки'} data={mains} id={'mains'}/>
       </div>
     </section>
     {ingredient &&
