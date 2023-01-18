@@ -4,11 +4,11 @@ import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
+import TotalPrice from '../total-price/total-price';
 import { useDispatch, useSelector } from 'react-redux';
-import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { urlOrder } from '../../utils/constants';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
-import { checkoutOrder, resetOrderId } from '../../services/actions/order';
+import { resetOrderId } from '../../services/actions/order';
 import { increaseCount, setCount } from '../../services/actions/ingredients';
 
 const BurgerConstructor = () =>  {
@@ -38,15 +38,6 @@ const BurgerConstructor = () =>  {
 
   // оформление заказа
   const { orderId, openModal, orderFailed } = useSelector(store => store.order);
-
-  const handleOrderClick = () => {
-    const orderIngredients = [
-      bun.info._id,
-      ...fillings?.map(item => item.info._id),
-      bun.info._id,
-    ]
-    dispatch(checkoutOrder(urlOrder, orderIngredients));
-  };
 
   const closeOrderModal = (orderFailed) => {
     dispatch(resetOrderId());
@@ -91,13 +82,7 @@ const BurgerConstructor = () =>  {
             />
           </div>}
         </div>
-        <div className={`${styles.order} pt-10 pb-3`}>
-          <div className={`${styles.price} mr-10`} >
-            {<span className='mr-2 text text_type_digits-medium'>{totalPrice ? totalPrice : 0}</span>}
-            <span className={styles.price__icon}><CurrencyIcon type="primary"/></span>
-          </div>
-          <Button type="primary" size="large" htmlType="button" onClick={handleOrderClick}>Оформить заказ</Button>
-        </div>
+        <TotalPrice price={totalPrice ? totalPrice : 0}/>
       </section>
       {openModal &&
         <Modal onClose={() => closeOrderModal(orderFailed)}>

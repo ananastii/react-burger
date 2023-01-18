@@ -24,24 +24,3 @@
 .list__bun {
   margin-top: auto;
 }
-
-.order {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.price {
-  display: flex;
-  align-items: center;
-}
-
-.price__icon {
-  line-height: 0;
-}
-
-.price__icon svg {
-  width: 33px;
-  height: 33px;
-}
