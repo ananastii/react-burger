@@ -65,8 +65,8 @@ const BurgerConstructor = () =>  {
           </div>}
           { fillings.length ?
             <ul className={`${styles.list__scroll} custom-scroll`}>
-              { fillings.map(item => (
-                  <BurgerIngredient data={item} key={item.id}/>
+              { fillings.map((item, index) => (
+                  <BurgerIngredient data={item} key={item.id} index={index}/>
                 ))}
             </ul> :
             <p>Выберите начинки и соусы</p>

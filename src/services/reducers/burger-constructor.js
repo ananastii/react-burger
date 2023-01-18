@@ -3,7 +3,8 @@ import { v4 as uuid } from 'uuid';
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
-  RESET_INGREDIENTS
+  RESET_INGREDIENTS,
+  MOVE_INGREDIENT
 } from '../actions/burger-constructor';
 
 const initialState = {
@@ -39,6 +40,12 @@ export const constructorReducer = (state = initialState, action) => {
         ...state,
         fillings: [],
         bun: null
+      }
+    }
+    case MOVE_INGREDIENT: {
+      return {
+        ...state,
+        fillings: action.array
       }
     }
     default: {
