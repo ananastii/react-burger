@@ -53,7 +53,7 @@ const BurgerConstructor = () =>  {
     <>
       <section className={`${styles.section} pl-5 pr-5`} ref={dropTarget}>
         <div className={`${styles.list} mt-25 mb-13`}>
-          { bun && <div className={`ml-8 pl-4 pr-4`}>
+          { bun && <div className={`ml-8 pl-4 pr-4 mr-3`}>
             <ConstructorElement
               type="top"
               isLocked={true}
