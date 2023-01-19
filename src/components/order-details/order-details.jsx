@@ -24,11 +24,7 @@ function OrderDetails ({orderId}) {
 }
 
 OrderDetails.propTypes = {
-  orderData: PropTypes.shape({
-    order: PropTypes.shape({
-      number: PropTypes.number.isRequired
-    })
-  })
+  orderId: PropTypes.number
 };
 
 export default OrderDetails;

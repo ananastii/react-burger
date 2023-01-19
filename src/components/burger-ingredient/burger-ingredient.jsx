@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd'
 import { useRef} from 'react';
+import PropTypes from 'prop-types';
 import styles from './burger-ingredient.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { deleteIngredient, moveIngredient } from '../../services/actions/burger-constructor';
 import { decreaseCount } from '../../services/actions/ingredients';
+import { ingredientPropTypes } from '../../utils/types';
 
 const BurgerIngredient = ({data, index}) => {
 
@@ -64,6 +66,14 @@ const BurgerIngredient = ({data, index}) => {
       />
     </li>
   )
-}
+};
+
+BurgerIngredient.propTypes = {
+  data: PropTypes.shape({
+    info: ingredientPropTypes.isRequired,
+    id: PropTypes.string.isRequired
+  }),
+  index: PropTypes.number.isRequired
+};
 
 export default BurgerIngredient;

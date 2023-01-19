@@ -22,7 +22,9 @@ function IngredientsTab({currentTab, setCurrent, refTab}) {
 
 IngredientsTab.propTypes = {
   setCurrent: PropTypes.func.isRequired,
-  currentTab: PropTypes.string.isRequired
+  currentTab: PropTypes.string.isRequired,
+  refTab:  PropTypes.shape(
+    { current: PropTypes.instanceOf(Element) }).isRequired,
 };
 
 export default IngredientsTab;
