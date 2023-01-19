@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd";
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
-import BurgerIngredient from '../burger-ingredient/burger-ingredient';
+import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import TotalPrice from '../total-price/total-price';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -70,7 +70,7 @@ const BurgerConstructor = () =>  {
           { fillings.length ?
             <ul className={`${styles.list__scroll} custom-scroll`}>
               { fillings.map((item, index) => (
-                  <BurgerIngredient data={item} key={item.id} index={index}/>
+                  <ConstructorIngredient data={item} key={item.id} index={index}/>
                 ))}
             </ul> :
             <p>Выберите начинки и соусы</p>

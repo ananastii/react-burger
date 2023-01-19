@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd'
 import { useRef} from 'react';
 import PropTypes from 'prop-types';
-import styles from './burger-ingredient.module.css';
+import styles from './constructor-ingredient.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { deleteIngredient, moveIngredient } from '../../services/actions/burger-constructor';
 import { decreaseCount } from '../../services/actions/ingredients';
 import { ingredientPropTypes } from '../../utils/types';
 
-const BurgerIngredient = ({data, index}) => {
+const ConstructorIngredient = ({data, index}) => {
 
   const {_id, name, price, image } = data.info;
   const fillings = useSelector(store => store.burgerConstructor.fillings);
@@ -68,7 +68,7 @@ const BurgerIngredient = ({data, index}) => {
   )
 };
 
-BurgerIngredient.propTypes = {
+ConstructorIngredient.propTypes = {
   data: PropTypes.shape({
     info: ingredientPropTypes.isRequired,
     id: PropTypes.string.isRequired
@@ -76,4 +76,4 @@ BurgerIngredient.propTypes = {
   index: PropTypes.number.isRequired
 };
 
-export default BurgerIngredient;
+export default ConstructorIngredient;
