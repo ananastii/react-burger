@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -18,19 +18,6 @@ const App = () => {
   useEffect(() => {
     dispatch(getIngredients(urlIngredients));
   }, [dispatch]);
-
-  const initialPrice = { price: 0 };
-
-  function reducer(state, action) {
-    switch (action.type) {
-      case 'add':
-        return { ...state, price: state.price + action.price };
-      case 'reset':
-        return { ...state, price: 0 };
-      default:
-        return state;
-    }
-  }
 
   return (
     <>
