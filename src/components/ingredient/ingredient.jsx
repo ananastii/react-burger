@@ -15,16 +15,16 @@ const Ingredient = ({data}) => {
     dispatch(openIngredientDetails(ingredient));
   };
 
-  const [, dragRef] = useDrag({
+  const [{opacity}, dragRef] = useDrag({
     type: 'ingredient',
     item: { ...data },
-    // collect: monitor => ({
-    //   opacity: monitor.isDragging() ? 0.5 : 1
-    // })
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.3 : 1
+    })
   });
 
   return (
-    <li className={styles.item} ref={dragRef}>
+    <li className={styles.item} ref={dragRef} style={{ ...styles, opacity}}>
       {count > 0 && <Counter className="counter-card" count={count} size="default" />}
       <img className={`${styles.img} ml-4 mr-4 mb-1`} src={data.image} alt={data.name} onClick={() => openModal(data)}></img>
       <div className={`${styles.price} mb-1 text text_type_main-default`}>

@@ -21,6 +21,7 @@
   height: 100%;
 }
 
-.list__bun {
-  margin-top: auto;
+.hint {
+  text-align: center;
+  margin: auto;
 }

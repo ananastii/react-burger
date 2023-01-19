@@ -18,7 +18,7 @@ const BurgerConstructor = () =>  {
 
   const dispatch = useDispatch();
 
-  const [{ isHover }, dropTarget] = useDrop({
+  const [, dropTarget] = useDrop({
     accept: 'ingredient',
     collect: monitor => ({
       isHover: monitor.isOver()
@@ -55,27 +55,32 @@ const BurgerConstructor = () =>  {
 
   return (
     <>
-      <section className={`${styles.section} pl-5 pr-5`} ref={dropTarget}>
-        <div className={`${styles.list} mt-25 mb-13`}>
-          { bun && <div className={`ml-8 pl-4 pr-4 mr-3`}>
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={`${bun.info.name} (верх)`}
-              price={bun.info.price}
-              index={bun.info._id}
-              thumbnail={bun.info.image}
-            />
-          </div>}
+      <section className={`${styles.section} pl-5 pr-5`}>
+        <div className={`${styles.list} mt-25 mb-13`} ref={dropTarget}>
+          { !bun && !fillings.length &&
+            <h2 className={`${styles.hint} text text_type_main-medium text_color_inactive`}>выберите булку</h2>
+          }
+          { bun &&
+            <div className={`ml-8 pl-4 pr-4 mr-3`}>
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={`${bun.info.name} (верх)`}
+                price={bun.info.price}
+                index={bun.info._id}
+                thumbnail={bun.info.image}
+              />
+            </div>
+          }
           { fillings.length ?
             <ul className={`${styles.list__scroll} custom-scroll`}>
               { fillings.map((item, index) => (
                   <ConstructorIngredient data={item} key={item.id} index={index}/>
                 ))}
             </ul> :
-            <p>Выберите начинки и соусы</p>
+            bun && <h2 className={`${styles.hint} text text_type_main-medium text_color_inactive`}>выберите начинки и соусы</h2>
           }
-          { bun && <div className={`${styles.list__bun} ml-8 pl-4 pr-4`}>
+          { bun && <div className={`ml-8 pl-4 pr-4`}>
             <ConstructorElement
               type="bottom"
               isLocked={true}

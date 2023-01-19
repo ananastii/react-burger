@@ -1,6 +1,7 @@
 .header {
   max-width: 1920px;
   background-color: #1c1c21;
+  margin: auto;
 }
 
 .menu {
