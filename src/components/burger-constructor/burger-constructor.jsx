@@ -41,7 +41,11 @@ const BurgerConstructor = () =>  {
 
   const closeOrderModal = (orderFailed) => {
     dispatch(resetOrderId());
-    !orderFailed && dispatch(resetOrderIngredients());
+    if (!orderFailed) {
+      dispatch(resetOrderIngredients());
+      ingredients.filter(item => item.qty > 0)
+        .forEach(item => dispatch(setCount(item.info._id, 0)));
+    }
   };
 
   let totalPrice = useMemo(() => fillings.reduce(
