@@ -12,9 +12,9 @@ const TotalPrice = ({price}) => {
 
   const handleOrderClick = () => {
     const orderIngredients = [
-      bun.info._id,
+      bun?.info._id,
       ...fillings?.map(item => item.info._id),
-      bun.info._id,
+      bun?.info._id,
     ]
     dispatch(checkoutOrder(urlOrder, orderIngredients));
   };
@@ -26,7 +26,7 @@ const TotalPrice = ({price}) => {
         {<span className='mr-2 text text_type_digits-medium'>{price}</span>}
         <span className={styles.price__icon}><CurrencyIcon type="primary"/></span>
       </div>
-      <Button type="primary" size="large" htmlType="button" onClick={handleOrderClick}>Оформить заказ</Button>
+      <Button type="primary" size="large" htmlType="button" onClick={handleOrderClick} disabled={!price}>Оформить заказ</Button>
     </div>
   )
 };

@@ -50,7 +50,7 @@ const BurgerConstructor = () =>  {
 
   let totalPrice = useMemo(() => fillings.reduce(
       (price, item) => (price += item.info.price),
-      bun?.info.price *2),
+      bun ? bun.info.price*2 : 0),
       [bun, fillings]);
 
   return (
