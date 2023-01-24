@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext  } from 'react';
 import styles from './burger-ingredients.module.css';
 import IngredientsTab from '../ingredients-tab/ingredients-tab';
 import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import PropTypes from 'prop-types';
+import { IngredientsContext } from "../../utils/context";
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = () => {
+
+  const data = useContext(IngredientsContext).ingredients.data;
 
   const buns = data.filter((item) => item.type === 'bun');
   const sauces = data.filter((item) => item.type === 'sauce');
@@ -44,9 +46,5 @@ const BurgerIngredients = ({data}) => {
     </>
   )
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired
-};
 
 export default BurgerIngredients;
