@@ -3,6 +3,7 @@
 Учебный проект, выполеннный на курсе Яндекс.Практикума
 
 ## Demo
+[Stellar Burgers](https://dorkemk.github.io/react-burger)
 
 ## Installation
 
