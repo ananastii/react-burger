@@ -7,7 +7,9 @@ import { openIngredientDetails } from '../../services/actions/ingredient-details
 
 const Ingredient = ({data}) => {
 
-  const count = useSelector(store => store.ingredients.ingredients.find(item => item.info._id === data._id).qty);
+  const getIngredientsCount = (store) => store.ingredients.ingredients.find(item => item.info._id === data._id).qty;
+
+  const count = useSelector(getIngredientsCount);
 
   const dispatch = useDispatch();
 

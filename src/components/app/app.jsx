@@ -8,12 +8,13 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { getIngredients} from '../../services/actions/ingredients';
 import { urlIngredients } from '../../utils/constants';
+import { getAllIngredients } from '../../utils/utils';
 
 const App = () => {
 
   const dispatch = useDispatch();
 
-  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(store => store.ingredients);
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(getAllIngredients);
 
   useEffect(() => {
     dispatch(getIngredients(urlIngredients));

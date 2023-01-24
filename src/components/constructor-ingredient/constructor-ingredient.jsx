@@ -7,11 +7,13 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { deleteIngredient, moveIngredient } from '../../services/actions/burger-constructor';
 import { decreaseCount } from '../../services/actions/ingredients';
 import { ingredientPropTypes } from '../../utils/types';
+import { getFillings } from '../../utils/utils';
 
 const ConstructorIngredient = ({data, index}) => {
 
   const {_id, name, price, image } = data.info;
-  const fillings = useSelector(store => store.burgerConstructor.fillings);
+
+  const fillings = useSelector(getFillings);
 
   const dispatch = useDispatch();
 

@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { urlOrder } from '../../utils/constants';
 import { checkoutOrder } from '../../services/actions/order';
+import { getConstructor } from '../../utils/utils';
 
 const TotalPrice = ({price}) => {
 
-  const { fillings, bun } = useSelector(store => store.burgerConstructor);
+  const { fillings, bun } = useSelector(getConstructor);
   const dispatch = useDispatch();
 
   const handleOrderClick = () => {

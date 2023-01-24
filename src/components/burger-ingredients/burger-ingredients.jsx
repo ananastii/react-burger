@@ -6,16 +6,18 @@ import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { closeIngredientDetails } from '../../services/actions/ingredient-details';
+import { getAllIngredients, getIngredient } from '../../utils/utils';
 
 const BurgerIngredients = () => {
 
-  const { ingredients } = useSelector(store => store.ingredients);
+  const dispatch = useDispatch();
+
+  const { ingredients } = useSelector(getAllIngredients);
   const buns = ingredients.filter((item) => item.info.type === 'bun');
   const sauces = ingredients.filter((item) => item.info.type === 'sauce');
   const mains = ingredients.filter((item) => item.info.type === 'main');
 
-  const dispatch = useDispatch();
-  const { ingredient } = useSelector(store => store.ingredient);
+  const { ingredient } = useSelector(getIngredient);
 
   const closeModal = () => {
     dispatch(closeIngredientDetails());

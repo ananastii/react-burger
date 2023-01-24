@@ -10,11 +10,13 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
 import { resetOrderId } from '../../services/actions/order';
 import { increaseCount, setCount } from '../../services/actions/ingredients';
+import { getAllIngredients } from '../../utils/utils';
+import { getConstructor, getOrder } from '../../utils/utils';
 
 const BurgerConstructor = () =>  {
 
-  const { fillings, bun } = useSelector(store => store.burgerConstructor);
-  const { ingredients } = useSelector(store => store.ingredients);
+  const { fillings, bun } = useSelector(getConstructor);
+  const { ingredients } = useSelector(getAllIngredients);
 
   const dispatch = useDispatch();
 
@@ -36,8 +38,8 @@ const BurgerConstructor = () =>  {
     }
   });
 
-  // оформление заказа
-  const { orderId, openModal, orderFailed } = useSelector(store => store.order);
+  // orderCheckout
+  const { orderId, openModal, orderFailed } = useSelector(getOrder);
 
   const closeOrderModal = (orderFailed) => {
     dispatch(resetOrderId());
