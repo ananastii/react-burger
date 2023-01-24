@@ -1,96 +1,103 @@
-import { useState, useContext, useEffect } from 'react';
+import { useMemo } from 'react';
+import { useDrop } from "react-dnd";
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 import OrderDetails from '../order-details/order-details';
-import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientsContext, TotalPriceContext } from "../../utils/context";
-import { placeOrder } from '../../utils/api';
-import { urlOrder } from '../../utils/constants';
+import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
+import TotalPrice from '../total-price/total-price';
+import { useDispatch, useSelector } from 'react-redux';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
+import { resetOrderId } from '../../services/actions/order';
+import { increaseCount, setCount } from '../../services/actions/ingredients';
+import { getAllIngredients } from '../../utils/utils';
+import { getConstructor, getOrder } from '../../utils/utils';
 
 const BurgerConstructor = () =>  {
 
-  const data = useContext(IngredientsContext).ingredients.data;
+  const { fillings, bun } = useSelector(getConstructor);
+  const { ingredients } = useSelector(getAllIngredients);
 
-  const buns = data.filter(item => item.type === 'bun');
-  const fillings = data.filter(item => item.type !== 'bun');
+  const dispatch = useDispatch();
 
-  //const bun = buns[Math.floor(Math.random()*buns.length)];
-  const bun=buns[0];
+  const [, dropTarget] = useDrop({
+    accept: 'ingredient',
+    collect: monitor => ({
+      isHover: monitor.isOver()
+    }),
+    drop(ingredient) {
+      dispatch(addIngredient(ingredient));
+      ingredient.type !== 'bun' ?
+        dispatch(increaseCount(ingredient._id, 1)) :
+        dispatch(setCount(ingredient._id, 2)) &&
+          ingredients.forEach(item =>
+            item.info.type === 'bun' &&
+            item.info._id !== ingredient._id &&
+            dispatch(setCount(item.info._id, 0))
+          );
+    }
+  });
 
-  const [orderModal, setOrderModal] = useState(null);
+  // orderCheckout
+  const { orderId, openModal, orderFailed } = useSelector(getOrder);
 
-  const closeModal = () => {
-    setOrderModal(null);
+  const closeOrderModal = (orderFailed) => {
+    dispatch(resetOrderId());
+    if (!orderFailed) {
+      dispatch(resetOrderIngredients());
+      ingredients.filter(item => item.qty > 0)
+        .forEach(item => dispatch(setCount(item.info._id, 0)));
+    }
   };
 
-  const handleOrderClick = () => {
-    placeOrder(urlOrder, data.map(item => item._id), orderModal, setOrderModal)
-  }
-
-  const { totalPrice, totalPriceDispatcher } = useContext(TotalPriceContext);
-
-  useEffect(
-    () => {
-      let orderPrice = 0;
-      totalPriceDispatcher({type: 'reset'});
-
-      totalPriceDispatcher({type: 'add', price: bun.price*2});
-      fillings.map(item => (orderPrice += item.price));
-      totalPriceDispatcher({type: 'add', price: orderPrice});
-    },
-    []
-  );
+  let totalPrice = useMemo(() => fillings.reduce(
+      (price, item) => (price += item.info.price),
+      bun ? bun.info.price*2 : 0),
+      [bun, fillings]);
 
   return (
     <>
       <section className={`${styles.section} pl-5 pr-5`}>
-        <div className={`${styles.list} mt-25 mb-13`}>
-          <div className={`${styles.list__item} ml-8 pl-4 pr-4`}>
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={`${bun.name} (верх)`}
-              price={bun.price}
-              index={bun._id}
-              thumbnail={bun.image}
-            />
-          </div>
-          <ul className={`${styles.list__scroll} custom-scroll`}>
-            {fillings.map(item => (
-                <li className={`${styles.list__item} pl-4 pr-4`} key={item._id}>
-                <DragIcon type="primary"/>
-                <ConstructorElement
-                  isLocked={false}
-                  text={item.name}
-                  price={item.price}
-                  index={item._id}
-                  thumbnail={item.image}
-                />
-              </li>
-            ))}
-          </ul>
-          <div className={`${styles.list__item} ml-8 pl-4 pr-4`}>
+        <div className={`${styles.list} mt-25 mb-13`} ref={dropTarget}>
+          { !bun && !fillings.length &&
+            <h2 className={`${styles.hint} text text_type_main-medium text_color_inactive`}>выберите булку</h2>
+          }
+          { bun &&
+            <div className={`ml-8 pl-4 pr-4 mr-3`}>
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={`${bun.info.name} (верх)`}
+                price={bun.info.price}
+                index={bun.info._id}
+                thumbnail={bun.info.image}
+              />
+            </div>
+          }
+          { fillings.length ?
+            <ul className={`${styles.list__scroll} custom-scroll`}>
+              { fillings.map((item, index) => (
+                  <ConstructorIngredient data={item} key={item.id} index={index}/>
+                ))}
+            </ul> :
+            bun && <h2 className={`${styles.hint} text text_type_main-medium text_color_inactive`}>выберите начинки и соусы</h2>
+          }
+          { bun && <div className={`ml-8 pl-4 pr-4`}>
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={`${bun.name} (низ)`}
-              price={bun.price}
-              index={bun._id}
-              thumbnail={bun.image}
+              text={`${bun.info.name} (верх)`}
+              price={bun.info.price}
+              index={bun.info._id}
+              thumbnail={bun.info.image}
             />
-          </div>
+          </div>}
         </div>
-        <div className={`${styles.order} pt-10 pb-3`}>
-          <div className={`${styles.price} mr-10`} >
-            <span className='mr-2 text text_type_digits-medium'>{totalPrice.price}</span>
-            <span className={styles.price__icon}><CurrencyIcon type="primary"/></span>
-          </div>
-          <Button type="primary" size="large" htmlType="button" onClick={handleOrderClick}>Оформить заказ</Button>
-        </div>
+        <TotalPrice price={totalPrice ? totalPrice : 0}/>
       </section>
-      {orderModal &&
-        <Modal onClose={closeModal}>
-          <OrderDetails orderData={orderModal}/>
+      {openModal &&
+        <Modal onClose={() => closeOrderModal(orderFailed)}>
+          <OrderDetails orderId={orderId}/>
         </Modal>
       }
     </>

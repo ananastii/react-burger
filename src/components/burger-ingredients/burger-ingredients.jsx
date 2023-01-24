@@ -1,46 +1,81 @@
-import { useState, useContext  } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import IngredientsTab from '../ingredients-tab/ingredients-tab';
 import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { IngredientsContext } from "../../utils/context";
+import { closeIngredientDetails } from '../../services/actions/ingredient-details';
+import { getAllIngredients, getIngredient } from '../../utils/utils';
 
 const BurgerIngredients = () => {
 
-  const data = useContext(IngredientsContext).ingredients.data;
+  const dispatch = useDispatch();
 
-  const buns = data.filter((item) => item.type === 'bun');
-  const sauces = data.filter((item) => item.type === 'sauce');
-  const fillings = data.filter((item) => item.type === 'main');
+  const { ingredients } = useSelector(getAllIngredients);
+  const buns = ingredients.filter((item) => item.info.type === 'bun');
+  const sauces = ingredients.filter((item) => item.info.type === 'sauce');
+  const mains = ingredients.filter((item) => item.info.type === 'main');
 
+  const { ingredient } = useSelector(getIngredient);
+
+  const closeModal = () => {
+    dispatch(closeIngredientDetails());
+  };
+
+  // Navigation through tabs
   const [currentTab, setCurrentTab] = useState('buns');
+  const [scrollEdge, setScrollEdge] = useState();
 
-  const clickOnTab = (id) => {
+  const handleTabClick = (id) => {
     setCurrentTab(id);
     document.querySelector(`#${id}`).scrollIntoView({behavior: 'smooth'});
   }
 
-  const [ingredientModal, setIngredientModal] = useState(null);
+  const refTab = useRef();
+  const refBunsHeader = useRef();
+  const refSaucesHeader = useRef();
+  const refMainsHeader = useRef();
 
-  const closeModal = () => {
-    setIngredientModal(null);
-  };
+  useEffect(() => {
+    setScrollEdge(refTab.current.getBoundingClientRect().bottom);
+  }, []);
+
+
+  const handleTabScroll = () => {
+    // for the perfect precision can use half of header's in calculations
+    let bunsHeaderDist = Math.abs(scrollEdge - refBunsHeader.current.getBoundingClientRect().top);
+    let saucesHeaderDist = Math.abs(scrollEdge - refSaucesHeader.current.getBoundingClientRect().top);
+    let mainsHeaderDist = Math.abs(scrollEdge - refMainsHeader.current.getBoundingClientRect().top);
+
+    const distancesAll = {
+      'buns': bunsHeaderDist,
+      'sauces': saucesHeaderDist,
+      'mains': mainsHeaderDist
+    };
+
+    const closestPos = Math.min(bunsHeaderDist, saucesHeaderDist, mainsHeaderDist);
+    const activeTabId = Object.keys(distancesAll).find(key => distancesAll[key] === closestPos);
+
+    setCurrentTab(activeTabId);
+  }
+
+
 
   return (
     <>
     <section className={`${styles.list} pl-5 pr-5`}>
       <h1 className={`pt-10 text text_type_main-large`}>Соберите бургер</h1>
-      <IngredientsTab setCurrent={clickOnTab} currentTab={currentTab}/>
-      <div className={`${styles.list__scroll} custom-scroll`}>
-        <IngredientsList title={'Булки'} data={buns} onImgClick={setIngredientModal} id={'buns'}/>
-        <IngredientsList title={'Соусы'} data={sauces} onImgClick={setIngredientModal} id={'sauces'}/>
-        <IngredientsList title={'Начинки'} data={fillings} onImgClick={setIngredientModal} id={'fillings'}/>
+      <IngredientsTab setCurrent={handleTabClick} currentTab={currentTab} refTab={refTab}/>
+      <div className={`${styles.list__scroll} custom-scroll`} onScroll={handleTabScroll}>
+        <IngredientsList title={'Булки'} data={buns} id={'buns'} refHeader={refBunsHeader}/>
+        <IngredientsList title={'Соусы'} data={sauces} id={'sauces'} refHeader={refSaucesHeader}/>
+        <IngredientsList title={'Начинки'} data={mains} id={'mains'} refHeader={refMainsHeader}/>
       </div>
     </section>
-    {ingredientModal &&
+    {ingredient &&
       <Modal onClose={closeModal}>
-        <IngredientDetails ingredientData={ingredientModal}/>
+        <IngredientDetails ingredientData={ingredient}/>
       </Modal>
     }
     </>
