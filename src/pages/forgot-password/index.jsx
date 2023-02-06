@@ -1,7 +1,10 @@
+import Form from '../../components/form/form';
+import ForgotPwdForm from '../../components/auth/forgot-pwd-form';
+
 export const ForgotPasswordPage = () => {
   return (
-    <>
-      forgot
-    </>
+    <Form title='Восстановление пароля'>
+      <ForgotPwdForm />
+    </Form>
   )
 }

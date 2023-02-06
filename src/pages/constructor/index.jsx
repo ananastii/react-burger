@@ -33,12 +33,12 @@ export const ConstructorPage = () => {
         !ingredientsFailed &&
         ingredients.length &&
         (
-          <main className={styles.main}>
+          <div className={styles.layout}>
             <DndProvider backend={HTML5Backend}>
               <BurgerIngredients/>
               <BurgerConstructor/>
             </DndProvider>
-          </main>
+          </div>
         )}
     </>
 

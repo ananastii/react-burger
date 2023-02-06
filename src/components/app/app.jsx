@@ -8,17 +8,19 @@ const App = () => {
   return (
     <>
       <AppHeader />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<ConstructorPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="*" element={<NotFound404 />}
-          />
-        </Routes>
-      </BrowserRouter>
+      <main>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<ConstructorPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="*" element={<NotFound404 />}
+            />
+          </Routes>
+        </BrowserRouter>
+      </main>
     </>
   )
 };
