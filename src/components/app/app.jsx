@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AppHeader from '../app-header/app-header';
+import Layout from '../layout/layout';
 
 import {
   ConstructorPage,
@@ -15,18 +15,19 @@ const App = () => {
 
   return (
     <>
-      <AppHeader />
+
       <main>
         <BrowserRouter>
           <Routes>
+          <Route element={<Layout/>}>
             <Route path="/" element={<ConstructorPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="*" element={<NotFound404 />}
-            />
+            <Route path="*" element={<NotFound404 />}/>
+          </Route>
           </Routes>
         </BrowserRouter>
       </main>
