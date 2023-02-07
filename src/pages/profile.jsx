@@ -14,7 +14,7 @@ export const ProfilePage = () => {
           type="text"
           placeholder="Имя"
           //onChange={onChange}
-          //value={values.name}
+          value=""
           name="name"
           icon="EditIcon"
           extraClass="mb-6"

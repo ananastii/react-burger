@@ -1,33 +1,54 @@
 import styles from './form.module.css';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { registerUser } from '../services/actions/auth';
 
 export const RegisterPage = () => {
+
+  const [form, setValue] = useState({});
+
+  const onChange = e => {
+    setValue({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const dispatch = useDispatch();
+
+  const submitRegistration = (e) => {
+    e.preventDefault();
+
+    dispatch(registerUser(form));
+  }
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={submitRegistration}>
       <h1 className="text text_type_main-medium text_color_primary mb-6">
         Регистрация
       </h1>
       <Input
-        value = ""
+        value={form?.name || ''}
+        name="name"
         placeholder="Имя"
-        type = "text"
-        onchange=""
+        type="text"
+        onChange={onChange}
         extraClass="mb-6"
       />
       <EmailInput
-        value = ""
-        type = "email"
-        onchange=""
+        value={form?.email || ''}
+        type="email"
+        name="email"
+        onChange={onChange}
         extraClass="mb-6"
       />
       <PasswordInput
-        value = ""
-        type = "password"
-        //onchange=""
+        value={form?.password || ''}
+        type="password"
+        name="password"
+        onChange={onChange}
         extraClass="mb-6"
       />
-      <Button size = "medium" extraClass={styles.btn}>
+      <Button htmlType="submit" size="medium" extraClass={styles.btn}>
         Войти
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20">

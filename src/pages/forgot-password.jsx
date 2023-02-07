@@ -18,7 +18,7 @@ export const ForgotPasswordPage = () => {
           Восстановление пароля
         </h1>
         <EmailInput
-          value = {form.email}
+          value = {form.email || ''}
           type = "email"
           name="email"
           extraClass="mb-6"
