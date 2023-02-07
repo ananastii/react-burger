@@ -2,9 +2,8 @@ import styles from './total-price.module.css';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { urlOrder } from '../../utils/constants';
 import { checkoutOrder } from '../../services/actions/order';
-import { getConstructor } from '../../utils/utils';
+import { getConstructor } from '../../utils/store';
 
 const TotalPrice = ({price}) => {
 
@@ -17,7 +16,7 @@ const TotalPrice = ({price}) => {
       ...fillings?.map(item => item.info._id),
       bun?.info._id,
     ]
-    dispatch(checkoutOrder(urlOrder, orderIngredients));
+    dispatch(checkoutOrder(orderIngredients));
   };
 
 

@@ -6,7 +6,7 @@ import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { closeIngredientDetails } from '../../services/actions/ingredient-details';
-import { getAllIngredients, getIngredient } from '../../utils/utils';
+import { getAllIngredients, getIngredient } from '../../utils/store';
 
 const BurgerIngredients = () => {
 

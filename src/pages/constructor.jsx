@@ -9,7 +9,7 @@ import BurgerIngredients from '../components/burger-ingredients/burger-ingredien
 import BurgerConstructor from '../components/burger-constructor/burger-constructor';
 import { getIngredients} from '../services/actions/ingredients';
 import { urlIngredients } from '../utils/constants';
-import { getAllIngredients } from '../utils/utils';
+import { getAllIngredients } from '../utils/store';
 
 export const ConstructorPage = () => {
 

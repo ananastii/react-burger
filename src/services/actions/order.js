@@ -5,12 +5,12 @@ export const ORDER_CHECKOUT_SUCCESS = 'ORDER_CHECKOUT_SUCCESS';
 export const ORDER_CHECKOUT_FAILED = 'ORDER_CHECKOUT_FAILED';
 export const CLOSE_ORDER = 'CLOSE_ORDER';
 
-export const checkoutOrder = (url, ingredients) => {
+export const checkoutOrder = (ingredients) => {
   return function(dispatch) {
     dispatch({
       type: ORDER_CHECKOUT_REQUEST
     });
-    placeOrder(url, ingredients)
+    placeOrder(ingredients)
       .then(res => {
         if (res && res.success) {
           dispatch({
