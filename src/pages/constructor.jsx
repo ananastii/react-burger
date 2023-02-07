@@ -5,11 +5,11 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import styles from './constructor.module.css';
 
-import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
-import { getIngredients} from '../../services/actions/ingredients';
-import { urlIngredients } from '../../utils/constants';
-import { getAllIngredients } from '../../utils/utils';
+import BurgerIngredients from '../components/burger-ingredients/burger-ingredients';
+import BurgerConstructor from '../components/burger-constructor/burger-constructor';
+import { getIngredients} from '../services/actions/ingredients';
+import { urlIngredients } from '../utils/constants';
+import { getAllIngredients } from '../utils/utils';
 
 export const ConstructorPage = () => {
 

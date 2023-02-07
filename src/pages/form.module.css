@@ -6,3 +6,8 @@
   padding-top: 180px;
   margin: auto;
 }
+
+.btn {
+  display: block;
+  margin: auto;
+}
