@@ -1,7 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppHeader from '../app-header/app-header';
 
-import { ConstructorPage, LoginPage, RegisterPage, ResetPasswordPage, ForgotPasswordPage, NotFound404 } from '../../pages'
+import {
+  ConstructorPage,
+  LoginPage,
+  RegisterPage,
+  ResetPasswordPage,
+  ForgotPasswordPage,
+  NotFound404,
+  ProfilePage
+} from '../../pages'
 
 const App = () => {
 
@@ -13,6 +21,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<ConstructorPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
