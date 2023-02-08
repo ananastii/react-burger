@@ -5,10 +5,13 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILED,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILED,
 } from '../actions/auth';
 
 const initialState = {
-  user: [],
+  user: null,
   authRequest: false,
   authFailed: false,
 };
@@ -51,6 +54,27 @@ export const authReducer = (state = initialState, action) => {
       }
     }
     case LOGIN_FAILED: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: true,
+      }
+    }
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        authRequest: true
+      }
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: false,
+        user: null
+      }
+    }
+    case LOGOUT_FAILED: {
       return {
         ...state,
         authRequest: false,

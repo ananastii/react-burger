@@ -2,7 +2,8 @@ import {
   urlIngredients,
   urlOrder,
   urlRegister,
-  urlLogin
+  urlLogin,
+  urlLogout
 } from "./constants";
 
 const checkResponce = res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
@@ -52,9 +53,20 @@ const login = (email, password) => {
   .then(checkResponce)
 };
 
+const logout = (refreshToken) => {
+  return fetch(urlLogout, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token: refreshToken }),
+  }).then(checkResponce);
+};
+
 export {
   getIngredientsData,
   placeOrder,
   register,
   login,
+  logout,
 };

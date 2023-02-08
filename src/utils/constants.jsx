@@ -14,5 +14,5 @@ export {
   urlRegister,
   urlLogout,
   urlToken,
-  urlReset
+  urlReset,
 };

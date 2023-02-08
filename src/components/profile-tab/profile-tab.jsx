@@ -2,7 +2,7 @@ import styles from './profile-tab.module.css';
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const ProfileTab = ({description}) => {
+const ProfileTab = ({description, onLogout}) => {
 
   const commonClassName = `${styles.link} text text_type_main-medium pt-4 pb-4 `;
   const activeClassName = "text_color_primary";
@@ -32,6 +32,7 @@ const ProfileTab = ({description}) => {
         </NavLink>
         <NavLink
           to="/login"
+          onClick={onLogout}
           className = {({ isActive }) =>
             (commonClassName +
               (isActive ? activeClassName : inactiveClassName))
