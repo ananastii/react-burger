@@ -8,6 +8,12 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILED,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILED
 } from '../actions/auth';
 
 const initialState = {
@@ -75,6 +81,48 @@ export const authReducer = (state = initialState, action) => {
       }
     }
     case LOGOUT_FAILED: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: true,
+      }
+    }
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        authRequest: true
+      }
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: false,
+        user: action.user
+      }
+    }
+    case GET_USER_FAILED: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: true,
+      }
+    }
+    case UPDATE_USER_REQUEST: {
+      return {
+        ...state,
+        authRequest: true
+      }
+    }
+    case UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: false,
+        user: action.user
+      }
+    }
+    case UPDATE_USER_FAILED: {
       return {
         ...state,
         authRequest: false,

@@ -1,7 +1,9 @@
 import {
   register,
   login,
-  logout
+  logout,
+  getUser,
+  updateUser
 } from '../../utils/api';
 
 import {
@@ -21,6 +23,14 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
+
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILED = 'GET_USER_FAILED';
+
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
 
 export const registerUser = ({name, email, password}) => {
   return function(dispatch) {
@@ -104,6 +114,62 @@ export const logoutUser = (refreshToken) => {
         type: LOGOUT_FAILED
       });
       console.log(`Ошибка при попытке выхода: ${e}`);
+    });
+  };
+}
+
+export const getUserInfo = () => {
+  return function(dispatch) {
+    dispatch({
+      type: GET_USER_REQUEST
+    });
+    getUser()
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: GET_USER_SUCCESS,
+            user: res.user
+          });
+
+      } else {
+        dispatch({
+          type: GET_USER_FAILED
+        });
+      }
+    })
+    .catch(e => {
+      dispatch({
+        type: GET_USER_FAILED
+      });
+      console.log(`Ошибка при получении информации о пользователе: ${e}`);
+    });
+  };
+}
+
+export const updateUserInfo = ({ name, email }) => {
+  return function(dispatch) {
+    dispatch({
+      type: UPDATE_USER_REQUEST
+    });
+    updateUser({ name, email })
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: UPDATE_USER_SUCCESS,
+            user: res.user
+          });
+
+      } else {
+        dispatch({
+          type: UPDATE_USER_FAILED
+        });
+      }
+    })
+    .catch(e => {
+      dispatch({
+        type: UPDATE_USER_FAILED
+      });
+      console.log(`Ошибка при обновлении информации о пользователе: ${e}`);
     });
   };
 }
