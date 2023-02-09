@@ -7,6 +7,8 @@ const urlLogout = "https://norma.nomoreparties.space/api/auth/logout";
 const urlToken = "https://norma.nomoreparties.space/api/auth/token";
 const urlReset = "https://norma.nomoreparties.space/api/password-reset";
 const urlUser = "https://norma.nomoreparties.space/api/auth/user";
+const urlPwdReset = "https://norma.nomoreparties.space/api/password-reset";
+const urlPwdSubmit = "https://norma.nomoreparties.space/api/password-reset/reset";
 
 export {
   urlIngredients,
@@ -16,5 +18,7 @@ export {
   urlLogout,
   urlToken,
   urlReset,
-  urlUser
+  urlUser,
+  urlPwdReset,
+  urlPwdSubmit,
 };

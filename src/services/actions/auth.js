@@ -3,7 +3,9 @@ import {
   login,
   logout,
   getUser,
-  updateUser
+  updateUser,
+  pwdResetRequest,
+  pwdSubmitRequest
 } from '../../utils/api';
 
 import {
@@ -31,6 +33,14 @@ export const GET_USER_FAILED = 'GET_USER_FAILED';
 export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
+
+export const UPDATE_PWD_REQUEST = 'UPDATE_PWD_REQUEST';
+export const UPDATE_PWD_SUCCESS = 'UPDATE_PWD_SUCCESS';
+export const UPDATE_PWD_FAILED = 'UPDATE_PWD_FAILED';
+
+export const SUBMIT_PWD_REQUEST = 'SUBMIT_PWD_REQUEST';
+export const SUBMIT_PWD_SUCCESS = 'SUBMIT_PWD_SUCCESS';
+export const SUBMIT_PWD_FAILED = 'SUBMIT_PWD_FAILED';
 
 export const registerUser = ({name, email, password}) => {
   return function(dispatch) {
@@ -170,6 +180,60 @@ export const updateUserInfo = ({ name, email }) => {
         type: UPDATE_USER_FAILED
       });
       console.log(`Ошибка при обновлении информации о пользователе: ${e}`);
+    });
+  };
+}
+
+export const updatePassword = ({ email }) => {
+  return function(dispatch) {
+    dispatch({
+      type: UPDATE_PWD_REQUEST
+    });
+    pwdResetRequest({ email })
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: UPDATE_PWD_SUCCESS,
+          });
+
+      } else {
+        dispatch({
+          type: UPDATE_PWD_FAILED
+        });
+      }
+    })
+    .catch(e => {
+      dispatch({
+        type: UPDATE_PWD_FAILED
+      });
+      console.log(`Ошибка при обновлении пароля: ${e}`);
+    });
+  };
+}
+
+export const submitPassword = ({ password }) => {
+  return function(dispatch) {
+    dispatch({
+      type: SUBMIT_PWD_REQUEST
+    });
+    pwdSubmitRequest({ password })
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: SUBMIT_PWD_SUCCESS,
+          });
+
+      } else {
+        dispatch({
+          type: SUBMIT_PWD_FAILED
+        });
+      }
+    })
+    .catch(e => {
+      dispatch({
+        type: SUBMIT_PWD_FAILED
+      });
+      console.log(`Ошибка при обновлении пароля: ${e}`);
     });
   };
 }

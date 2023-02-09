@@ -1,7 +1,9 @@
 import styles from './form.module.css';
 import { Link } from 'react-router-dom';
-import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { updatePassword } from '../services/actions/auth';
 
 export const ForgotPasswordPage = () => {
 
@@ -11,20 +13,28 @@ export const ForgotPasswordPage = () => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
+  const dispatch = useDispatch();
+
+  const handlePasswordUpdate = (e) => {
+    e.preventDefault();
+
+    dispatch(updatePassword(form));
+  }
+
   return (
     <>
-      <form className={styles.form}>
+      <form onSubmit={handlePasswordUpdate} className={styles.form} >
         <h1 className="text text_type_main-medium mb-6">
           Восстановление пароля
         </h1>
         <EmailInput
-          value = {form.email || ''}
-          type = "email"
+          value={form?.email || ''}
+          type="email"
           name="email"
-          extraClass="mb-6"
           onChange={onChange}
+          extraClass="mb-6"
         />
-        <Button size="medium" extraClass={styles.btn} htmlType="button">
+        <Button htmlType="submit" size="medium" extraClass={styles.btn}>
           Восстановить
         </Button>
         <p className="text text_type_main-default text_color_inactive mt-20">

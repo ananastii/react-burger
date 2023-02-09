@@ -4,7 +4,9 @@ import {
   urlRegister,
   urlLogin,
   urlLogout,
-  urlUser
+  urlUser,
+  urlPwdReset,
+  urlPwdSubmit,
 } from "./constants";
 
 import { getCookie } from "./cookies";
@@ -67,7 +69,6 @@ const logout = (refreshToken) => {
   .then(checkResponce);
 };
 
-//
 const getUser = () => {
   const accessToken = getCookie("accessToken");
   return fetch(urlUser, {
@@ -94,6 +95,29 @@ const updateUser = ({ name, email }) => {
   .then(checkResponce);
 };
 
+const pwdResetRequest = ({ email }) => {
+  return fetch(urlPwdReset, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+  .then(checkResponce);
+};
+
+const pwdSubmitRequest = ({ password }) => {
+  const accessToken = getCookie("accessToken");
+  return fetch(urlPwdSubmit, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ password, accessToken }),
+  })
+  .then(checkResponce);
+};
+
 export {
   getIngredientsData,
   placeOrder,
@@ -101,5 +125,7 @@ export {
   login,
   logout,
   getUser,
-  updateUser
+  updateUser,
+  pwdResetRequest,
+  pwdSubmitRequest
 };

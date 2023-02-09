@@ -13,7 +13,13 @@ import {
   GET_USER_FAILED,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_FAILED
+  UPDATE_USER_FAILED,
+  UPDATE_PWD_REQUEST,
+  UPDATE_PWD_SUCCESS,
+  UPDATE_PWD_FAILED,
+  SUBMIT_PWD_REQUEST,
+  SUBMIT_PWD_SUCCESS,
+  SUBMIT_PWD_FAILED,
 } from '../actions/auth';
 
 const initialState = {
@@ -123,6 +129,46 @@ export const authReducer = (state = initialState, action) => {
       }
     }
     case UPDATE_USER_FAILED: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: true,
+      }
+    }
+    case UPDATE_PWD_REQUEST: {
+      return {
+        ...state,
+        authRequest: true
+      }
+    }
+    case UPDATE_PWD_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: false
+      }
+    }
+    case UPDATE_PWD_FAILED: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: true,
+      }
+    }
+    case SUBMIT_PWD_REQUEST: {
+      return {
+        ...state,
+        authRequest: true
+      }
+    }
+    case SUBMIT_PWD_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: false
+      }
+    }
+    case SUBMIT_PWD_FAILED: {
       return {
         ...state,
         authRequest: false,
