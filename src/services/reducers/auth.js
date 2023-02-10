@@ -20,12 +20,16 @@ import {
   SUBMIT_PWD_REQUEST,
   SUBMIT_PWD_SUCCESS,
   SUBMIT_PWD_FAILED,
+  UPDATE_TOKEN_REQUEST,
+  UPDATE_TOKEN_SUCCESS,
+  UPDATE_TOKEN_FAILED
 } from '../actions/auth';
 
 const initialState = {
   user: null,
   authRequest: false,
   authFailed: false,
+  pwdResetOk: false
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -169,6 +173,26 @@ export const authReducer = (state = initialState, action) => {
       }
     }
     case SUBMIT_PWD_FAILED: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: true,
+      }
+    }
+    case UPDATE_TOKEN_REQUEST: {
+      return {
+        ...state,
+        authRequest: true
+      }
+    }
+    case UPDATE_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        authRequest: false,
+        authFailed: false
+      }
+    }
+    case UPDATE_TOKEN_FAILED: {
       return {
         ...state,
         authRequest: false,

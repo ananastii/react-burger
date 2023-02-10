@@ -1,27 +1,27 @@
 import styles from './form.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { submitPassword } from '../services/actions/auth';
 
 export const ResetPasswordPage = () => {
-  const [form, setValue] = useState({ email: ''});
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [form, setValue] = useState({ });
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  const dispatch = useDispatch();
-
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
 
     dispatch(submitPassword(form));
+    navigate("/login");
   }
-
-
-
 
   return (
     <>

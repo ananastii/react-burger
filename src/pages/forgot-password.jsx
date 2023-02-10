@@ -1,5 +1,5 @@
 import styles from './form.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,18 +7,24 @@ import { updatePassword } from '../services/actions/auth';
 
 export const ForgotPasswordPage = () => {
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [form, setValue] = useState({});
+  // const { state, pathname } = useLocation();
+
+  // console.log(state);
+  // console.log(pathname);
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  const dispatch = useDispatch();
-
   const handlePasswordUpdate = (e) => {
     e.preventDefault();
 
     dispatch(updatePassword(form));
+    navigate("/reset-password", );
   }
 
   return (

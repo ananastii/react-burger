@@ -5,11 +5,11 @@ import {
   getUser,
   updateUser,
   pwdResetRequest,
-  pwdSubmitRequest
+  pwdSubmitRequest,
+  updateTokenRequest
 } from '../../utils/api';
 
 import {
-  getCookie,
   setCookie,
   deleteCookie
 } from '../../utils/cookies';
@@ -41,6 +41,10 @@ export const UPDATE_PWD_FAILED = 'UPDATE_PWD_FAILED';
 export const SUBMIT_PWD_REQUEST = 'SUBMIT_PWD_REQUEST';
 export const SUBMIT_PWD_SUCCESS = 'SUBMIT_PWD_SUCCESS';
 export const SUBMIT_PWD_FAILED = 'SUBMIT_PWD_FAILED';
+
+export const UPDATE_TOKEN_REQUEST = 'UPDATE_TOKEN_REQUEST';
+export const UPDATE_TOKEN_SUCCESS = 'UPDATE_TOKEN_SUCCESS';
+export const UPDATE_TOKEN_FAILED = 'UPDATE_TOKEN_FAILED';
 
 export const registerUser = ({name, email, password}) => {
   return function(dispatch) {
@@ -234,6 +238,33 @@ export const submitPassword = ({ password }) => {
         type: SUBMIT_PWD_FAILED
       });
       console.log(`Ошибка при обновлении пароля: ${e}`);
+    });
+  };
+}
+
+export const updateToken = () => {
+  return function(dispatch) {
+    dispatch({
+      type: UPDATE_TOKEN_REQUEST
+    });
+    updateTokenRequest()
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: UPDATE_TOKEN_SUCCESS,
+          });
+
+      } else {
+        dispatch({
+          type: UPDATE_TOKEN_FAILED
+        });
+      }
+    })
+    .catch(e => {
+      dispatch({
+        type: UPDATE_TOKEN_FAILED
+      });
+      console.log(`Ошибка при обновлении accessToken: ${e}`);
     });
   };
 }

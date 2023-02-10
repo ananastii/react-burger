@@ -7,6 +7,7 @@ import {
   urlUser,
   urlPwdReset,
   urlPwdSubmit,
+  urlToken,
 } from "./constants";
 
 import { getCookie } from "./cookies";
@@ -76,8 +77,7 @@ const getUser = () => {
     headers: {
       authorization: 'Bearer ' + accessToken,
       'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({  }),
+    }
   })
   .then(checkResponce);
 };
@@ -118,6 +118,19 @@ const pwdSubmitRequest = ({ password }) => {
   .then(checkResponce);
 };
 
+const updateTokenRequest = () => {
+  const refreshToken = getCookie("refreshToken");
+  return fetch(urlToken, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token: refreshToken }),
+  })
+  .then(checkResponce);
+
+};
+
 export {
   getIngredientsData,
   placeOrder,
@@ -127,5 +140,6 @@ export {
   getUser,
   updateUser,
   pwdResetRequest,
-  pwdSubmitRequest
+  pwdSubmitRequest,
+  updateTokenRequest
 };

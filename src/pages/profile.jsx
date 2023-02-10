@@ -12,11 +12,21 @@ export const ProfilePage = () => {
 
   const description = "В этом разделе вы можете изменить свои персональные данные";
 
+  /*
   const { name, email } = useSelector(getUser);
 
   const formInit = {
     name: name,
     email: email,
+    password: "******"
+  };
+  */
+
+  const userInfo = useSelector(getUser);
+
+  const formInit = {
+    name: userInfo?.name || '',
+    email: userInfo?.email || '',
     password: "******"
   };
 
@@ -38,7 +48,7 @@ export const ProfilePage = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(updateUserInfo(form.name, form.email))
+    dispatch(updateUserInfo(form))
     setIsChanged(false);
   };
 
@@ -50,7 +60,7 @@ export const ProfilePage = () => {
   return (
     <div className={`${styles.container}`}>
       <ProfileTab description={description} onLogout={handleLogout}/>
-      <form className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <Input
           type="text"
           placeholder="Имя"
@@ -74,14 +84,14 @@ export const ProfilePage = () => {
           onChange={onChange}
           value={form.password}
           name="password"
-          icon="EditIcon text_color_inactive"
+          icon="EditIcon"
           extraClass={styles.input}
         />
         { isChanged && <div className={`mt-6 mr-4 ${styles.handlers}`}>
           <Button size="medium" htmlType="button" type="secondary" onClick={handleCancel}>
             Отмена
           </Button>
-          <Button size="medium" htmlType="button"  onClick={handleSubmit}>
+          <Button htmlType="submit" size="medium">
             Сохранить
           </Button>
         </div>}
