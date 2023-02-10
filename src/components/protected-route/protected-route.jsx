@@ -14,9 +14,6 @@ const ProtectedRouteElement = ({isUserAllowed}) => {
   const dispatch = useDispatch();
   const { state, pathname} = useLocation();
 
-  console.log(state);
-  console.log(pathname);
-
   useEffect(() => {
     if (refreshToken && !accessToken) {
       dispatch(updateToken);

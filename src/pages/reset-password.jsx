@@ -1,6 +1,6 @@
 import styles from './form.module.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { submitPassword } from '../services/actions/auth';
@@ -11,6 +11,15 @@ export const ResetPasswordPage = () => {
   const navigate = useNavigate();
 
   const [form, setValue] = useState({ });
+  const { state } = useLocation();
+
+  useEffect(()=> {
+    if (state.prev !== "/forgot-password") {
+      navigate("/forgot-password");
+    }
+
+  }, [state]);
+
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });

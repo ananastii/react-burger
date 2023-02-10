@@ -11,10 +11,7 @@ export const ForgotPasswordPage = () => {
   const navigate = useNavigate();
 
   const [form, setValue] = useState({});
-  // const { state, pathname } = useLocation();
-
-  // console.log(state);
-  // console.log(pathname);
+  const { pathname } = useLocation();
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
@@ -24,7 +21,7 @@ export const ForgotPasswordPage = () => {
     e.preventDefault();
 
     dispatch(updatePassword(form));
-    navigate("/reset-password", );
+    navigate("/reset-password", {state: {prev : pathname}});
   }
 
   return (
