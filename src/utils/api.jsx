@@ -26,10 +26,11 @@ const getIngredientsData = () => {
 }
 
 const placeOrder = (ingredients) => {
+  const accessToken = getCookie("accessToken");
   return fetch(urlOrder, {
     method: 'POST',
     headers: {
-      authorization: '',
+      authorization: 'Bearer ' + accessToken,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ingredients})
