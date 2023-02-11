@@ -83,7 +83,7 @@ const getUser = () => {
   .then(checkResponce);
 };
 
-const updateUser = ({ name, email }) => {
+const updateUser = ({ name, email, password }) => {
   const accessToken = getCookie("accessToken");
   return fetch(urlUser, {
     method: "PATCH",
@@ -91,7 +91,7 @@ const updateUser = ({ name, email }) => {
       authorization: 'Bearer ' + accessToken,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ name, email }),
+    body: JSON.stringify({ name, email, password }),
   })
   .then(checkResponce);
 };

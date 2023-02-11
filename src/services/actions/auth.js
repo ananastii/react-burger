@@ -160,12 +160,12 @@ export const getUserInfo = () => {
   };
 }
 
-export const updateUserInfo = ({ name, email }) => {
+export const updateUserInfo = ({ name, email, password }) => {
   return function(dispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST
     });
-    updateUser({ name, email })
+    updateUser({ name, email, password })
       .then(res => {
         if (res && res.success) {
           dispatch({
