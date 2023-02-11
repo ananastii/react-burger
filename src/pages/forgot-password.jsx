@@ -32,7 +32,6 @@ export const ForgotPasswordPage = () => {
         </h1>
         <EmailInput
           value={form?.email || ''}
-          type="email"
           name="email"
           onChange={onChange}
           extraClass="mb-6"

@@ -40,7 +40,6 @@ export const ResetPasswordPage = () => {
         </h1>
         <PasswordInput
           value={form?.password || ''}
-          type="password"
           name="password"
           placeholder="Введите новый пароль"
           onChange={onChange}

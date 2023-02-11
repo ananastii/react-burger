@@ -79,7 +79,6 @@ export const ProfilePage = () => {
           extraClass={`mb-6 ${styles.input}`}
         />
         <PasswordInput
-          type="password"
           placeholder="Пароль"
           onChange={onChange}
           value={form.password}

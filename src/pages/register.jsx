@@ -36,14 +36,12 @@ export const RegisterPage = () => {
       />
       <EmailInput
         value={form?.email || ''}
-        type="email"
         name="email"
         onChange={onChange}
         extraClass="mb-6"
       />
       <PasswordInput
         value={form?.password || ''}
-        type="password"
         name="password"
         onChange={onChange}
         extraClass="mb-6"
