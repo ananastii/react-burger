@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Layout from '../layout/layout';
 import ProtectedRouteElement from "../protected-route/protected-route";
 
+import Modal from "../modal/modal";
 import {
   ConstructorPage,
   LoginPage,
@@ -10,16 +11,22 @@ import {
   ForgotPasswordPage,
   NotFound404,
   ProfilePage,
+  IngredientPage
 } from '../../pages'
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const App = () => {
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const background = location.state?.background;
+
   return (
     <>
-      <BrowserRouter>
-        <Routes>
+      <Routes location={background || location}>
         <Route element={<Layout/>}>
-          <Route path="/" element={<ConstructorPage />} />
+          <Route path="/" element={<ConstructorPage />}/>
           <Route element={<ProtectedRouteElement isUserAllowed={true}/>}>
             <Route path="/profile" element={<ProfilePage />} />
           </Route>
@@ -29,10 +36,19 @@ const App = () => {
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           </Route>
+          <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route path="*" element={<NotFound404 />}/>
         </Route>
-        </Routes>
-      </BrowserRouter>
+      </Routes>
+      <Routes>
+          { background && (
+          <Route path="/ingredients/:id" element={
+            <Modal onClose={() => { navigate(-1)}}>
+              <IngredientDetails />
+            </Modal>
+          }/>
+          )}
+      </Routes>
     </>
   )
 };

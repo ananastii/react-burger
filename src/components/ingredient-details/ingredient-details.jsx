@@ -1,7 +1,11 @@
 import styles from './ingredient-details.module.css';
-import { ingredientPropTypes } from '../../utils/types';
+import { useLocation } from 'react-router-dom';
 
-function IngredientDetails ({ingredientData}) {
+const IngredientDetails = () => {
+
+  const location = useLocation();
+
+  const ingredientData = location.state.ingredient
 
   return (
     <div>
@@ -32,10 +36,6 @@ function IngredientDetails ({ingredientData}) {
       </div>
     </div>
   )
-};
-
-IngredientDetails.propTypes = {
-  ingredientData: ingredientPropTypes.isRequired
 };
 
 export default IngredientDetails;

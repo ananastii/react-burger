@@ -1,27 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import IngredientsTab from '../ingredients-tab/ingredients-tab';
-import Modal from '../modal/modal';
 import IngredientsList from '../ingredients-list/ingredients-list';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import { closeIngredientDetails } from '../../services/actions/ingredient-details';
-import { getAllIngredients, getIngredient } from '../../utils/store';
+import { getAllIngredients } from '../../utils/store';
 
 const BurgerIngredients = () => {
-
-  const dispatch = useDispatch();
 
   const { ingredients } = useSelector(getAllIngredients);
   const buns = ingredients.filter((item) => item.info.type === 'bun');
   const sauces = ingredients.filter((item) => item.info.type === 'sauce');
   const mains = ingredients.filter((item) => item.info.type === 'main');
-
-  const { ingredient } = useSelector(getIngredient);
-
-  const closeModal = () => {
-    dispatch(closeIngredientDetails());
-  };
 
   // Navigation through tabs
   const [currentTab, setCurrentTab] = useState('buns');
@@ -60,25 +49,18 @@ const BurgerIngredients = () => {
     setCurrentTab(activeTabId);
   }
 
-
-
   return (
-    <>
-    <section className={`${styles.list} pl-5 pr-5`}>
-      <h1 className={`pt-10 text text_type_main-large`}>Соберите бургер</h1>
-      <IngredientsTab setCurrent={handleTabClick} currentTab={currentTab} refTab={refTab}/>
-      <div className={`${styles.list__scroll} custom-scroll`} onScroll={handleTabScroll}>
-        <IngredientsList title={'Булки'} data={buns} id={'buns'} refHeader={refBunsHeader}/>
-        <IngredientsList title={'Соусы'} data={sauces} id={'sauces'} refHeader={refSaucesHeader}/>
-        <IngredientsList title={'Начинки'} data={mains} id={'mains'} refHeader={refMainsHeader}/>
-      </div>
-    </section>
-    {ingredient &&
-      <Modal onClose={closeModal}>
-        <IngredientDetails ingredientData={ingredient}/>
-      </Modal>
-    }
-    </>
+
+  <section className={`${styles.list} pl-5 pr-5`}>
+    <h1 className={`pt-10 text text_type_main-large`}>Соберите бургер</h1>
+    <IngredientsTab setCurrent={handleTabClick} currentTab={currentTab} refTab={refTab}/>
+    <div className={`${styles.list__scroll} custom-scroll`} onScroll={handleTabScroll}>
+      <IngredientsList title={'Булки'} data={buns} id={'buns'} refHeader={refBunsHeader}/>
+      <IngredientsList title={'Соусы'} data={sauces} id={'sauces'} refHeader={refSaucesHeader}/>
+      <IngredientsList title={'Начинки'} data={mains} id={'mains'} refHeader={refMainsHeader}/>
+    </div>
+  </section>
+
   )
 }
 
