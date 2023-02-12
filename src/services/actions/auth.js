@@ -2,8 +2,8 @@ import {
   register,
   login,
   logout,
-  getUser,
-  updateUser,
+  getUserRequest,
+  updateUserRequest,
   pwdResetRequest,
   pwdSubmitRequest,
   updateTokenRequest
@@ -11,7 +11,8 @@ import {
 
 import {
   setCookie,
-  deleteCookie
+  deleteCookie,
+  getCookie
 } from '../../utils/cookies';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
@@ -137,18 +138,58 @@ export const getUserInfo = () => {
     dispatch({
       type: GET_USER_REQUEST
     });
-    getUser()
-      .then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: GET_USER_SUCCESS,
-            user: res.user
-          });
-
+    getUserRequest()
+    .then(res => res.json())
+    .then(res => {
+      if (res.success) {
+        dispatch({
+          type: GET_USER_SUCCESS,
+          user: res.user
+        });
       } else {
         dispatch({
           type: GET_USER_FAILED
         });
+        const refreshToken = getCookie("refreshToken");
+        updateTokenRequest(refreshToken)
+          .then(res => {
+            if (res && res.success) {
+              setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+              dispatch({
+                type: GET_USER_REQUEST
+              });
+              getUserRequest()
+              .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+              .then(res => {
+                if (res && res.success) {
+                  dispatch({
+                    type: GET_USER_SUCCESS,
+                    user: res.user
+                  });
+                } else {
+                  dispatch({
+                    type: GET_USER_FAILED
+                  });
+                }
+              })
+              .catch(e => {
+                dispatch({
+                  type: GET_USER_FAILED
+                });
+                console.log(`Ошибка при получении информации о пользователе: ${e}`);
+              });
+            } else {
+              dispatch({
+                type: GET_USER_FAILED
+              });
+            }
+          })
+          .catch(e => {
+            dispatch({
+              type: GET_USER_FAILED
+            });
+            console.log(`Ошибка при обновлении токена: ${e}`);
+          });
       }
     })
     .catch(e => {
@@ -165,18 +206,58 @@ export const updateUserInfo = ({ name, email, password }) => {
     dispatch({
       type: UPDATE_USER_REQUEST
     });
-    updateUser({ name, email, password })
-      .then(res => {
-        if (res && res.success) {
-          dispatch({
-            type: UPDATE_USER_SUCCESS,
-            user: res.user
-          });
-
+    updateUserRequest({ name, email, password })
+    .then(res => res.json())
+    .then(res => {
+      if (res.success) {
+        dispatch({
+          type: UPDATE_USER_SUCCESS,
+          user: res.user
+        });
       } else {
         dispatch({
           type: UPDATE_USER_FAILED
         });
+        const refreshToken = getCookie("refreshToken");
+        updateTokenRequest(refreshToken)
+          .then(res => {
+            if (res && res.success) {
+              setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+              dispatch({
+                type: UPDATE_USER_REQUEST
+              });
+              updateUserRequest({ name, email, password })
+              .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+              .then(res => {
+                if (res && res.success) {
+                  dispatch({
+                    type: UPDATE_USER_SUCCESS,
+                    user: res.user
+                  });
+                } else {
+                  dispatch({
+                    type: UPDATE_USER_FAILED
+                  });
+                }
+              })
+              .catch(e => {
+                dispatch({
+                  type: UPDATE_USER_FAILED
+                });
+                console.log(`Ошибка при обновлении информации о пользователе: ${e}`);
+              });
+            } else {
+              dispatch({
+                type: UPDATE_USER_FAILED
+              });
+            }
+          })
+          .catch(e => {
+            dispatch({
+              type: UPDATE_USER_FAILED
+            });
+            console.log(`Ошибка при обновлении токена: ${e}`);
+          });
       }
     })
     .catch(e => {
@@ -247,7 +328,8 @@ export const updateToken = () => {
     dispatch({
       type: UPDATE_TOKEN_REQUEST
     });
-    updateTokenRequest()
+    const refreshToken = getCookie("refreshToken");
+    updateTokenRequest(refreshToken)
       .then(res => {
         if (res && res.success) {
           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
@@ -255,12 +337,12 @@ export const updateToken = () => {
             type: UPDATE_TOKEN_SUCCESS,
           });
 
-      } else {
-        dispatch({
-          type: UPDATE_TOKEN_FAILED
-        });
-      }
-    })
+        } else {
+          dispatch({
+            type: UPDATE_TOKEN_FAILED
+          });
+        }
+      })
     .catch(e => {
       dispatch({
         type: UPDATE_TOKEN_FAILED

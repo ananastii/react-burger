@@ -25,7 +25,7 @@ const getIngredientsData = () => {
   .then(checkResponce)
 }
 
-const placeOrder = (ingredients) => {
+const placeOrderRequest = (ingredients) => {
   const accessToken = getCookie("accessToken");
   return fetch(urlOrder, {
     method: 'POST',
@@ -35,7 +35,6 @@ const placeOrder = (ingredients) => {
     },
     body: JSON.stringify({ingredients})
   })
-  .then(checkResponce)
 };
 
 const register = (name, email, password) => {
@@ -71,7 +70,7 @@ const logout = (refreshToken) => {
   .then(checkResponce);
 };
 
-const getUser = () => {
+const getUserRequest = () => {
   const accessToken = getCookie("accessToken");
   return fetch(urlUser, {
     method: "GET",
@@ -80,10 +79,9 @@ const getUser = () => {
       'Content-Type': 'application/json',
     }
   })
-  .then(checkResponce);
 };
 
-const updateUser = ({ name, email, password }) => {
+const updateUserRequest = ({ name, email, password }) => {
   const accessToken = getCookie("accessToken");
   return fetch(urlUser, {
     method: "PATCH",
@@ -93,7 +91,6 @@ const updateUser = ({ name, email, password }) => {
     },
     body: JSON.stringify({ name, email, password }),
   })
-  .then(checkResponce);
 };
 
 const pwdResetRequest = ({ email }) => {
@@ -119,8 +116,7 @@ const pwdSubmitRequest = ({ password }) => {
   .then(checkResponce);
 };
 
-const updateTokenRequest = () => {
-  const refreshToken = getCookie("refreshToken");
+const updateTokenRequest = (refreshToken) => {
   return fetch(urlToken, {
     method: "POST",
     headers: {
@@ -134,12 +130,12 @@ const updateTokenRequest = () => {
 
 export {
   getIngredientsData,
-  placeOrder,
+  placeOrderRequest,
   register,
   login,
   logout,
-  getUser,
-  updateUser,
+  getUserRequest,
+  updateUserRequest,
   pwdResetRequest,
   pwdSubmitRequest,
   updateTokenRequest
