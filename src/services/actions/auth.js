@@ -47,6 +47,8 @@ export const UPDATE_TOKEN_REQUEST = 'UPDATE_TOKEN_REQUEST';
 export const UPDATE_TOKEN_SUCCESS = 'UPDATE_TOKEN_SUCCESS';
 export const UPDATE_TOKEN_FAILED = 'UPDATE_TOKEN_FAILED';
 
+export const SET_PASSWORD = 'SET_PASSWORD';
+
 export const registerUser = ({name, email, password}) => {
   return function(dispatch) {
     dispatch({
@@ -60,6 +62,10 @@ export const registerUser = ({name, email, password}) => {
           dispatch({
             type: REGISTER_SUCCESS,
             user: res.user
+          });
+          dispatch({
+            type: SET_PASSWORD,
+            password: password
           });
       } else {
         dispatch({
@@ -89,6 +95,10 @@ export const loginUser = ({email, password}) => {
           dispatch({
             type: LOGIN_SUCCESS,
             user: res.user
+          });
+          dispatch({
+            type: SET_PASSWORD,
+            password: password
           });
       } else {
         dispatch({
@@ -214,6 +224,10 @@ export const updateUserInfo = ({ name, email, password }) => {
           type: UPDATE_USER_SUCCESS,
           user: res.user
         });
+        dispatch({
+          type: SET_PASSWORD,
+          password: password
+        });
       } else {
         dispatch({
           type: UPDATE_USER_FAILED
@@ -233,6 +247,10 @@ export const updateUserInfo = ({ name, email, password }) => {
                   dispatch({
                     type: UPDATE_USER_SUCCESS,
                     user: res.user
+                  });
+                  dispatch({
+                    type: SET_PASSWORD,
+                    password: password
                   });
                 } else {
                   dispatch({

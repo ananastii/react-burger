@@ -22,11 +22,13 @@ import {
   SUBMIT_PWD_FAILED,
   UPDATE_TOKEN_REQUEST,
   UPDATE_TOKEN_SUCCESS,
-  UPDATE_TOKEN_FAILED
+  UPDATE_TOKEN_FAILED,
+  SET_PASSWORD
 } from '../actions/auth';
 
 const initialState = {
   user: null,
+  password: null,
   authRequest: false,
   authFailed: false,
   pwdResetOk: false
@@ -197,6 +199,12 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         authRequest: false,
         authFailed: true,
+      }
+    }
+    case SET_PASSWORD: {
+      return {
+        ...state,
+        password: action.password
       }
     }
     default: {
