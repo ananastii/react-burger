@@ -11,7 +11,8 @@ import {
   ForgotPasswordPage,
   NotFound404,
   ProfilePage,
-  IngredientPage
+  IngredientPage,
+  OrdersPage
 } from '../../pages'
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
@@ -28,7 +29,8 @@ const App = () => {
         <Route element={<Layout/>}>
           <Route path="/" element={<ConstructorPage />}/>
           <Route element={<ProtectedRouteElement isUserAllowed={true}/>}>
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile" element={<ProfilePage />}/>
+            <Route path="/profile/orders" element={<OrdersPage />}/>
           </Route>
           <Route element={<ProtectedRouteElement isUserAllowed={false}/>}>
             <Route path="/login"  element={<LoginPage />} />
