@@ -18,3 +18,4 @@ Libraries:
 - redux-thunk
 - react-dnd & react-dnd-html5-backend
 - uuid
+- react-router v6

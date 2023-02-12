@@ -27,7 +27,7 @@ const AppHeader = () => {
             to="/orders"
             className={`pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.header__item}`}
           >
-            <BurgerIcon type={pathname === "/orders" ? "primary" : "secondary"} />
+            <ListIcon type={pathname === "/orders" ? "primary" : "secondary"} />
             <span className = {commonClassName + (pathname === "/orders" ? activeClassName : inactiveClassName) }>
               Лента заказов
             </span>

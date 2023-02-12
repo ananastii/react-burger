@@ -35,7 +35,7 @@ const ConstructorIngredient = ({data, index}) => {
     }),
   });
 
-  const [spec, dropRef] = useDrop({
+  const [, dropRef] = useDrop({
     accept: 'item',
     hover: (item, monitor) => {
         const dragIndex = item.index
