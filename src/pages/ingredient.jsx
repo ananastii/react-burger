@@ -4,12 +4,9 @@ import IngredientDetails from "../components/ingredient-details/ingredient-detai
 
 export const IngredientPage = () => {
 
-  const location = useLocation();
-  const ingredient = location.state.ingredient;
-
   return (
     <div className={`${styles.wrapper} pt-30`}>
-      <IngredientDetails ingredientData={ingredient}/>
+      <IngredientDetails />
     </div>
   )
 }
