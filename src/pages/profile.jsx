@@ -12,16 +12,6 @@ export const ProfilePage = () => {
 
   const description = "В этом разделе вы можете изменить свои персональные данные";
 
-  /*
-  const { name, email } = useSelector(getUser);
-
-  const formInit = {
-    name: name,
-    email: email,
-    password: "******"
-  };
-  */
-
   const userInfo = useSelector(getUser);
 
   const formInit = {

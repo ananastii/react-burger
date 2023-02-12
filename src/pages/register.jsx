@@ -47,7 +47,7 @@ export const RegisterPage = () => {
         extraClass="mb-6"
       />
       <Button htmlType="submit" size="medium" extraClass={styles.btn}>
-        Войти
+        Зарегистрироваться
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Уже зарегистрированы?

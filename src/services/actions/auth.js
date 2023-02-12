@@ -250,6 +250,7 @@ export const updateToken = () => {
     updateTokenRequest()
       .then(res => {
         if (res && res.success) {
+          setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
           dispatch({
             type: UPDATE_TOKEN_SUCCESS,
           });

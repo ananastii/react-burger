@@ -7,7 +7,7 @@ import { updateToken, getUserInfo } from '../../services/actions/auth';
 
 const ProtectedRouteElement = ({isUserAllowed}) => {
 
-  const accessToken = getCookie("accessToken");
+  let accessToken = getCookie("accessToken");
   const refreshToken = getCookie("refreshToken");
   const user = useSelector(getUser);
 
@@ -16,12 +16,12 @@ const ProtectedRouteElement = ({isUserAllowed}) => {
 
   useEffect(() => {
     if (refreshToken && !accessToken) {
-      dispatch(updateToken);
+      dispatch(updateToken());
     }
     if (!user && refreshToken) {
-      dispatch(getUserInfo);
+      dispatch(getUserInfo());
     }
-  }, [refreshToken, accessToken, user]);
+  }, [refreshToken, accessToken, user, dispatch]);
 
   if (!user && isUserAllowed) {
     return (
@@ -38,10 +38,6 @@ const ProtectedRouteElement = ({isUserAllowed}) => {
   return (
     <Outlet/>
   )
-
-  // return (
-  //   user? <Outlet/> : <Navigate to="/login" state={{prev : pathname}}/>
-  // )
 }
 
 export default ProtectedRouteElement;
