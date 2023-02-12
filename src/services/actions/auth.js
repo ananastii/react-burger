@@ -1,7 +1,7 @@
 import {
-  register,
-  login,
-  logout,
+  registerRequest,
+  loginRequest,
+  logoutRequest,
   getUserRequest,
   updateUserRequest,
   pwdResetRequest,
@@ -54,7 +54,7 @@ export const registerUser = ({name, email, password}) => {
     dispatch({
       type: REGISTER_REQUEST
     });
-    register(name, email, password)
+    registerRequest(name, email, password)
       .then(res => {
         if (res && res.success) {
           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
@@ -87,7 +87,7 @@ export const loginUser = ({email, password}) => {
     dispatch({
       type: LOGIN_REQUEST
     });
-    login(email, password)
+    loginRequest(email, password)
       .then(res => {
         if (res && res.success) {
           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
@@ -120,7 +120,7 @@ export const logoutUser = (refreshToken) => {
     dispatch({
       type: LOGOUT_REQUEST
     });
-    logout(refreshToken)
+    logoutRequest(refreshToken)
       .then(res => {
         if (res && res.success) {
           deleteCookie("refreshToken");

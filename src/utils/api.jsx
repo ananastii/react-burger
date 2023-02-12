@@ -12,9 +12,9 @@ import {
 
 import { getCookie } from "./cookies";
 
-const checkResponce = res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+const checkResponse = res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
-const getIngredientsData = () => {
+const getIngredientsRequest = () => {
   return fetch(urlIngredients, {
     method: 'GET',
     headers: {
@@ -22,7 +22,7 @@ const getIngredientsData = () => {
       'Content-Type': 'application/json'
     }
   })
-  .then(checkResponce)
+  .then(checkResponse)
 }
 
 const placeOrderRequest = (ingredients) => {
@@ -37,7 +37,7 @@ const placeOrderRequest = (ingredients) => {
   })
 };
 
-const register = (name, email, password) => {
+const registerRequest = (name, email, password) => {
   return fetch(urlRegister, {
     method: 'POST',
     headers: {
@@ -45,10 +45,10 @@ const register = (name, email, password) => {
     },
     body: JSON.stringify({name, email, password})
   })
-  .then(checkResponce)
+  .then(checkResponse)
 };
 
-const login = (email, password) => {
+const loginRequest = (email, password) => {
   return fetch(urlLogin, {
     method: 'POST',
     headers: {
@@ -56,10 +56,10 @@ const login = (email, password) => {
     },
     body: JSON.stringify({email, password})
   })
-  .then(checkResponce)
+  .then(checkResponse)
 };
 
-const logout = (refreshToken) => {
+const logoutRequest = (refreshToken) => {
   return fetch(urlLogout, {
     method: "POST",
     headers: {
@@ -67,7 +67,7 @@ const logout = (refreshToken) => {
     },
     body: JSON.stringify({ token: refreshToken }),
   })
-  .then(checkResponce);
+  .then(checkResponse);
 };
 
 const getUserRequest = () => {
@@ -101,7 +101,7 @@ const pwdResetRequest = ({ email }) => {
     },
     body: JSON.stringify({ email }),
   })
-  .then(checkResponce);
+  .then(checkResponse);
 };
 
 const pwdSubmitRequest = ({ password }) => {
@@ -113,7 +113,7 @@ const pwdSubmitRequest = ({ password }) => {
     },
     body: JSON.stringify({ password, accessToken }),
   })
-  .then(checkResponce);
+  .then(checkResponse);
 };
 
 const updateTokenRequest = (refreshToken) => {
@@ -124,16 +124,16 @@ const updateTokenRequest = (refreshToken) => {
     },
     body: JSON.stringify({ token: refreshToken }),
   })
-  .then(checkResponce);
+  .then(checkResponse);
 
 };
 
 export {
-  getIngredientsData,
+  getIngredientsRequest,
   placeOrderRequest,
-  register,
-  login,
-  logout,
+  registerRequest,
+  loginRequest,
+  logoutRequest,
   getUserRequest,
   updateUserRequest,
   pwdResetRequest,
