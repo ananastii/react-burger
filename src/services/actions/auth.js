@@ -314,12 +314,12 @@ export const updatePassword = ({ email }) => {
   };
 }
 
-export const submitPassword = ({ password }) => {
+export const submitPassword = ({ password, token }) => {
   return function(dispatch) {
     dispatch({
       type: SUBMIT_PWD_REQUEST
     });
-    pwdSubmitRequest({ password })
+    pwdSubmitRequest({ password, token })
       .then(res => {
         if (res && res.success) {
           dispatch({

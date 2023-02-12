@@ -31,7 +31,8 @@ const initialState = {
   password: null,
   authRequest: false,
   authFailed: false,
-  pwdResetOk: false
+  pwdResetRequested: false,
+  pwdSubmitSuccess: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -144,14 +145,15 @@ export const authReducer = (state = initialState, action) => {
     case UPDATE_PWD_REQUEST: {
       return {
         ...state,
-        authRequest: true
+        authRequest: true,
+        pwdResetRequested: true
       }
     }
     case UPDATE_PWD_SUCCESS: {
       return {
         ...state,
         authRequest: false,
-        authFailed: false
+        authFailed: false,
       }
     }
     case UPDATE_PWD_FAILED: {
@@ -164,14 +166,16 @@ export const authReducer = (state = initialState, action) => {
     case SUBMIT_PWD_REQUEST: {
       return {
         ...state,
-        authRequest: true
+        authRequest: true,
+        pwdSubmitSuccess: false
       }
     }
     case SUBMIT_PWD_SUCCESS: {
       return {
         ...state,
         authRequest: false,
-        authFailed: false
+        authFailed: false,
+        pwdSubmitSuccess: true,
       }
     }
     case SUBMIT_PWD_FAILED: {
@@ -179,6 +183,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         authRequest: false,
         authFailed: true,
+        pwdSubmitSuccess: false
       }
     }
     case UPDATE_TOKEN_REQUEST: {

@@ -104,14 +104,13 @@ const pwdResetRequest = ({ email }) => {
   .then(checkResponse);
 };
 
-const pwdSubmitRequest = ({ password }) => {
-  const accessToken = getCookie("accessToken");
+const pwdSubmitRequest = ({ password, token }) => {;
   return fetch(urlPwdSubmit, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ password, accessToken }),
+    body: JSON.stringify({ password, token }),
   })
   .then(checkResponse);
 };

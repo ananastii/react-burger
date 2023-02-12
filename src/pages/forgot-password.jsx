@@ -21,7 +21,7 @@ export const ForgotPasswordPage = () => {
     e.preventDefault();
 
     dispatch(updatePassword(form));
-    navigate("/reset-password", {state: {prev : pathname}});
+    navigate("/reset-password");
   }
 
   return (
