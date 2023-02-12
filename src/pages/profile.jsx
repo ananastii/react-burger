@@ -47,7 +47,8 @@ export const ProfilePage = () => {
     setIsChanged(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     dispatch(updateUserInfo(form))
     setIsChanged(false);
   };
