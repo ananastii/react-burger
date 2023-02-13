@@ -21,14 +21,12 @@ export const checkoutOrder = (ingredients) => {
           id: res.order
         });
       } else {
-        dispatch({
-          type: ORDER_CHECKOUT_FAILED
-        });
         const refreshToken = getCookie("refreshToken");
         updateTokenRequest(refreshToken)
           .then(res => {
             if (res && res.success) {
               setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+              setCookie("refreshToken", res.refreshToken);
               dispatch({
                 type: ORDER_CHECKOUT_REQUEST
               });

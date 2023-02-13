@@ -157,14 +157,12 @@ export const getUserInfo = () => {
           user: res.user
         });
       } else {
-        dispatch({
-          type: GET_USER_FAILED
-        });
         const refreshToken = getCookie("refreshToken");
         updateTokenRequest(refreshToken)
           .then(res => {
             if (res && res.success) {
               setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+              setCookie("refreshToken", res.refreshToken);
               dispatch({
                 type: GET_USER_REQUEST
               });
@@ -229,14 +227,12 @@ export const updateUserInfo = ({ name, email, password }) => {
           password: password
         });
       } else {
-        dispatch({
-          type: UPDATE_USER_FAILED
-        });
         const refreshToken = getCookie("refreshToken");
         updateTokenRequest(refreshToken)
           .then(res => {
             if (res && res.success) {
               setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+              setCookie("refreshToken", res.refreshToken);
               dispatch({
                 type: UPDATE_USER_REQUEST
               });
@@ -351,6 +347,7 @@ export const updateToken = () => {
       .then(res => {
         if (res && res.success) {
           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+          setCookie("refreshToken", res.refreshToken);
           dispatch({
             type: UPDATE_TOKEN_SUCCESS,
           });
