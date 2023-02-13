@@ -1,50 +1,54 @@
 import styles from './app-header.module.css';
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const AppHeader = () => {
 
   const { pathname } = useLocation();
 
-  const commonClassName = `ml-2 text text_type_main-default `;
+  const commonTextClassName = `ml-2 text text_type_main-default `;
+  const commonLinkClassName = `pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.header__item} `;
   const activeClassName = "text_color_primary";
-  const inactiveClassName = "text_color_inactive"
+  const inactiveClassName = "text_color_inactive";
 
   return (
     <header className={`pt-4 pb-4 ${styles.header}`}>
       <nav className={styles.menu}>
         <div className={styles.menu_section_left}>
-          <Link
+          <NavLink
             to="/"
-            className={`pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.header__item}`}
+            className={({ isActive }) => (commonLinkClassName +
+              (isActive ? activeClassName : inactiveClassName))}
           >
             <BurgerIcon type={pathname === "/" ? "primary" : "secondary"} />
-            <span className = {commonClassName + (pathname === "/" ? activeClassName : inactiveClassName) }>
+            <span className = {commonTextClassName}>
               Конструктор
             </span>
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/orders"
-            className={`pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.header__item}`}
+            className={({ isActive }) => (commonLinkClassName +
+              (isActive ? activeClassName : inactiveClassName))}
           >
             <ListIcon type={pathname === "/orders" ? "primary" : "secondary"} />
-            <span className = {commonClassName + (pathname === "/orders" ? activeClassName : inactiveClassName) }>
+            <span className = {commonTextClassName}>
               Лента заказов
             </span>
-          </Link>
+          </NavLink>
         </div>
         <div className={`${styles.header__logo}`}>
           <Logo />
         </div>
-        <Link
+        <NavLink
           to="/profile"
-          className={`pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.header__item} ${styles.menu_section_right}`}
+          className={({ isActive }) => (commonLinkClassName + `${styles.menu_section_right} ` +
+            (isActive ? activeClassName : inactiveClassName))}
         >
-          <ProfileIcon type={pathname === "/profile" ? "primary" : "secondary"} />
-          <span className = {commonClassName + (pathname === "/profile" ? activeClassName : inactiveClassName) }>
+          <ProfileIcon type={pathname === "/profile" || pathname === "/profile/orders" ? "primary" : "secondary"} />
+          <span className = {commonTextClassName}>
             Личный кабинет
           </span>
-        </Link>
+        </NavLink>
       </nav>
     </header>
   )
