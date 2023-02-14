@@ -13,14 +13,13 @@ const ProtectedRouteElement = ({isUserAllowed}) => {
 
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     if (!user && refreshToken) {
       dispatch(getUserInfo());
     }
   }, [refreshToken, user, dispatch]);
 
-  if (!user && isUserAllowed) {
+  if (!user && !refreshToken && isUserAllowed) {
     return (
       <Navigate to="/login" state={{prev : pathname}}/>
     )
