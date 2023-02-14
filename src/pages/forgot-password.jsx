@@ -1,5 +1,5 @@
 import styles from './form.module.css';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,7 +11,6 @@ export const ForgotPasswordPage = () => {
   const navigate = useNavigate();
 
   const [form, setValue] = useState({});
-  const { pathname } = useLocation();
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });

@@ -12,7 +12,7 @@ export const NotFound404 = () => {
       <p className={`${styles.text} text text_type_main-medium text_color_inactive mb-6`}>Вы попали в неизведанную галактику</p>
       <p className={`${styles.text} text text_type_main-medium text_color_inactive mb-8`}>Пожалуйста, вернитесь на орбитальную станцию</p>
       <Button htmlType="button" type="primary" size="large"
-        onClick={() => { console.log(1);navigate(-1)}}>
+        onClick={() => { navigate(-1) }}>
           Вернуться
         </Button>
     </div>

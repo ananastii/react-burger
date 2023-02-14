@@ -11,9 +11,7 @@ const IngredientDetails = () => {
   const location = useLocation();
 
   const ingredient = location.state?.ingredient;
-  console.log(ingredient);
   const { ingredients } = useSelector(getAllIngredients);
-  console.log(ingredients);
   const { id } = useParams();
   const [ingredientData, setIngredientData] = useState(ingredient);
 

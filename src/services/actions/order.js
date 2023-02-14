@@ -15,7 +15,6 @@ export const checkoutOrder = (ingredients) => {
     .then(res => res.json())
     .then(res => {
       if (res.success) {
-        console.log(res);
         dispatch({
           type: ORDER_CHECKOUT_SUCCESS,
           id: res.order
