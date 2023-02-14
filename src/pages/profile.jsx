@@ -7,17 +7,20 @@ import { logoutUser } from '../services/actions/auth';
 import { getCookie } from '../utils/cookies';
 import { getUser } from '../utils/store';
 import { updateUserInfo } from '../services/actions/auth';
+import { useEffect } from 'react';
+import { getPassword } from '../utils/store';
 
 export const ProfilePage = () => {
 
   const description = "В этом разделе вы можете изменить свои персональные данные";
 
   const userInfo = useSelector(getUser);
+  const password = useSelector(getPassword);
 
   const formInit = {
     name: userInfo?.name || '',
     email: userInfo?.email || '',
-    password: "******"
+    password: password || '******'
   };
 
   const [form, setForm] = useState(formInit);
@@ -26,6 +29,16 @@ export const ProfilePage = () => {
   const refreshToken = getCookie("refreshToken");
 
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (userInfo && password) {
+      setForm({name: userInfo.name, email: userInfo.email, password: password});
+    } else if (userInfo) {
+      setForm({name: userInfo.name, email: userInfo.email, password: "******"});
+    } else
+      setForm(formInit);
+  }, [userInfo, password]);
 
   const onChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -51,7 +64,7 @@ export const ProfilePage = () => {
   return (
     <div className={`${styles.container}`}>
       <ProfileTab description={description} onLogout={handleLogout}/>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      {userInfo && (<form onSubmit={handleSubmit} className={styles.form}>
         <Input
           type="text"
           placeholder="Имя"
@@ -85,7 +98,7 @@ export const ProfilePage = () => {
             Сохранить
           </Button>
         </div>}
-      </form>
+      </form>)}
     </div>
   )
 }
