@@ -1,10 +1,34 @@
 import styles from './ingredient-details.module.css';
-import { ingredientPropTypes } from '../../utils/types';
+import { useLocation, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllIngredients } from '../../utils/store';
+import { getIngredients } from '../../services/actions/ingredients';
 
-function IngredientDetails ({ingredientData}) {
+const IngredientDetails = () => {
+
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const ingredient = location.state?.ingredient;
+  const { ingredients } = useSelector(getAllIngredients);
+  const { id } = useParams();
+  const [ingredientData, setIngredientData] = useState(ingredient);
+
+  useEffect(() => {
+    if (ingredient) {
+      setIngredientData(ingredient);
+    } else if (ingredients.length) {
+       setIngredientData(ingredients.find(item => item.info._id === id).info)
+    } else {
+      dispatch(getIngredients());
+    }
+  }, [dispatch, id, ingredient, ingredients]);
+
 
   return (
-    <div>
+    ingredientData &&
+    (<div>
       <h2 className="mt-10 pt-3 pl-10 pr-10 text text_type_main-large">Детали ингредиента</h2>
       <div className={`${styles.properties} ml-25 mr-25 pb-15`}>
         <img className={`${styles.img} ml-5 mr-5`} src={ingredientData.image} alt={ingredientData.name}></img>
@@ -30,12 +54,8 @@ function IngredientDetails ({ingredientData}) {
           </li>
         </ul>
       </div>
-    </div>
+    </div>)
   )
-};
-
-IngredientDetails.propTypes = {
-  ingredientData: ingredientPropTypes.isRequired
 };
 
 export default IngredientDetails;

@@ -1,0 +1,8 @@
+.wrapper {
+  max-width: 640px;
+  margin: auto;
+}
+
+.wrapper h2 {
+  text-align: center;
+}

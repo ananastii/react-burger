@@ -1,9 +1,9 @@
 import styles from './ingredient.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropTypes } from '../../utils/types';
-import { openIngredientDetails } from '../../services/actions/ingredient-details';
 
 const Ingredient = ({data}) => {
 
@@ -11,11 +11,14 @@ const Ingredient = ({data}) => {
 
   const count = useSelector(getIngredientsCount);
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const openModal = (ingredient) => {
-    dispatch(openIngredientDetails(ingredient));
-  };
+  const handleIngredientClick = (ingredient) => {
+    navigate(`/ingredients/${data._id}`, {
+      state: { ingredient: ingredient, background: location},
+    });
+  }
 
   const [{opacity}, dragRef] = useDrag({
     type: 'ingredient',
@@ -26,9 +29,9 @@ const Ingredient = ({data}) => {
   });
 
   return (
-    <li className={styles.item} ref={dragRef} style={{ ...styles, opacity}}>
+    <li className={styles.item} ref={dragRef} style={{ ...styles, opacity}} onClick={() => handleIngredientClick(data)}>
       {count > 0 && <Counter className="counter-card" count={count} size="default" />}
-      <img className={`${styles.img} ml-4 mr-4 mb-1`} src={data.image} alt={data.name} onClick={() => openModal(data)}></img>
+      <img className={`${styles.img} ml-4 mr-4 mb-1`} src={data.image} alt={data.name}></img>
       <div className={`${styles.price} mb-1 text text_type_main-default`}>
         <span className="mr-2 text text_type_digits-default">{data.price}</span>
         <CurrencyIcon type="primary" />

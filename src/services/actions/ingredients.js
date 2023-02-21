@@ -1,4 +1,4 @@
-import { getIngredientsData } from '../../utils/api';
+import { getIngredientsRequest } from '../../utils/api';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_ITEMS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_ITEMS_SUCCESS';
@@ -7,12 +7,12 @@ export const INCREASE_COUNT = 'INCREASE_COUNT';
 export const DECREASE_COUNT = 'DECREASE_COUNT';
 export const SET_COUNT = 'SET_COUNT';
 
-export const getIngredients = (url) => {
+export const getIngredients = () => {
   return function(dispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST
     });
-    getIngredientsData(url)
+    getIngredientsRequest()
     .then(res => {
       if (res && res.success) {
         dispatch({

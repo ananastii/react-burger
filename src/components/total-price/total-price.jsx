@@ -1,15 +1,19 @@
 import styles from './total-price.module.css';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from "react-router-dom";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { urlOrder } from '../../utils/constants';
 import { checkoutOrder } from '../../services/actions/order';
-import { getConstructor } from '../../utils/utils';
+import { getConstructor, getUser } from '../../utils/store';
 
 const TotalPrice = ({price}) => {
 
   const { fillings, bun } = useSelector(getConstructor);
+  const user = useSelector(getUser);
+  const { pathname } = useLocation;
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOrderClick = () => {
     const orderIngredients = [
@@ -17,7 +21,9 @@ const TotalPrice = ({price}) => {
       ...fillings?.map(item => item.info._id),
       bun?.info._id,
     ]
-    dispatch(checkoutOrder(urlOrder, orderIngredients));
+    user ? dispatch(checkoutOrder(orderIngredients))
+      : navigate("/login", {state: {prev: pathname}});
+    ;
   };
 
 

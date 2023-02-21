@@ -1,44 +1,56 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import styles from './app.module.css';
-import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import { getIngredients} from '../../services/actions/ingredients';
-import { urlIngredients } from '../../utils/constants';
-import { getAllIngredients } from '../../utils/utils';
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import Layout from '../layout/layout';
+import ProtectedRouteElement from "../protected-route/protected-route";
+
+import Modal from "../modal/modal";
+import {
+  ConstructorPage,
+  LoginPage,
+  RegisterPage,
+  ResetPasswordPage,
+  ForgotPasswordPage,
+  NotFound404,
+  ProfilePage,
+  IngredientPage,
+  OrdersPage
+} from '../../pages'
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const App = () => {
 
-  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(getAllIngredients);
-
-  useEffect(() => {
-    dispatch(getIngredients(urlIngredients));
-  }, [dispatch]);
+  const background = location.state?.background;
 
   return (
     <>
-      <AppHeader />
-        {ingredientsFailed && (
-          <>
-            <h1>Хьюстон, у нас ошибка!</h1>
-            <h2>Попробуйте обновить страницу или зайдите позднее</h2>
-          </>)}
-        {!ingredientsRequest &&
-          !ingredientsFailed &&
-          ingredients.length &&
-          (
-          <main className={styles.main}>
-            <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients/>
-              <BurgerConstructor/>
-            </DndProvider>
-          </main>
-        )}
+      <Routes location={background || location}>
+        <Route element={<Layout/>}>
+          <Route path="/" element={<ConstructorPage />}/>
+          <Route element={<ProtectedRouteElement isUserAllowed={true}/>}>
+            <Route path="/profile" element={<ProfilePage />}/>
+            <Route path="/profile/orders" element={<OrdersPage />}/>
+          </Route>
+          <Route element={<ProtectedRouteElement isUserAllowed={false}/>}>
+            <Route path="/login"  element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          </Route>
+          <Route path="/ingredients/:id" element={<IngredientPage />} />
+          <Route path="*" element={<NotFound404 />}/>
+        </Route>
+      </Routes>
+      <Routes>
+          { background && (
+          <Route path="/ingredients/:id" element={
+            <Modal onClose={() => { navigate(-1)}}>
+              <IngredientDetails />
+            </Modal>
+          }/>
+          )}
+      </Routes>
     </>
   )
 };

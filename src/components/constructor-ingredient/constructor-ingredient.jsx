@@ -7,7 +7,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { deleteIngredient, moveIngredient } from '../../services/actions/burger-constructor';
 import { decreaseCount } from '../../services/actions/ingredients';
 import { ingredientPropTypes } from '../../utils/types';
-import { getFillings } from '../../utils/utils';
+import { getFillings } from '../../utils/store';
 
 const ConstructorIngredient = ({data, index}) => {
 
@@ -35,7 +35,7 @@ const ConstructorIngredient = ({data, index}) => {
     }),
   });
 
-  const [spec, dropRef] = useDrop({
+  const [, dropRef] = useDrop({
     accept: 'item',
     hover: (item, monitor) => {
         const dragIndex = item.index
