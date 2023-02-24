@@ -12,7 +12,8 @@ import {
   NotFound404,
   ProfilePage,
   IngredientPage,
-  OrdersPage
+  OrdersPage,
+  FeedPage,
 } from '../../pages'
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
@@ -28,6 +29,7 @@ const App = () => {
       <Routes location={background || location}>
         <Route element={<Layout/>}>
           <Route path="/" element={<ConstructorPage />}/>
+          <Route path="/feed" element={<FeedPage />}/>
           <Route element={<ProtectedRouteElement isUserAllowed={true}/>}>
             <Route path="/profile" element={<ProfilePage />}/>
             <Route path="/profile/orders" element={<OrdersPage />}/>

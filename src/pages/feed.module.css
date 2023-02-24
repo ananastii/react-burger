@@ -1,0 +1,50 @@
+.list {
+  max-height: calc(100vh - 88px - 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+.list__scroll {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, minmax(min-content, max-content));
+  gap: 0 36px;
+  grid-template-areas:
+    "ready queue"
+    "overall overall"
+    "today today";
+}
+
+
+.quequ {
+  grid-area: queue;
+}
+
+.overall {
+  grid-area: overall;
+}
+
+.today {
+  grid-area: today;
+}
+
+.ready {
+  grid-area: ready;
+}
+
+.progress {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  max-height: calc(24px + 8px) * 10 - 8px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}

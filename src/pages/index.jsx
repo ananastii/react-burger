@@ -7,6 +7,7 @@ import { ForgotPasswordPage } from './forgot-password';
 import { NotFound404 } from './not-found-404';
 import { IngredientPage } from './ingredient';
 import { OrdersPage } from './orders';
+import { FeedPage } from './feed';
 
 export { ConstructorPage,
   ProfilePage,
@@ -16,5 +17,6 @@ export { ConstructorPage,
   ForgotPasswordPage,
   NotFound404,
   IngredientPage,
-  OrdersPage
+  OrdersPage,
+  FeedPage,
 };

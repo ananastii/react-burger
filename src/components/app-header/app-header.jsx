@@ -26,11 +26,11 @@ const AppHeader = () => {
             </span>
           </NavLink>
           <NavLink
-            to="/orders"
+            to="/feed"
             className={({ isActive }) => (commonLinkClassName +
               (isActive ? activeClassName : inactiveClassName))}
           >
-            <ListIcon type={pathname === "/orders" ? "primary" : "secondary"} />
+            <ListIcon type={pathname === "/feed" ? "primary" : "secondary"} />
             <span className = {commonTextClassName}>
               Лента заказов
             </span>
