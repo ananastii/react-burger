@@ -5,10 +5,10 @@ import ProfileTab from "../components/profile-tab/profile-tab";
 import { Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { logoutUser } from '../services/actions/auth';
 import { getCookie } from '../utils/cookies';
-import { getUser } from '../utils/store';
+import { getUser } from '../utils/state';
 import { updateUserInfo } from '../services/actions/auth';
 import { useEffect } from 'react';
-import { getPassword } from '../utils/store';
+import { getPassword } from '../utils/state';
 
 export const ProfilePage = () => {
 

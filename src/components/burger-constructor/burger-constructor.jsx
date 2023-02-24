@@ -10,8 +10,8 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
 import { resetOrderId } from '../../services/actions/order';
 import { increaseCount, setCount } from '../../services/actions/ingredients';
-import { getAllIngredients } from '../../utils/store';
-import { getConstructor, getOrder } from '../../utils/store';
+import { getAllIngredients } from '../../utils/state';
+import { getConstructor, getOrder } from '../../utils/state';
 
 const BurgerConstructor = () =>  {
 

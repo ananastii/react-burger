@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import IngredientsTab from '../ingredients-tab/ingredients-tab';
 import IngredientsList from '../ingredients-list/ingredients-list';
-import { getAllIngredients } from '../../utils/store';
+import { getAllIngredients } from '../../utils/state';
 
 const BurgerIngredients = () => {
 

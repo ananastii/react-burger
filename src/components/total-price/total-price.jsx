@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from "react-router-dom";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { checkoutOrder } from '../../services/actions/order';
-import { getConstructor, getUser } from '../../utils/store';
+import { getConstructor, getUser } from '../../utils/state';
 
 const TotalPrice = ({price}) => {
 

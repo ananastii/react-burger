@@ -2,7 +2,7 @@ import styles from './ingredient-details.module.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllIngredients } from '../../utils/store';
+import { getAllIngredients } from '../../utils/state';
 import { getIngredients } from '../../services/actions/ingredients';
 
 const IngredientDetails = () => {

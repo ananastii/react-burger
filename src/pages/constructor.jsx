@@ -7,7 +7,7 @@ import TwoColumns from '../components/two-columns/two-columns';
 import BurgerIngredients from '../components/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../components/burger-constructor/burger-constructor';
 import { getIngredients} from '../services/actions/ingredients';
-import { getAllIngredients } from '../utils/store';
+import { getAllIngredients } from '../utils/state';
 
 export const ConstructorPage = () => {
 
