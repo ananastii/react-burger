@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Layout from '../layout/layout';
 import ProtectedRouteElement from "../protected-route/protected-route";
+import { getIngredients } from '../../services/actions/ingredients';
 
 import Modal from "../modal/modal";
 import {
@@ -21,8 +24,13 @@ const App = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const background = location.state?.background;
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <>

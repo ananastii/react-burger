@@ -1,13 +1,11 @@
 import styles from './ingredient-details.module.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getAllIngredients } from '../../utils/state';
-import { getIngredients } from '../../services/actions/ingredients';
 
 const IngredientDetails = () => {
 
-  const dispatch = useDispatch();
   const location = useLocation();
 
   const ingredient = location.state?.ingredient;
@@ -18,12 +16,10 @@ const IngredientDetails = () => {
   useEffect(() => {
     if (ingredient) {
       setIngredientData(ingredient);
-    } else if (ingredients.length) {
-       setIngredientData(ingredients.find(item => item.info._id === id).info)
     } else {
-      dispatch(getIngredients());
+      setIngredientData(ingredients.find(item => item?.info._id === id)?.info)
     }
-  }, [dispatch, id, ingredient, ingredients]);
+  }, [ id, ingredient, ingredients]);
 
 
   return (
