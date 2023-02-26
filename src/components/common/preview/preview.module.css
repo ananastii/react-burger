@@ -15,6 +15,49 @@
   background-size: cover;
   border-radius: 100%;
   background-color: #131316;
-  height: 56px;
-  flex-grow: 1;
+  height: 60px;
+  width: 60px;
+}
+
+.last_shown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  z-index: 1;
+}
+
+.container:nth-child(1) {
+  z-index: 6;
+}
+
+.container:nth-child(2) {
+  z-index: 5;
+  transform: translateX(-16px);
+}
+
+.container:nth-child(3) {
+  z-index: 4;
+  transform: translateX(calc(-16px*2));
+}
+
+.container:nth-child(4) {
+  z-index: 3;
+  transform: translateX(calc(-16px*3));
+}
+
+.container:nth-child(5) {
+  z-index: 2;
+  transform: translateX(calc(-16px*4));
+}
+
+.container:nth-child(6) {
+  z-index: 1;
+  transform: translateX(calc(-16px*5));
+  position: relative;
 }
