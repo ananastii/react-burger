@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDrop } from "react-dnd";
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
-import OrderDetails from '../order-details/order-details';
+import OrderConfirm from '../order-confirm/order-confirm';
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import TotalPrice from '../total-price/total-price';
 import { useDispatch, useSelector } from 'react-redux';
@@ -97,7 +97,7 @@ const BurgerConstructor = () =>  {
       </section>
       {openModal &&
         <Modal onClose={() => closeOrderModal(orderFailed)}>
-          <OrderDetails orderId={orderId}/>
+          <OrderConfirm orderId={orderId}/>
         </Modal>
       }
     </>
