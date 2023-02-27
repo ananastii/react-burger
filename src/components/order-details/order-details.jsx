@@ -11,6 +11,7 @@ import {
   WS_CONNECTION_START,
   WS_CONNECTION_CLOSED,
 } from '../../services/actions/ws';
+import { wsReducer } from '../../services/reducers/ws';
 
 const OrderDetails = () => {
 
@@ -36,9 +37,13 @@ const OrderDetails = () => {
   }, [dispatch, isDataSet, isConnected]);
 
   const order = useMemo(
-    () => location.state?.order ||
-      feed.find((order) => order._id === id)
-      || 'not found',
+    () => {
+      if (feed.length) {
+        return location.state?.order ||
+          feed.find((order) => order._id === id)
+          || "not found"
+      }
+    },
     [feed, id]
   );
 
@@ -74,7 +79,7 @@ const OrderDetails = () => {
 
   return (
     <div className={`${styles.container} p-10`}>
-      {order !== "not found" && ingredientsInfo && totalPrice &&
+      {order && order !== "not found" && ingredientsInfo && totalPrice &&
         (<>
           <h2 className={`${styles.id} text text_type_digits-default mb-10`}>{`#${order.number}`}</h2>
           <h3 className={`text text_type_main-medium pb-2`}>{order.name}</h3>
@@ -95,7 +100,7 @@ const OrderDetails = () => {
             <Price price={totalPrice}/>
           </div>
         </>)}
-      {order === "not found" &&
+      { order === "not found" &&
         (<p className={`${styles.error} text text_type_main-large text_color_inactive mb-6`}>
           Информация о заказе находится вне бургерной галактики
         </p>)
