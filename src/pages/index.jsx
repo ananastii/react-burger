@@ -8,6 +8,7 @@ import { NotFound404 } from './not-found-404';
 import { IngredientPage } from './ingredient';
 import { OrdersPage } from './orders';
 import { FeedPage } from './feed';
+import { OrderPage } from './order';
 
 export { ConstructorPage,
   ProfilePage,
@@ -19,4 +20,5 @@ export { ConstructorPage,
   IngredientPage,
   OrdersPage,
   FeedPage,
+  OrderPage,
 };

@@ -17,8 +17,10 @@ import {
   IngredientPage,
   OrdersPage,
   FeedPage,
+  OrderPage,
 } from '../../pages'
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderDetails from '../order-details/order-details';
 
 const App = () => {
 
@@ -38,6 +40,7 @@ const App = () => {
         <Route element={<Layout/>}>
           <Route path="/" element={<ConstructorPage />}/>
           <Route path="/feed" element={<FeedPage />}/>
+          <Route path="/feed/:id" element={<OrderPage />}/>
           <Route element={<ProtectedRouteElement isUserAllowed={true}/>}>
             <Route path="/profile" element={<ProfilePage />}/>
             <Route path="/profile/orders" element={<OrdersPage />}/>
@@ -61,6 +64,16 @@ const App = () => {
           }/>
           )}
       </Routes>
+      <Routes>
+          { background && (
+          <Route path="/feed/:id" element={
+            <Modal onClose={() => { navigate(-1)}}>
+              <OrderDetails />
+            </Modal>
+          }/>
+          )}
+      </Routes>
+
     </>
   )
 };

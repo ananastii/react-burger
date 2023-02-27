@@ -4,14 +4,14 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
 }
 
+.order:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .meta {
   display: flex;
   justify-content: space-between;
-}
-
-.title {
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .ingredients {
@@ -24,3 +24,34 @@
 .row {
   display: flex;
 }
+
+.preview:nth-child(1) {
+  z-index: 6;
+}
+
+.preview:nth-child(2) {
+  z-index: 5;
+  transform: translateX(-16px);
+}
+
+.preview:nth-child(3) {
+  z-index: 4;
+  transform: translateX(calc(-16px*2));
+}
+
+.preview:nth-child(4) {
+  z-index: 3;
+  transform: translateX(calc(-16px*3));
+}
+
+.preview:nth-child(5) {
+  z-index: 2;
+  transform: translateX(calc(-16px*4));
+}
+
+.preview:nth-child(6) {
+  z-index: 1;
+  transform: translateX(calc(-16px*5));
+  position: relative;
+}
+

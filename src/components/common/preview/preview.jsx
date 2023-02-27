@@ -8,14 +8,14 @@ const Preview = ({image, residue}) => {
   };
 
   return (
-    <li className={`${styles.container}`}>
+    <div className={`${styles.container}`}>
       <div style={imgBack} className={styles.image}></div>
       { residue > 0 && (
         <div className={`${styles.last_shown} text text_type_main-default`}>
           {`+${residue}`}
         </div>
       )}
-    </li>
+    </div>
   )
 }
 
