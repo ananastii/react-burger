@@ -1,6 +1,6 @@
 import styles from './order-details.module.css';
 import { useLocation, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFeed, getWsConnected, getAllIngredients } from '../../utils/state';
 import Preview from '../common/preview/preview';
@@ -21,17 +21,9 @@ const OrderDetails = () => {
   const { id } = useParams();
 
   const feed  = useSelector(getFeed);
-
-  const isDataSet = location.state ? true : false;
-
   const allIngredients = useSelector(getAllIngredients).ingredients;
 
-  const [order, setOrder] = useState(location.state?.order || null);
-  const [ingredientsInfo, setIngredientsInfo] = useState(location.state?.ingredientsInfo)
-  const [totalPrice, setTotalPrice] = useState(location.state?.totalPrice);
-  const [ingredientsQty, setIngredientsQty] = useState([]);
-  const [statusDecoration, setStatusDecoration] = useState();
-  const [isExpired, setIsExpired] = useState(false);
+  const isDataSet = location.state ? true : false;
 
   useEffect(() => {
     if (!isDataSet && !isConnected) {
@@ -43,41 +35,46 @@ const OrderDetails = () => {
     }
   }, [dispatch, isDataSet, isConnected]);
 
-  useEffect(() => {
-    if (!isDataSet) {
-      setOrder((feed?.find((item) => item._id === id) || null));
-    };
-  }, [id, feed]);
+  const order = useMemo(
+    () => location.state?.order ||
+      feed.find((order) => order._id === id)
+      || 'not found',
+    [feed, id]
+  );
 
-  useEffect(() => {
-    if (!isDataSet) {
-      setIngredientsInfo(allIngredients?.filter(
-          (item) => order?.ingredients.includes(item.info._id))
-        .map((item) => item.info))
-    };
+  const ingredientsInfo = useMemo(
+    () => allIngredients?.filter(
+      (item) => order?.ingredients?.includes(item.info._id))
+    .map((item) => item.info)
+    || null,
+    [allIngredients, order?.ingredients]
+  );
 
-  }, [allIngredients, order]);
+  const totalPrice = useMemo(
+    () => location.state?.totalPrice ||
+      ingredientsInfo?.reduce((price, item) => price + item.price, 0)
+      || 0,
+    [ingredientsInfo]
+  );
 
-  useEffect(() => {
-    if (!isDataSet) {
-      setTotalPrice(ingredientsInfo?.reduce((price, item) => price + item.price, 0));
-    };
-
-  }, [ingredientsInfo]);
-
-  useEffect(() => {
-    setIngredientsQty(
-      order?.ingredients.reduce((total, cur) => {
-        total[cur] = (total[cur] || 0) + 1;
-        return total
+  const ingredientsQty = useMemo(
+    () => order?.ingredients?.reduce((total, cur) => {
+      total[cur] = (total[cur] || 0) + 1;
+      return total
       }, {})
-    );
-    setStatusDecoration(styleStatus(order?.status));
-  }, [order]);
+      || null,
+    [order]
+  );
+
+  const statusDecoration = useMemo(
+    () => styleStatus(order?.status)
+      ||  {class: '', text: ''},
+    [order]
+  );
 
   return (
     <div className={`${styles.container} p-10`}>
-      {order && ingredientsInfo && statusDecoration && totalPrice &&
+      {order !== "not found" && ingredientsInfo && totalPrice &&
         (<>
           <h2 className={`${styles.id} text text_type_digits-default mb-10`}>{`#${order.number}`}</h2>
           <h3 className={`text text_type_main-medium pb-2`}>{order.name}</h3>
@@ -98,7 +95,7 @@ const OrderDetails = () => {
             <Price price={totalPrice}/>
           </div>
         </>)}
-      {isExpired &&
+      {order === "not found" &&
         (<p className={`${styles.error} text text_type_main-large text_color_inactive mb-6`}>
           Информация о заказе находится вне бургерной галактики
         </p>)
