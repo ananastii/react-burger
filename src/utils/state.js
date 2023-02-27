@@ -9,3 +9,4 @@ export const getPwdSubmitSuccess = (store) => store.auth.pwdSubmitSuccess;
 export const getFeed = (store) => store.feed.orders;
 export const getTotal = (store) => store.feed.total;
 export const getTotalToday = (store) => store.feed.totalToday;
+export const getWsConnected = (store) => store.feed.wsConnected;
