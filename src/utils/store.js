@@ -8,7 +8,12 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
-  WS_GET_MESSAGE
+  WS_GET_MESSAGE,
+  USER_WS_CONNECTION_CLOSED,
+  USER_WS_CONNECTION_ERROR,
+  USER_WS_CONNECTION_START,
+  USER_WS_CONNECTION_SUCCESS,
+  USER_WS_GET_MESSAGE
 } from '../services/actions/ws';
 
 const wsActions = {
@@ -19,6 +24,14 @@ const wsActions = {
   onMessage: WS_GET_MESSAGE,
 };
 
+const userWsActions = {
+  wsInit: USER_WS_CONNECTION_START,
+  onOpen: USER_WS_CONNECTION_SUCCESS,
+  onClose: USER_WS_CONNECTION_CLOSED,
+  onError: USER_WS_CONNECTION_ERROR,
+  onMessage: USER_WS_GET_MESSAGE,
+};
+
 const composeEnhancers =
 typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
@@ -26,6 +39,7 @@ typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 
 const enhancer = composeEnhancers(
   applyMiddleware(thunk),
-  applyMiddleware(socketMiddleware(urlWsFeed, wsActions)));
+  applyMiddleware(socketMiddleware(urlWsFeed, wsActions)),
+  applyMiddleware(socketMiddleware("wss://norma.nomoreparties.space/orders", userWsActions)));
 
 export const store = createStore(rootReducer, enhancer);

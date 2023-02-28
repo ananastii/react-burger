@@ -44,6 +44,10 @@ export const socketMiddleware = (wsUrl, wsActions) => {
             console.log(`Соединение закрыто некорректно с кодом -  ${event.code}`);
           };
         };
+
+        if (type === onClose && socket.readyState === 1) {
+          socket.close(1000, "закрыта страница");
+        }
       }
 
       next(action);
