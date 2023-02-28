@@ -1,5 +1,5 @@
 import styles from './order-details.module.css';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, matchPath } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFeed, getWsConnected, getAllIngredients } from '../../utils/state';
@@ -10,6 +10,8 @@ import { styleStatus } from '../../utils/components';
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_CLOSED,
+  USER_WS_CONNECTION_START,
+  USER_WS_CONNECTION_CLOSED,
 } from '../../services/actions/ws';
 
 const OrderDetails = () => {
@@ -25,13 +27,25 @@ const OrderDetails = () => {
 
   const isDataSet = location.state ? true : false;
 
+  const isUserOrder = matchPath({ path: "/profile/orders/:id" }, location.pathname);
+
   useEffect(() => {
-    if (!isDataSet && !isConnected) {
-      dispatch({ type: WS_CONNECTION_START });
-    };
-    if(!isDataSet && isConnected) {
-      return () =>
-      dispatch({ type: WS_CONNECTION_CLOSED });
+    if ( isUserOrder) {
+      if (!isDataSet && !isConnected) {
+        dispatch({ type: USER_WS_CONNECTION_START });
+      };
+      if(!isDataSet && isConnected) {
+        return () =>
+        dispatch({ type: USER_WS_CONNECTION_CLOSED });
+      }
+    } else {
+      if (!isDataSet && !isConnected) {
+        dispatch({ type: WS_CONNECTION_START });
+      };
+      if(!isDataSet && isConnected) {
+        return () =>
+        dispatch({ type: WS_CONNECTION_CLOSED });
+      }
     }
   }, [dispatch, isDataSet, isConnected]);
 

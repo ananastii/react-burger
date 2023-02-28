@@ -5,7 +5,7 @@ import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-component
 import { getAllIngredients } from '../../utils/state';
 import Price from '../common/price/price';
 import Preview from '../common/preview/preview';
-import { useNavigate, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { styleStatus } from '../../utils/components';
 
 const FeedOrder = ({order, showStatus}) => {
@@ -30,7 +30,7 @@ const FeedOrder = ({order, showStatus}) => {
   );
 
   const handleOrderClick = () => {
-    navigate(`/feed/${order._id}`, {
+    navigate(`${location.pathname}/${order._id}`, {
       state: {
         order: order,
         totalPrice: totalPrice,

@@ -44,6 +44,7 @@ const App = () => {
           <Route element={<ProtectedRouteElement isUserAllowed={true}/>}>
             <Route path="/profile" element={<ProfilePage />}/>
             <Route path="/profile/orders" element={<OrdersPage />}/>
+            <Route path="/profile/orders/:id" element={<OrderPage />} />
           </Route>
           <Route element={<ProtectedRouteElement isUserAllowed={false}/>}>
             <Route path="/login"  element={<LoginPage />} />
@@ -55,25 +56,27 @@ const App = () => {
           <Route path="*" element={<NotFound404 />}/>
         </Route>
       </Routes>
-      <Routes>
-          { background && (
+      { background && (
+        <Routes>
           <Route path="/ingredients/:id" element={
             <Modal onClose={() => { navigate(-1)}}>
               <IngredientDetails />
             </Modal>
           }/>
-          )}
-      </Routes>
-      <Routes>
-          { background && (
           <Route path="/feed/:id" element={
             <Modal onClose={() => { navigate(-1)}}>
               <OrderDetails />
             </Modal>
           }/>
-          )}
-      </Routes>
-
+          <Route element={<ProtectedRouteElement isUserAllowed={true}/>}>
+            <Route path="profile/orders/:id" element={
+              <Modal onClose={() => { navigate(-1)}}>
+                <OrderDetails />
+              </Modal>
+            }/>
+          </Route>
+        </Routes>
+      )}
     </>
   )
 };
