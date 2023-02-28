@@ -1,10 +1,19 @@
 import styles from './app-header.module.css';
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, matchPath } from "react-router-dom";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const AppHeader = () => {
 
   const { pathname } = useLocation();
+
+  const isProfileActive = matchPath({ path: "profile" }, pathname) ||
+    matchPath({ path: "profile/orders" }, pathname) ||
+    matchPath({ path: "profile/orders/:id" }, pathname);
+
+  const isFeedActive = matchPath({ path: "feed" }, pathname) ||
+    matchPath({ path: "feed/:id" }, pathname);
+
+  const isHomeActive = matchPath({ path: "/" }, pathname);
 
   const commonTextClassName = `ml-2 text text_type_main-default `;
   const commonLinkClassName = `pt-4 pr-5 pb-4 pl-5 mr-2 ${styles.header__item} `;
@@ -20,7 +29,7 @@ const AppHeader = () => {
             className={({ isActive }) => (commonLinkClassName +
               (isActive ? activeClassName : inactiveClassName))}
           >
-            <BurgerIcon type={pathname === "/" ? "primary" : "secondary"} />
+            <BurgerIcon type={isHomeActive ? "primary" : "secondary"} />
             <span className = {commonTextClassName}>
               Конструктор
             </span>
@@ -30,7 +39,7 @@ const AppHeader = () => {
             className={({ isActive }) => (commonLinkClassName +
               (isActive ? activeClassName : inactiveClassName))}
           >
-            <ListIcon type={pathname === "/feed" ? "primary" : "secondary"} />
+            <ListIcon type={isFeedActive ? "primary" : "secondary"} />
             <span className = {commonTextClassName}>
               Лента заказов
             </span>
@@ -44,7 +53,7 @@ const AppHeader = () => {
           className={({ isActive }) => (commonLinkClassName + `${styles.menu_section_right} ` +
             (isActive ? activeClassName : inactiveClassName))}
         >
-          <ProfileIcon type={pathname === "/profile" || pathname === "/profile/orders" ? "primary" : "secondary"} />
+          <ProfileIcon type={isProfileActive ? "primary" : "secondary"} />
           <span className = {commonTextClassName}>
             Личный кабинет
           </span>
