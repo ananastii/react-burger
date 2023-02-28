@@ -8,6 +8,7 @@ import {
 } from '../services/actions/ws';
 import FeedOrder from '../components/feed-order/feed-order';
 import { getFeed, getTotal, getTotalToday } from '../utils/state';
+import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 export const FeedPage = () => {
@@ -45,32 +46,28 @@ export const FeedPage = () => {
     </section>
     <section className={`${styles.info} pl-15 pr-5 mt-25`}>
       <div className={`${styles.done} mb-15`}>
-        {ordersStatus.doneOrders.length > 0 && (
-          <>
-            <h3 className={`text text_type_main-medium pb-6`}>Готовы:</h3>
-            <ul className={`${styles.col}`}>
-              {ordersStatus.doneOrders.slice(0,20).map((id, index) =>
+        <h3 className={`text text_type_main-medium pb-6`}>Готовы:</h3>
+        <ul className={`${styles.col}`}>
+          { ordersStatus.doneOrders.length > 0 ?
+              ordersStatus.doneOrders.slice(0,20).map((id, index) =>
                 <li className={`text text_type_digits-default text_color_success`} key={index}>
                   {id}
-                </li>)
-              }
-            </ul>
-          </>
-        )}
+                </li>) :
+            <p className={`${styles.placeholder} text text_type_main-default text_color_inactive`}><BurgerIcon type="secondary"/> скоро будут</p>
+          }
+        </ul>
       </div>
       <div className={`${styles.pending} mb-15`}>
-      {ordersStatus.pendingOrders.length > 0 && (
-        <>
-          <h3 className={`text text_type_main-medium pb-6`}>В работе:</h3>
-            <ul className={`${styles.col}`}>
-            {ordersStatus.pendingOrders.slice(0,20).map((id, index) =>
+        <h3 className={`text text_type_main-medium pb-6`}>В работе:</h3>
+          <ul className={`${styles.col}`}>
+          { ordersStatus.pendingOrders.length > 0 ?
+            ordersStatus.pendingOrders.slice(0,20).map((id, index) =>
               <li className={`text text_type_digits-default text_color_default`} key={index}>
                 {id}
-              </li>)
-            }
-          </ul>
-        </>
-      )}
+              </li>) :
+            <p className={`${styles.placeholder} text text_type_main-default text_color_inactive`}><BurgerIcon type="secondary"/> ждём заказы</p>
+          }
+        </ul>
       </div>
       <div className={`${styles.overall} mb-15`}>
         <h3 className={`text text_type_main-medium pb-6`}>Выполнено за все время:</h3>
