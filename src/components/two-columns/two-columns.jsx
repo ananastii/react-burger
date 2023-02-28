@@ -1,4 +1,5 @@
-import styles from './two-columns.module.css'
+import styles from './two-columns.module.css';
+import PropTypes from 'prop-types';
 
 const TwoColumns = ({ children }) => {
 
@@ -9,6 +10,10 @@ const TwoColumns = ({ children }) => {
       </main>
     </>
   )
+};
+
+TwoColumns.propTypes = {
+  children: PropTypes.node.isRequired
 };
 
 export default TwoColumns;

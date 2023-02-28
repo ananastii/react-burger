@@ -1,4 +1,5 @@
 import styles from './preview.module.css';
+import PropTypes from 'prop-types';
 
 const Preview = ({image, residue}) => {
 
@@ -17,6 +18,11 @@ const Preview = ({image, residue}) => {
       )}
     </div>
   )
-}
+};
+
+Preview.propTypes = {
+  image: PropTypes.string.isRequired,
+  residue: PropTypes.number
+};
 
 export default Preview;

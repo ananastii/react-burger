@@ -1,5 +1,6 @@
 import styles from './price.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 const Price = ({price, count}) => {
 
@@ -12,6 +13,11 @@ const Price = ({price, count}) => {
       <CurrencyIcon type="primary" />
     </div>
   )
-}
+};
+
+Price.propTypes = {
+  price: PropTypes.number.isRequired,
+  count: PropTypes.number
+};
 
 export default Price;

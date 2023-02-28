@@ -14,7 +14,9 @@ const IngredientsList = ({title, data, id, refHeader}) => (
 IngredientsList.propTypes = {
   title: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  refHeader: PropTypes.shape(
+    { current: PropTypes.instanceOf(Element) }).isRequired
 };
 
 export default IngredientsList;

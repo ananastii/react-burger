@@ -62,6 +62,7 @@ const ProfileTab = ({description, extraClass}) => {
 
 ProfileTab.propTypes = {
   description: PropTypes.string.isRequired,
+  extraClass: PropTypes.string
 };
 
 

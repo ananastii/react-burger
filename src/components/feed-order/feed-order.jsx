@@ -7,6 +7,8 @@ import Price from '../common/price/price';
 import Preview from '../common/preview/preview';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { styleStatus } from '../../utils/components';
+import PropTypes from 'prop-types';
+import { orderPropTypes } from '../../utils/types';
 
 const FeedOrder = ({order, showStatus}) => {
 
@@ -63,6 +65,11 @@ const FeedOrder = ({order, showStatus}) => {
       </div>
     </li>
   )
+};
+
+FeedOrder.propTypes = {
+  order: orderPropTypes.isRequired,
+  showStatus: PropTypes.bool
 };
 
 export default FeedOrder;
