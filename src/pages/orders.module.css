@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.list {
+  max-height: calc(100vh - 148px - 40px);
+  display: flex;
+  flex-direction: column;
+}
+
+.list__scroll {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}

@@ -6,6 +6,7 @@ import { getAllIngredients } from '../../utils/state';
 import Price from '../common/price/price';
 import Preview from '../common/preview/preview';
 import { useNavigate, useLocation } from 'react-router';
+import { styleStatus } from '../../utils/components';
 
 const FeedOrder = ({order, showStatus}) => {
 
@@ -21,6 +22,12 @@ const FeedOrder = ({order, showStatus}) => {
   const totalPrice = useMemo(() =>
     ingredientsInfo.reduce((price, item) => price + item.price, 0)
   , [ingredientsInfo]);
+
+  const statusDecoration = useMemo(
+    () => styleStatus(order?.status)
+      ||  {class: '', text: ''},
+    [order]
+  );
 
   const handleOrderClick = () => {
     navigate(`/feed/${order._id}`, {
@@ -39,9 +46,9 @@ const FeedOrder = ({order, showStatus}) => {
         <p className={`text text_type_digits-default`}>{`#${order.number}`}</p>
         <FormattedDate date={new Date(order.createdAt)} className="text text_type_main-default text_color_inactive"/>
       </div>
-      <h3 className={`text text_type_main-medium pb-6`}>{order.name}</h3>
+      <h3 className={`text text_type_main-medium`}>{order.name}</h3>
       { showStatus && (
-        <p></p>
+        <p className={`${statusDecoration.class} text text_type_main-default mt-2`}>{statusDecoration.text}</p>
       )}
       <div className={`${styles.ingredients} mt-6`}>
         <ul className={`${styles.row}`}>

@@ -11,7 +11,6 @@ import {
   WS_CONNECTION_START,
   WS_CONNECTION_CLOSED,
 } from '../../services/actions/ws';
-import { wsReducer } from '../../services/reducers/ws';
 
 const OrderDetails = () => {
 
