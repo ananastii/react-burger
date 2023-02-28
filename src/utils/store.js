@@ -2,7 +2,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from '../services/reducers';
 import { socketMiddleware } from '../services/middleware/socketMiddleware';
-import { urlWsFeed } from './constants';
+import { urlWsFeed, urlWsOrders } from './constants';
 import {
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_ERROR,
@@ -40,6 +40,6 @@ typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 const enhancer = composeEnhancers(
   applyMiddleware(thunk),
   applyMiddleware(socketMiddleware(urlWsFeed, wsActions)),
-  applyMiddleware(socketMiddleware("wss://norma.nomoreparties.space/orders", userWsActions)));
+  applyMiddleware(socketMiddleware(urlWsOrders, userWsActions)));
 
 export const store = createStore(rootReducer, enhancer);

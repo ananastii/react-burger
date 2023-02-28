@@ -11,6 +11,7 @@ const urlPwdReset = "https://norma.nomoreparties.space/api/password-reset";
 const urlPwdSubmit = "https://norma.nomoreparties.space/api/password-reset/reset";
 
 const urlWsFeed = "wss://norma.nomoreparties.space/orders/all";
+const urlWsOrders = "wss://norma.nomoreparties.space/orders/";
 
 export {
   urlIngredients,
@@ -24,4 +25,5 @@ export {
   urlPwdReset,
   urlPwdSubmit,
   urlWsFeed,
+  urlWsOrders
 };
