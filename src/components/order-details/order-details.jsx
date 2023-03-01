@@ -68,20 +68,21 @@ const OrderDetails = () => {
     [allIngredients, order?.ingredients]
   );
 
-  const totalPrice = useMemo(
-    () => location.state?.totalPrice ||
-      ingredientsInfo?.reduce((price, item) => price + item.price, 0)
-      || 0,
-    [ingredientsInfo]
-  );
-
   const ingredientsQty = useMemo(
-    () => order?.ingredients?.reduce((total, cur) => {
-      total[cur] = (total[cur] || 0) + 1;
-      return total
+    () => location.state?.ingredientsQty ||
+      order?.ingredients?.reduce((total, cur) => {
+        total[cur] = (total[cur] || 0) + 1;
+        return total
       }, {})
       || null,
     [order]
+  );
+
+  const totalPrice = useMemo(
+    () => location.state?.totalPrice ||
+      ingredientsInfo?.reduce((price, item) => price + item.price*ingredientsQty[item._id], 0)
+      || 0,
+    [ingredientsInfo, ingredientsQty]
   );
 
   const statusDecoration = useMemo(
@@ -92,7 +93,7 @@ const OrderDetails = () => {
 
   return (
     <div className={`${styles.container} p-10`}>
-      {order && order !== "not found" && ingredientsInfo && totalPrice &&
+      {order && order !== "not found" && ingredientsInfo && totalPrice && ingredientsInfo &&
         (<>
           <h2 className={`${styles.id} text text_type_digits-default mb-10`}>{`#${order.number}`}</h2>
           <h3 className={`text text_type_main-medium pb-2`}>{order.name}</h3>

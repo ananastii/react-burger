@@ -21,9 +21,17 @@ const FeedOrder = ({order, showStatus}) => {
     .filter((item) => order.ingredients.includes(item.info._id))
     .map((item) => item.info);
 
+  const ingredientsQty = useMemo(
+    () => order?.ingredients?.reduce((total, cur) => {
+      total[cur] = (total[cur] || 0) + 1;
+      return total
+      }, {}),
+    [order]
+  );
+
   const totalPrice = useMemo(() =>
-    ingredientsInfo.reduce((price, item) => price + item.price, 0)
-  , [ingredientsInfo]);
+    ingredientsInfo.reduce((price, item) => price + item.price*ingredientsQty[item._id], 0)
+  , [ingredientsInfo, ingredientsQty]);
 
   const statusDecoration = useMemo(
     () => styleStatus(order?.status)
@@ -37,6 +45,7 @@ const FeedOrder = ({order, showStatus}) => {
         order: order,
         totalPrice: totalPrice,
         ingredientsInfo: ingredientsInfo,
+        ingredientsQty: ingredientsQty,
         background: location
       }
     });
