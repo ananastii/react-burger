@@ -2,52 +2,66 @@ import styles from './order-details.module.css';
 import { useLocation, useParams, matchPath } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFeed, getWsConnected, getAllIngredients } from '../../utils/state';
 import Preview from '../common/preview/preview';
 import Price from '../common/price/price';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { styleStatus } from '../../utils/components';
 import {
+  getOrdersFeed,
+  getWsFeedConnected,
+  getOrdersUser,
+  getWsOrdersConnected,
+  getAllIngredients
+} from '../../utils/state';
+import {
   WS_CONNECTION_START,
   WS_CONNECTION_CLOSED,
+} from '../../services/actions/ws';
+import {
   USER_WS_CONNECTION_START,
   USER_WS_CONNECTION_CLOSED,
-} from '../../services/actions/ws';
+} from '../../services/actions/wsUser';
 
 const OrderDetails = () => {
 
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const isConnected = useSelector(getWsConnected);
   const { id } = useParams();
 
-  const feed  = useSelector(getFeed);
+  const isUserOrder = matchPath({ path: "/profile/orders/:id" }, location.pathname);
+
+  const isFeedConnected = useSelector(getWsFeedConnected);
+  const isOrdersConnected = useSelector(getWsOrdersConnected);
+
+  const ordersAll = useSelector(getOrdersFeed);
+  const ordersUser = useSelector(getOrdersUser);
+
+  const feed = isUserOrder ? ordersUser : ordersAll;
+
   const allIngredients = useSelector(getAllIngredients).ingredients;
 
   const isDataSet = location.state ? true : false;
 
-  const isUserOrder = matchPath({ path: "/profile/orders/:id" }, location.pathname);
-
   useEffect(() => {
     if ( isUserOrder) {
-      if (!isDataSet && !isConnected) {
+      if (!isDataSet && !isFeedConnected) {
         dispatch({ type: USER_WS_CONNECTION_START });
       };
-      if(!isDataSet && isConnected) {
+      if(!isDataSet && isFeedConnected) {
         return () =>
         dispatch({ type: USER_WS_CONNECTION_CLOSED });
       }
     } else {
-      if (!isDataSet && !isConnected) {
+      if (!isDataSet && !isOrdersConnected) {
         dispatch({ type: WS_CONNECTION_START });
       };
-      if(!isDataSet && isConnected) {
+      if(!isDataSet && isOrdersConnected) {
         return () =>
         dispatch({ type: WS_CONNECTION_CLOSED });
       }
     }
-  }, [dispatch, isDataSet, isConnected]);
+  }, [dispatch, isDataSet, isUserOrder, isFeedConnected, isOrdersConnected]);
 
   const order = useMemo(
     () => {

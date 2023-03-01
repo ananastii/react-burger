@@ -4,17 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   USER_WS_CONNECTION_START,
   USER_WS_CONNECTION_CLOSED,
-} from '../services/actions/ws';
+} from '../services/actions/wsUser';
 import ProfileTab from '../components/profile-tab/profile-tab';
 import FeedOrder from '../components/feed-order/feed-order';
-import { getFeed } from '../utils/state';
+import { getOrdersUser } from '../utils/state';
 
 export const OrdersPage = () => {
 
   const dispatch = useDispatch();
 
   const description = "В этом разделе вы можете просмотреть свою историю заказов";
-  const feed = useSelector(getFeed);
+  const feed = useSelector(getOrdersUser);
 
 
   useEffect(() => {

@@ -7,7 +7,7 @@ import {
   WS_CONNECTION_CLOSED,
 } from '../services/actions/ws';
 import FeedOrder from '../components/feed-order/feed-order';
-import { getFeed, getTotal, getTotalToday } from '../utils/state';
+import { getOrdersFeed, getTotal, getTotalToday } from '../utils/state';
 import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
@@ -15,7 +15,7 @@ export const FeedPage = () => {
 
   const dispatch = useDispatch();
 
-  const feed = useSelector(getFeed);
+  const feed = useSelector(getOrdersFeed);
   const total = useSelector(getTotal);
   const totalToday = useSelector(getTotalToday);
 

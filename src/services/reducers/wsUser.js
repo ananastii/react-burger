@@ -1,9 +1,9 @@
 import {
-  WS_CONNECTION_SUCCESS,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_CLOSED,
-  WS_GET_MESSAGE,
-} from "../actions/ws";
+  USER_WS_CONNECTION_CLOSED,
+  USER_WS_CONNECTION_ERROR,
+  USER_WS_CONNECTION_SUCCESS,
+  USER_WS_GET_MESSAGE
+} from "../actions/wsUser";
 
 const initialState = {
   wsConnected: false,
@@ -12,27 +12,27 @@ const initialState = {
   totalToday: null,
 };
 
-export const wsReducer = (state = initialState, action) => {
+export const wsUserReducer = (state = initialState, action) => {
   switch (action.type) {
-    case WS_CONNECTION_SUCCESS:
+    case USER_WS_CONNECTION_SUCCESS:
       return {
         ...state,
         wsConnected: true
       };
 
-    case WS_CONNECTION_ERROR:
+    case USER_WS_CONNECTION_ERROR:
       return {
         ...state,
         wsConnected: false,
       };
 
-    case WS_CONNECTION_CLOSED:
+    case USER_WS_CONNECTION_CLOSED:
       return {
         ...state,
-        wsConnected: false,
+        wsConnected: false
       };
 
-    case WS_GET_MESSAGE:
+    case USER_WS_GET_MESSAGE:
       return {
         ...state,
         orders: action.payload.orders,
