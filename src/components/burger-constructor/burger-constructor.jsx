@@ -39,7 +39,7 @@ const BurgerConstructor = () =>  {
   });
 
   // orderCheckout
-  const { orderId, openModal, orderFailed } = useSelector(getOrder);
+  const { openModal, orderFailed } = useSelector(getOrder);
 
   const closeOrderModal = (orderFailed) => {
     dispatch(resetOrderId());
@@ -97,7 +97,7 @@ const BurgerConstructor = () =>  {
       </section>
       {openModal &&
         <Modal onClose={() => closeOrderModal(orderFailed)}>
-          <OrderConfirm orderId={orderId}/>
+          <OrderConfirm />
         </Modal>
       }
     </>

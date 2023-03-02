@@ -17,7 +17,8 @@ export const orderReducer = (state = initialState, action) => {
     case ORDER_CHECKOUT_REQUEST: {
       return {
         ...state,
-        orderRequest: true
+        orderRequest: true,
+        openModal: true
       }
     }
     case ORDER_CHECKOUT_SUCCESS: {
@@ -26,7 +27,6 @@ export const orderReducer = (state = initialState, action) => {
         orderRequest: false,
         orderFailed: false,
         orderId: action.id.number,
-        openModal: true
       }
     }
     case ORDER_CHECKOUT_FAILED: {
@@ -34,14 +34,11 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderRequest: false,
         orderFailed: true,
-        openModal: true
       }
     }
     case CLOSE_ORDER: {
       return {
-        ...state,
-        orderId: null,
-        openModal: false
+        state: initialState
       }
     }
     default: {
