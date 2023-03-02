@@ -31,14 +31,18 @@ export const OrdersPage = () => {
     <>
       <div className={`${styles.container}`}>
         <ProfileTab description={description} extraClass={`pt-30`}/>
-        {orders && (<section className={`${styles.list} pt-10`}>
+        <section className={`${styles.list} pt-10`}>
+        { orders?.length > 0 ? (
           <ul className={`${styles.list__scroll} ${styles.feed} custom-scroll mt-5`}>
             {orders.map(order => (
                 <FeedOrder order={order} key={order._id} showStatus={true}/>
               )
             )}
           </ul>
-        </section>)}
+        ) : (
+          <p className={`text text_type_main-medium text_color_inactive pt-20`}>У вас пока нет заказов</p>
+        )}
+        </section>
       </div>
   </>
   )
