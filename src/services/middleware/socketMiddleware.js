@@ -1,4 +1,5 @@
 import { getCookie } from '../../utils/cookies';
+import { updateTokenRequest } from '../../utils/api';
 
 export const socketMiddleware = (wsUrl, wsActions) => {
   return store => {
@@ -8,18 +9,21 @@ export const socketMiddleware = (wsUrl, wsActions) => {
 
       const { dispatch } = store;
       const { type, payload } = action;
-      const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
-      const accessToken = getCookie("accessToken");
+      const { wsInit, onOpen, onClose, onError, onMessage, wsInitUser } = wsActions;
 
       if (type === wsInit) {
-        socket = accessToken ?
-          new WebSocket(`${wsUrl}?token=${accessToken}`) :
-          new WebSocket(`${wsUrl}`);
+        socket = new WebSocket(`${wsUrl}`);
+      }
+
+      if (type === wsInitUser) {
+        const accessToken = getCookie("accessToken");
+        socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
       }
 
       if (socket) {
         socket.onopen = event => {
           dispatch({ type: onOpen, payload: event });
+          console.log(`Соединение открыто`);
         };
 
         socket.onerror = event => {
@@ -32,14 +36,28 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
 
+          if (!success) {
+            if (restParsedData.message === "Invalid or missing token") {
+              socket.close(1000, "некорректный токен, попытка обновления")
+              updateTokenRequest(getCookie("refreshToken"))
+                .then(() => {
+                  dispatch({ type: wsInitUser });
+                })
+                .catch((e) => {
+                  console.log(`Ошибка при попытке подключения: ${e}`);
+                });
+            } else {
+              socket.close(1000, "некорректный токен")
+            }
+          }
+
           dispatch({ type: onMessage, payload: restParsedData });
         };
 
         socket.onclose = event => {
           dispatch({ type: onClose, payload: event });
           if (event.wasClean){
-            console.log(`Соединение закрыто корректно c кодом ${event.code}`);
-            console.log(`Причина закрытия - ${event.reason}`)
+            console.log(`Соединение закрыто корректно c кодом ${event.code} по причине - ${event.reason}`);
           } else {
             console.log(`Соединение закрыто некорректно с кодом -  ${event.code}`);
           };

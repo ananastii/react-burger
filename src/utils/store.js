@@ -28,7 +28,7 @@ const wsActions = {
 };
 
 const userWsActions = {
-  wsInit: USER_WS_CONNECTION_START,
+  wsInitUser: USER_WS_CONNECTION_START,
   onOpen: USER_WS_CONNECTION_SUCCESS,
   onClose: USER_WS_CONNECTION_CLOSED,
   onError: USER_WS_CONNECTION_ERROR,
