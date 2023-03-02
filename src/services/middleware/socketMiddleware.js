@@ -1,4 +1,4 @@
-import { getCookie } from '../../utils/cookies';
+import { getCookie, setCookie } from '../../utils/cookies';
 import { updateTokenRequest } from '../../utils/api';
 
 export const socketMiddleware = (wsUrl, wsActions) => {
@@ -40,14 +40,17 @@ export const socketMiddleware = (wsUrl, wsActions) => {
             if (restParsedData.message === "Invalid or missing token") {
               socket.close(1000, "некорректный токен, попытка обновления")
               updateTokenRequest(getCookie("refreshToken"))
-                .then(() => {
+              .then(res => {
+                if (res && res.success) {
+                  setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+                  setCookie("refreshToken", res.refreshToken);
                   dispatch({ type: wsInitUser });
-                })
+                }})
                 .catch((e) => {
                   console.log(`Ошибка при попытке подключения: ${e}`);
                 });
             } else {
-              socket.close(1000, "некорректный токен")
+              dispatch({ type: onError });
             }
           }
 
