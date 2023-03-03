@@ -14,7 +14,7 @@ export const OrdersPage = () => {
   const dispatch = useDispatch();
 
   const description = "В этом разделе вы можете просмотреть свою историю заказов";
-  const feed = useSelector(getOrdersUser);
+  const orders = useSelector(getOrdersUser);
 
 
   useEffect(() => {
@@ -23,10 +23,6 @@ export const OrdersPage = () => {
       dispatch({ type: USER_WS_CONNECTION_CLOSED });
   }, [dispatch]);
 
-  const orders = useMemo(() => feed?.reverse(),
-    [feed]
-  )
-
   return (
     <>
       <div className={`${styles.container}`}>
@@ -34,7 +30,7 @@ export const OrdersPage = () => {
         <section className={`${styles.list} pt-10`}>
         { orders?.length > 0 ? (
           <ul className={`${styles.list__scroll} ${styles.feed} custom-scroll mt-5`}>
-            {orders.map(order => (
+            {[...orders].reverse().map(order => (
                 <FeedOrder order={order} key={order._id} showStatus={true}/>
               )
             )}
