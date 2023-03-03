@@ -61,7 +61,7 @@ const OrderDetails = () => {
         dispatch({ type: WS_CONNECTION_CLOSED });
       }
     }
-  }, [dispatch, isDataSet, isUserOrder, isFeedConnected, isOrdersConnected]);
+  }, [dispatch, isFeedConnected, isOrdersConnected]);
 
   const order = useMemo(
     () => {
