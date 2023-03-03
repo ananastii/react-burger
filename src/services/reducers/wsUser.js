@@ -28,6 +28,7 @@ export const wsUserReducer = (state = initialState, action) => {
 
     case USER_WS_CONNECTION_CLOSED:
       return {
+        ...state,
         state: initialState
       };
 
