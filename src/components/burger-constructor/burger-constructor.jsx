@@ -27,14 +27,16 @@ const BurgerConstructor = () =>  {
     }),
     drop(ingredient) {
       dispatch(addIngredient(ingredient));
-      ingredient.type !== 'bun' ?
-        dispatch(increaseCount(ingredient._id, 1)) :
-        dispatch(setCount(ingredient._id, 2)) &&
-          ingredients.forEach(item =>
-            item.info.type === 'bun' &&
-            item.info._id !== ingredient._id &&
-            dispatch(setCount(item.info._id, 0))
-          );
+      if (ingredient.type !== 'bun' ) {
+        dispatch(increaseCount(ingredient._id, 1))
+      } else {
+        dispatch(setCount(ingredient._id, 2));
+        ingredients.forEach(item =>
+          item.info.type === 'bun' &&
+          item.info._id !== ingredient._id &&
+          dispatch(setCount(item.info._id, 0))
+        );
+      }
     }
   });
 
