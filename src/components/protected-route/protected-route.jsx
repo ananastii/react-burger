@@ -1,9 +1,10 @@
 import { Outlet, Navigate, useLocation} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from '../../utils/store';
+import { getUser } from '../../utils/state';
 import { getUserInfo } from '../../services/actions/auth';
 import { getCookie } from '../../utils/cookies';
+import PropTypes from 'prop-types';
 
 const ProtectedRouteElement = ({isUserAllowed}) => {
 
@@ -34,6 +35,10 @@ const ProtectedRouteElement = ({isUserAllowed}) => {
   return (
     <Outlet/>
   )
-}
+};
+
+ProtectedRouteElement.propTypes = {
+  isUserAllowed: PropTypes.bool.isRequired
+};
 
 export default ProtectedRouteElement;

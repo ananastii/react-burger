@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from "react-router-dom";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { checkoutOrder } from '../../services/actions/order';
-import { getConstructor, getUser } from '../../utils/store';
+import { getConstructor, getUser } from '../../utils/state';
+import { getCookie } from '../../utils/cookies';
 
 const TotalPrice = ({price}) => {
 
   const { fillings, bun } = useSelector(getConstructor);
   const user = useSelector(getUser);
   const { pathname } = useLocation;
+  const refreshToken = getCookie("refreshToken");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const TotalPrice = ({price}) => {
       ...fillings?.map(item => item.info._id),
       bun?.info._id,
     ]
-    user ? dispatch(checkoutOrder(orderIngredients))
+    user || refreshToken ? dispatch(checkoutOrder(orderIngredients))
       : navigate("/login", {state: {prev: pathname}});
     ;
   };

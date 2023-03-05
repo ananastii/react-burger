@@ -3,12 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import ProfileTab from "../components/profile-tab/profile-tab";
 import { Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { logoutUser } from '../services/actions/auth';
-import { getCookie } from '../utils/cookies';
-import { getUser } from '../utils/store';
+import { getUser } from '../utils/state';
 import { updateUserInfo } from '../services/actions/auth';
 import { useEffect } from 'react';
-import { getPassword } from '../utils/store';
+import { getPassword } from '../utils/state';
 
 export const ProfilePage = () => {
 
@@ -25,8 +23,6 @@ export const ProfilePage = () => {
 
   const [form, setForm] = useState(formInit);
   const [isChanged, setIsChanged] = useState(false);
-
-  const refreshToken = getCookie("refreshToken");
 
   const dispatch = useDispatch();
 
@@ -56,15 +52,10 @@ export const ProfilePage = () => {
     setIsChanged(false);
   };
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    dispatch(logoutUser(refreshToken));
-  }
-
   return (
     <div className={`${styles.container}`}>
-      <ProfileTab description={description} onLogout={handleLogout}/>
-      {userInfo && (<form onSubmit={handleSubmit} className={styles.form}>
+      <ProfileTab description={description} extraClass={`pt-30`}/>
+      {userInfo && (<form onSubmit={handleSubmit} className={`${styles.form} pt-30`}>
         <Input
           type="text"
           placeholder="Имя"

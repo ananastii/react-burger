@@ -1,11 +1,11 @@
-import styles from './ingredient.module.css';
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
+import Wrapper from '../components/common/wrapper/wrapper';
 
 export const IngredientPage = () => {
 
   return (
-    <div className={`${styles.wrapper} pt-30`}>
+    <Wrapper>
       <IngredientDetails />
-    </div>
+    </Wrapper>
   )
 }

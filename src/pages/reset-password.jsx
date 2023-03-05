@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { submitPassword } from '../services/actions/auth';
-import { getPwdResetRequested, getPwdSubmitSuccess } from '../utils/store';
+import { getPwdResetRequested, getPwdSubmitSuccess } from '../utils/state';
 
 export const ResetPasswordPage = () => {
 

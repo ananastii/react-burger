@@ -1,0 +1,33 @@
+.container {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  background-position: center;
+  background-size: cover;
+  border-radius: 100%;
+  background-color: #131316;
+  height: 60px;
+  width: 60px;
+}
+
+.last_shown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  z-index: 1;
+}

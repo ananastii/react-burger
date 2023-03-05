@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useDrop } from "react-dnd";
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
-import OrderDetails from '../order-details/order-details';
+import OrderConfirm from '../order-confirm/order-confirm';
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import TotalPrice from '../total-price/total-price';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +10,8 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
 import { resetOrderId } from '../../services/actions/order';
 import { increaseCount, setCount } from '../../services/actions/ingredients';
-import { getAllIngredients } from '../../utils/store';
-import { getConstructor, getOrder } from '../../utils/store';
+import { getAllIngredients } from '../../utils/state';
+import { getConstructor, getOrder } from '../../utils/state';
 
 const BurgerConstructor = () =>  {
 
@@ -27,19 +27,21 @@ const BurgerConstructor = () =>  {
     }),
     drop(ingredient) {
       dispatch(addIngredient(ingredient));
-      ingredient.type !== 'bun' ?
-        dispatch(increaseCount(ingredient._id, 1)) :
-        dispatch(setCount(ingredient._id, 2)) &&
-          ingredients.forEach(item =>
-            item.info.type === 'bun' &&
-            item.info._id !== ingredient._id &&
-            dispatch(setCount(item.info._id, 0))
-          );
+      if (ingredient.type !== 'bun' ) {
+        dispatch(increaseCount(ingredient._id, 1))
+      } else {
+        dispatch(setCount(ingredient._id, 2));
+        ingredients.forEach(item =>
+          item.info.type === 'bun' &&
+          item.info._id !== ingredient._id &&
+          dispatch(setCount(item.info._id, 0))
+        );
+      }
     }
   });
 
   // orderCheckout
-  const { orderId, openModal, orderFailed } = useSelector(getOrder);
+  const { openModal, orderFailed } = useSelector(getOrder);
 
   const closeOrderModal = (orderFailed) => {
     dispatch(resetOrderId());
@@ -97,7 +99,7 @@ const BurgerConstructor = () =>  {
       </section>
       {openModal &&
         <Modal onClose={() => closeOrderModal(orderFailed)}>
-          <OrderDetails orderId={orderId}/>
+          <OrderConfirm />
         </Modal>
       }
     </>

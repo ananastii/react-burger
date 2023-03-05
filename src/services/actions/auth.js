@@ -337,14 +337,15 @@ export const submitPassword = ({ password, token }) => {
   };
 }
 
-export const updateToken = () => {
-  return function(dispatch) {
+export async function updateToken(dispatch) {
+
     dispatch({
       type: UPDATE_TOKEN_REQUEST
     });
     const refreshToken = getCookie("refreshToken");
-    updateTokenRequest(refreshToken)
+    await updateTokenRequest(refreshToken)
       .then(res => {
+        console.log(res);
         if (res && res.success) {
           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
           setCookie("refreshToken", res.refreshToken);
@@ -364,5 +365,5 @@ export const updateToken = () => {
       });
       console.log(`Ошибка при обновлении accessToken: ${e}`);
     });
-  };
+
 }

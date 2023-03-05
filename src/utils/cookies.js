@@ -6,7 +6,8 @@ export function getCookie(name) {
 }
 
 export function setCookie(name, value, props) {
-  props = props || {};
+
+  props =  { path: "/", ...props };
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
     const d = new Date();
@@ -16,6 +17,7 @@ export function setCookie(name, value, props) {
   if (exp && exp.toUTCString) {
     props.expires = exp.toUTCString();
   }
+  name = encodeURIComponent(name);
   value = encodeURIComponent(value);
   let updatedCookie = name + '=' + value;
   for (const propName in props) {
@@ -29,5 +31,5 @@ export function setCookie(name, value, props) {
 }
 
 export function deleteCookie(name) {
-  setCookie(name, null, { expires: -1 });
+  setCookie(name, null, { expires: -1 , path: "/"});
 }

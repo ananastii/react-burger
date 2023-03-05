@@ -2,8 +2,9 @@ import styles from './ingredient.module.css';
 import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropTypes } from '../../utils/types';
+import Price from '../common/price/price';
 
 const Ingredient = ({data}) => {
 
@@ -32,10 +33,7 @@ const Ingredient = ({data}) => {
     <li className={styles.item} ref={dragRef} style={{ ...styles, opacity}} onClick={() => handleIngredientClick(data)}>
       {count > 0 && <Counter className="counter-card" count={count} size="default" />}
       <img className={`${styles.img} ml-4 mr-4 mb-1`} src={data.image} alt={data.name}></img>
-      <div className={`${styles.price} mb-1 text text_type_main-default`}>
-        <span className="mr-2 text text_type_digits-default">{data.price}</span>
-        <CurrencyIcon type="primary" />
-      </div>
+      <Price price={data.price}/>
       <p className={`${styles.name} text text_type_main-default`}>
         {data.name}
       </p>
