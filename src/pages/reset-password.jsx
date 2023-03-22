@@ -1,17 +1,18 @@
 import styles from './form.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { submitPassword } from '../services/actions/auth';
 import { getPwdResetRequested, getPwdSubmitSuccess } from '../utils/state';
+import { useForm } from '../hooks/useForm';
 
 export const ResetPasswordPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [form, setValue] = useState({ });
+  const {values, handleChange} = useForm({});
   const pwdResetRequested = useSelector(getPwdResetRequested);
   const pwdSubmitSuccess = useSelector(getPwdSubmitSuccess);
 
@@ -22,15 +23,10 @@ export const ResetPasswordPage = () => {
 
   }, [navigate, pwdResetRequested]);
 
-
-  const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
-
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(submitPassword(form));
+    dispatch(submitPassword(values));
   }
 
   useEffect(() => {
@@ -45,18 +41,18 @@ export const ResetPasswordPage = () => {
         Восстановление пароля
       </h1>
       <PasswordInput
-        value={form?.password || ''}
+        value={values?.password || ''}
         name="password"
         placeholder="Введите новый пароль"
-        onChange={onChange}
+        onChange={handleChange}
         extraClass="mb-6"
       />
       <Input
-        value={form?.token || ''}
+        value={values?.token || ''}
         type="text"
         name="token"
         placeholder="Введите код из письма"
-        onChange={onChange}
+        onChange={handleChange}
         extraClass="mb-6"
       />
       <Button htmlType="submit" size="medium" extraClass={styles.btn}>
