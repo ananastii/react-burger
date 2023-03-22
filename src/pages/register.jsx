@@ -1,24 +1,20 @@
 import styles from './form.module.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { registerUser } from '../services/actions/auth';
+import { useForm } from '../hooks/useForm';
 
 export const RegisterPage = () => {
 
-  const [form, setValue] = useState({});
-
-  const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const {values, handleChange} = useForm({});
 
   const dispatch = useDispatch();
 
   const submitRegistration = (e) => {
     e.preventDefault();
 
-    dispatch(registerUser(form));
+    dispatch(registerUser(values));
   }
 
   return (
@@ -27,23 +23,23 @@ export const RegisterPage = () => {
         Регистрация
       </h1>
       <Input
-        value={form?.name || ''}
+        value={values?.name || ''}
         name="name"
         placeholder="Имя"
         type="text"
-        onChange={onChange}
+        onChange={handleChange}
         extraClass="mb-6"
       />
       <EmailInput
-        value={form?.email || ''}
+        value={values?.email || ''}
         name="email"
-        onChange={onChange}
+        onChange={handleChange}
         extraClass="mb-6"
       />
       <PasswordInput
-        value={form?.password || ''}
+        value={values?.password || ''}
         name="password"
-        onChange={onChange}
+        onChange={handleChange}
         extraClass="mb-6"
       />
       <Button htmlType="submit" size="medium" extraClass={styles.btn}>

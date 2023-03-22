@@ -1,24 +1,20 @@
 import styles from './form.module.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from '../services/actions/auth';
+import { useForm } from '../hooks/useForm';
 
 export const LoginPage = () => {
 
-  const [form, setValue] = useState({});
-
-  const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const {values, handleChange} = useForm({});
 
   const dispatch = useDispatch();
 
   const submitLogin = (e) => {
     e.preventDefault();
 
-    dispatch(loginUser(form));
+    dispatch(loginUser(values));
   }
 
   return (
@@ -27,15 +23,15 @@ export const LoginPage = () => {
         Вход
       </h1>
       <EmailInput
-        value={form?.email || ''}
+        value={values?.email || ''}
         name="email"
-        onChange={onChange}
+        onChange={handleChange}
         extraClass="mb-6"
       />
       <PasswordInput
-        value={form?.password || ''}
+        value={values?.password || ''}
         name="password"
-        onChange={onChange}
+        onChange={handleChange}
         extraClass="mb-6"
       />
       <Button htmlType="submit" size="medium" extraClass={styles.btn}>

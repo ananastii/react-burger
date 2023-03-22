@@ -7,6 +7,7 @@ import { getUser } from '../utils/state';
 import { updateUserInfo } from '../services/actions/auth';
 import { useEffect } from 'react';
 import { getPassword } from '../utils/state';
+import { useForm } from '../hooks/useForm';
 
 export const ProfilePage = () => {
 
@@ -21,7 +22,8 @@ export const ProfilePage = () => {
     password: password || '******'
   };
 
-  const [form, setForm] = useState(formInit);
+  const {values, handleChange, setValues} = useForm(formInit);
+
   const [isChanged, setIsChanged] = useState(false);
 
   const dispatch = useDispatch();
@@ -29,26 +31,26 @@ export const ProfilePage = () => {
 
   useEffect(() => {
     if (userInfo && password) {
-      setForm({name: userInfo.name, email: userInfo.email, password: password});
+      setValues({name: userInfo.name, email: userInfo.email, password: password});
     } else if (userInfo) {
-      setForm({name: userInfo.name, email: userInfo.email, password: "******"});
+      setValues({name: userInfo.name, email: userInfo.email, password: "******"});
     } else
-      setForm(formInit);
+      setValues(formInit);
   }, [userInfo, password]);
 
-  const onChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChangeProfile = e => {
+    handleChange(e);
     setIsChanged(true);
-  };
+  }
 
   const handleCancel = () => {
-    setForm(formInit);
+    setValues(formInit);
     setIsChanged(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserInfo(form))
+    dispatch(updateUserInfo(values))
     setIsChanged(false);
   };
 
@@ -59,24 +61,24 @@ export const ProfilePage = () => {
         <Input
           type="text"
           placeholder="Имя"
-          onChange={onChange}
-          value={form.name}
+          onChange={handleChangeProfile}
+          value={values.name}
           name="name"
           icon="EditIcon"
           extraClass={`mb-6 ${styles.input}`}
         />
         <EmailInput
           placeholder="Логин"
-          onChange={onChange}
-          value={form.email}
+          onChange={handleChangeProfile}
+          value={values.email}
           name="email"
           icon="EditIcon"
           extraClass={`mb-6 ${styles.input}`}
         />
         <PasswordInput
           placeholder="Пароль"
-          onChange={onChange}
-          value={form.password}
+          onChange={handleChangeProfile}
+          value={values.password}
           name="password"
           icon="EditIcon"
           extraClass={styles.input}

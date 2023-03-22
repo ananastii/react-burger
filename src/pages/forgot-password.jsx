@@ -1,25 +1,21 @@
 import styles from './form.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updatePassword } from '../services/actions/auth';
+import { useForm } from '../hooks/useForm';
 
 export const ForgotPasswordPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [form, setValue] = useState({});
-
-  const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const {values, handleChange} = useForm({});
 
   const handlePasswordUpdate = (e) => {
     e.preventDefault();
 
-    dispatch(updatePassword(form));
+    dispatch(updatePassword(values));
     navigate("/reset-password");
   }
 
@@ -30,9 +26,9 @@ export const ForgotPasswordPage = () => {
           Восстановление пароля
         </h1>
         <EmailInput
-          value={form?.email || ''}
+          value={values?.email || ''}
           name="email"
-          onChange={onChange}
+          onChange={handleChange}
           extraClass="mb-6"
         />
         <Button htmlType="submit" size="medium" extraClass={styles.btn}>
