@@ -1,5 +1,5 @@
 import styles from './profile.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../services/hooks';
 import { useState } from 'react';
 import ProfileTab from "../components/profile-tab/profile-tab";
 import { Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';

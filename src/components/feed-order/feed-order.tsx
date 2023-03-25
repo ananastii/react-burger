@@ -7,7 +7,7 @@ import Price from '../common/price/price';
 import Preview from '../common/preview/preview';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { styleStatus } from '../../utils/components';
-import { TOrder, TIngredientData, TIngredientInfo } from '../../services/types/data';
+import { TOrderData, TIngredientData, TIngredientInfo } from '../../services/types/data';
 
 type TFeedOrder = {
   order: TOrderData,

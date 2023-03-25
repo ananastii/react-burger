@@ -10,7 +10,7 @@ import { TIngredientFilling  } from '../../services/types/data';
 
 type TConstructorIngredient = {
   data: TIngredientFilling,
-  index: string
+  index: number
 }
 
 const ConstructorIngredient: FC<TConstructorIngredient> = ({data, index}) => {

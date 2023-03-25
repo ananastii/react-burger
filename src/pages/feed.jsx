@@ -1,6 +1,6 @@
 import styles from './feed.module.css';
 import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../services/hooks';
 import TwoColumns from '../components/two-columns/two-columns';
 import {
   WS_CONNECTION_START,

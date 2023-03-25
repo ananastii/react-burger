@@ -21,7 +21,7 @@ import {
   USER_WS_CONNECTION_START,
   USER_WS_CONNECTION_CLOSED,
 } from '../../services/actions/wsUser';
-import { TOrder, TIngredientData, TIngredientInfo } from '../../services/types/data';
+import { TIngredientData, TIngredientInfo, TOrderData } from '../../services/types/data';
 
 const OrderDetails = () => {
 

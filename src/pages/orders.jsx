@@ -1,6 +1,6 @@
 import styles from './orders.module.css';
-import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from '../services/hooks';
 import {
   USER_WS_CONNECTION_START,
   USER_WS_CONNECTION_CLOSED,
