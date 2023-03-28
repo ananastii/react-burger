@@ -3,14 +3,16 @@ import {
   DELETE_INGREDIENT,
   RESET_INGREDIENTS,
   MOVE_INGREDIENT
-} from '../actions/burger-constructor';
+} from '../constants/burger-constructor';
+import { TConstructorActions } from '../actions/burger-constructor';
+import { TConstructorState } from '../types/state';
 
-const initialState = {
+const initialState: TConstructorState = {
   fillings: [],
   bun: null
 };
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action: TConstructorActions) => {
   switch (action.type) {
     case ADD_INGREDIENT:
       return action.data.info.type !== 'bun' ?

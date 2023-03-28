@@ -1,33 +1,37 @@
+import { Url } from "./constants";
+import { TIngredientInfo, TOrderCheckout } from "../services/types/data";
 import {
-  urlIngredients,
-  urlOrder,
-  urlRegister,
-  urlLogin,
-  urlLogout,
-  urlUser,
-  urlPwdReset,
-  urlPwdSubmit,
-  urlToken,
-} from "./constants";
+  TUserRequest,
+  TUserResponce,
+  TTokens,
+  TPasswordResetRequest,
+  TDefaultResponce
+} from "../services/types/auth";
 
 import { getCookie } from "./cookies";
 
-const checkResponse = res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+type TResponse<T> = {
+  success: boolean;
+} & T;
+
+const checkResponse = <T>(res: Response) => {
+  return res.ok ? res.json().then(data => data as TResponse<T>) : Promise.reject(`Ошибка: ${res.status}`);
+};
 
 const getIngredientsRequest = () => {
-  return fetch(urlIngredients, {
+  return fetch(Url.Ingredients, {
     method: 'GET',
     headers: {
       authorization: '',
       'Content-Type': 'application/json'
     }
   })
-  .then(checkResponse)
+  .then(res => checkResponse<{data: TIngredientInfo[]}>(res))
 }
 
-const placeOrderRequest = (ingredients) => {
+const placeOrderRequest = (ingredients: TOrderCheckout) => {
   const accessToken = getCookie("accessToken");
-  return fetch(urlOrder, {
+  return fetch(Url.Order, {
     method: 'POST',
     headers: {
       authorization: 'Bearer ' + accessToken,
@@ -37,42 +41,42 @@ const placeOrderRequest = (ingredients) => {
   })
 };
 
-const registerRequest = (name, email, password) => {
-  return fetch(urlRegister, {
+const registerRequest = ({name, email, password}: TUserRequest) => {
+  return fetch(Url.Register, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({name, email, password})
   })
-  .then(checkResponse)
+  .then(res => checkResponse<TUserResponce>(res))
 };
 
-const loginRequest = (email, password) => {
-  return fetch(urlLogin, {
+const loginRequest = ({email, password}:  Omit<TUserRequest, 'name'>) => {
+  return fetch(Url.Login, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({email, password})
   })
-  .then(checkResponse)
+  .then(res => checkResponse<TUserResponce>(res))
 };
 
-const logoutRequest = (refreshToken) => {
-  return fetch(urlLogout, {
+const logoutRequest = (refreshToken: string) => {
+  return fetch(Url.Logout, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ token: refreshToken }),
   })
-  .then(checkResponse);
+  .then(res => checkResponse<TDefaultResponce>(res));
 };
 
 const getUserRequest = () => {
   const accessToken = getCookie("accessToken");
-  return fetch(urlUser, {
+  return fetch(Url.User, {
     method: "GET",
     headers: {
       authorization: 'Bearer ' + accessToken,
@@ -81,9 +85,9 @@ const getUserRequest = () => {
   })
 };
 
-const updateUserRequest = ({ name, email, password }) => {
+const updateUserRequest = ({ name, email, password }: TUserRequest) => {
   const accessToken = getCookie("accessToken");
-  return fetch(urlUser, {
+  return fetch(Url.User, {
     method: "PATCH",
     headers: {
       authorization: 'Bearer ' + accessToken,
@@ -93,37 +97,37 @@ const updateUserRequest = ({ name, email, password }) => {
   })
 };
 
-const pwdResetRequest = ({ email }) => {
-  return fetch(urlPwdReset, {
+const pwdResetRequest = ({ email }: Pick<TUserRequest, 'email'>) => {
+  return fetch(Url.PwdReset, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email }),
   })
-  .then(checkResponse);
+  .then(res => checkResponse<TDefaultResponce>(res));
 };
 
-const pwdSubmitRequest = ({ password, token }) => {;
-  return fetch(urlPwdSubmit, {
+const pwdSubmitRequest = ({ password, token }: TPasswordResetRequest) => {;
+  return fetch(Url.PwdSubmit, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ password, token }),
   })
-  .then(checkResponse);
+  .then(res => checkResponse<TDefaultResponce>(res));
 };
 
-const updateTokenRequest = (refreshToken) => {
-  return fetch(urlToken, {
+const updateTokenRequest = (refreshToken: string) => {
+  return fetch(Url.Token, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ token: refreshToken }),
   })
-  .then(checkResponse);
+  .then(res => checkResponse<TTokens>(res));
 
 };
 

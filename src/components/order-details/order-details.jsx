@@ -14,12 +14,12 @@ import {
   getAllIngredients
 } from '../../utils/state';
 import {
-  WS_CONNECTION_START,
-  WS_CONNECTION_CLOSED,
+  wsConnect,
+  wsClose
 } from '../../services/actions/ws';
 import {
-  USER_WS_CONNECTION_START,
-  USER_WS_CONNECTION_CLOSED,
+  wsUserConnect,
+  wsUserClose,
 } from '../../services/actions/wsUser';
 
 const OrderDetails = () => {
@@ -46,19 +46,19 @@ const OrderDetails = () => {
   useEffect(() => {
     if ( isUserOrder) {
       if (!isDataSet && !isFeedConnected) {
-        dispatch({ type: USER_WS_CONNECTION_START });
+        dispatch(wsConnect);
       };
       if(!isDataSet && isFeedConnected) {
         return () =>
-        dispatch({ type: USER_WS_CONNECTION_CLOSED });
+        dispatch(wsClose);
       }
     } else {
       if (!isDataSet && !isOrdersConnected) {
-        dispatch({ type: WS_CONNECTION_START });
+        dispatch(wsUserConnect);
       };
       if(!isDataSet && isOrdersConnected) {
         return () =>
-        dispatch({ type: WS_CONNECTION_CLOSED });
+        dispatch(wsUserClose);
       }
     }
   }, [dispatch, isFeedConnected, isOrdersConnected]);

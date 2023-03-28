@@ -5,15 +5,18 @@ import {
   INCREASE_COUNT,
   DECREASE_COUNT,
   SET_COUNT
-} from '../actions/ingredients';
+} from '../constants/ingredients';
+import { TIngredientsActions } from '../actions/ingredients';
+import { TIngredientInfo } from '../types/data';
+import { TIngredientsState } from '../types/state';
 
-const initialState = {
+const initialState: TIngredientsState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -26,7 +29,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ...state,
         ingredientsRequest: false,
         ingredientsFailed: false,
-        ingredients: action.data.map(item => ({info: item , qty: 0}))
+        ingredients: action.data.map((item: TIngredientInfo) => ({info: item , qty: 0}))
       }
     }
     case GET_INGREDIENTS_FAILED: {

@@ -3,8 +3,8 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TwoColumns from '../components/two-columns/two-columns';
 import {
-  WS_CONNECTION_START,
-  WS_CONNECTION_CLOSED,
+  wsConnect,
+  wsClose,
 } from '../services/actions/ws';
 import FeedOrder from '../components/feed-order/feed-order';
 import { getOrdersFeed, getTotal, getTotalToday } from '../utils/state';
@@ -20,9 +20,9 @@ export const FeedPage = () => {
   const totalToday = useSelector(getTotalToday);
 
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
+    dispatch(wsConnect);
     return () =>
-      dispatch({ type: WS_CONNECTION_CLOSED });
+      dispatch(wsClose);
   }, [dispatch]);
 
   const ordersStatus = useMemo(() => feed.reduce((list, order) => {

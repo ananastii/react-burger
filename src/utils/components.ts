@@ -1,4 +1,4 @@
-export const styleStatus = (status) => {
+export const styleStatus = (status: string | null) => {
   if (status === "done") {
     return {text: "Выполнен", class: `text_color_success`}
   } else if (status === "pending") {

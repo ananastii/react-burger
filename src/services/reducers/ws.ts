@@ -1,38 +1,40 @@
 import {
-  USER_WS_CONNECTION_CLOSED,
-  USER_WS_CONNECTION_ERROR,
-  USER_WS_CONNECTION_SUCCESS,
-  USER_WS_GET_MESSAGE
-} from "../actions/wsUser";
+  WS_CONNECTION_SUCCESS,
+  WS_CONNECTION_ERROR,
+  WS_CONNECTION_CLOSED,
+  WS_GET_MESSAGE,
+} from '../constants/ws';
+import { TWsActions } from '../actions/ws';
+import { TWsState } from '../types/state';
 
-const initialState = {
+const initialState: TWsState  = {
   wsConnected: false,
   orders: [],
   total: null,
   totalToday: null,
 };
 
-export const wsUserReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action: TWsActions) => {
   switch (action.type) {
-    case USER_WS_CONNECTION_SUCCESS:
+    case WS_CONNECTION_SUCCESS:
       return {
         ...state,
         wsConnected: true
       };
 
-    case USER_WS_CONNECTION_ERROR:
+    case WS_CONNECTION_ERROR:
       return {
         ...state,
         wsConnected: false,
       };
 
-    case USER_WS_CONNECTION_CLOSED:
+    case WS_CONNECTION_CLOSED:
       return {
         ...state,
         state: initialState
       };
 
-    case USER_WS_GET_MESSAGE:
+    case WS_GET_MESSAGE:
       return {
         ...state,
         orders: action.payload.orders,

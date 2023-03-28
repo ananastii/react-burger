@@ -8,8 +8,8 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILED,
-  GET_USER_REQUEST,
   GET_USER_SUCCESS,
+  GET_USER_REQUEST,
   GET_USER_FAILED,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
@@ -24,9 +24,11 @@ import {
   UPDATE_TOKEN_SUCCESS,
   UPDATE_TOKEN_FAILED,
   SET_PASSWORD
-} from '../actions/auth';
+} from '../constants/auth';
+import { TAuthActions } from '../actions/auth';
+import { TAuthState } from '../types/state';
 
-const initialState = {
+const initialState: TAuthState = {
   user: null,
   password: null,
   authRequest: false,
@@ -35,7 +37,7 @@ const initialState = {
   pwdSubmitSuccess: false,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: TAuthActions) => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return {

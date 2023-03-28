@@ -2,8 +2,8 @@ import styles from './orders.module.css';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  USER_WS_CONNECTION_START,
-  USER_WS_CONNECTION_CLOSED,
+  wsUserConnect,
+  wsUserClose,
 } from '../services/actions/wsUser';
 import ProfileTab from '../components/profile-tab/profile-tab';
 import FeedOrder from '../components/feed-order/feed-order';
@@ -18,9 +18,9 @@ export const OrdersPage = () => {
 
 
   useEffect(() => {
-    dispatch({ type: USER_WS_CONNECTION_START });
+    dispatch(wsUserConnect);
     return () =>
-      dispatch({ type: USER_WS_CONNECTION_CLOSED });
+      dispatch(wsUserClose);
   }, [dispatch]);
 
   return (

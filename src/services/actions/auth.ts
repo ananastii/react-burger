@@ -15,46 +15,176 @@ import {
   getCookie
 } from '../../utils/cookies';
 
-export const REGISTER_REQUEST = 'REGISTER_REQUEST';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAILED = 'REGISTER_FAILED';
+import {
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILED,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILED,
+  GET_USER_SUCCESS,
+  GET_USER_REQUEST,
+  GET_USER_FAILED,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILED,
+  UPDATE_PWD_REQUEST,
+  UPDATE_PWD_SUCCESS,
+  UPDATE_PWD_FAILED,
+  SUBMIT_PWD_REQUEST,
+  SUBMIT_PWD_SUCCESS,
+  SUBMIT_PWD_FAILED,
+  UPDATE_TOKEN_REQUEST,
+  UPDATE_TOKEN_SUCCESS,
+  UPDATE_TOKEN_FAILED,
+  SET_PASSWORD
+} from '../constants/auth';
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILED = 'LOGIN_FAILED';
+import { TUserRequest, TPasswordResetRequest } from '../types/auth';
+import { AppDispatch } from '../types';
+import { TUser } from '../types/data';
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const LOGOUT_FAILED = 'LOGOUT_FAILED';
+export interface IRegisterRequest {
+  readonly type: typeof REGISTER_REQUEST;
+}
 
-export const GET_USER_REQUEST = 'GET_USER_REQUEST';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_FAILED = 'GET_USER_FAILED';
+export interface IRegisterSuccess {
+  readonly type: typeof REGISTER_SUCCESS;
+  readonly user: TUser
+}
 
-export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
-export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
-export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
+export interface IRegisterFailed {
+  readonly type: typeof REGISTER_FAILED;
+}
 
-export const UPDATE_PWD_REQUEST = 'UPDATE_PWD_REQUEST';
-export const UPDATE_PWD_SUCCESS = 'UPDATE_PWD_SUCCESS';
-export const UPDATE_PWD_FAILED = 'UPDATE_PWD_FAILED';
+export interface ILoginRequest {
+  readonly type: typeof LOGIN_REQUEST;
+}
 
-export const SUBMIT_PWD_REQUEST = 'SUBMIT_PWD_REQUEST';
-export const SUBMIT_PWD_SUCCESS = 'SUBMIT_PWD_SUCCESS';
-export const SUBMIT_PWD_FAILED = 'SUBMIT_PWD_FAILED';
+export interface ILoginSuccess {
+  readonly type: typeof LOGIN_SUCCESS;
+  readonly user: TUser
+}
 
-export const UPDATE_TOKEN_REQUEST = 'UPDATE_TOKEN_REQUEST';
-export const UPDATE_TOKEN_SUCCESS = 'UPDATE_TOKEN_SUCCESS';
-export const UPDATE_TOKEN_FAILED = 'UPDATE_TOKEN_FAILED';
+export interface ILoginFailed {
+  readonly type: typeof LOGIN_FAILED;
+}
 
-export const SET_PASSWORD = 'SET_PASSWORD';
+export interface ILogoutRequest {
+  readonly type: typeof LOGOUT_REQUEST;
+}
 
-export const registerUser = ({name, email, password}) => {
-  return function(dispatch) {
+export interface ILogoutSuccess {
+  readonly type: typeof LOGOUT_SUCCESS;
+}
+
+export interface ILogoutFailed {
+  readonly type: typeof LOGOUT_FAILED;
+}
+
+export interface IGetUserRequest {
+  readonly type: typeof GET_USER_REQUEST;
+}
+
+export interface IGetUserSuccess {
+  readonly type: typeof GET_USER_SUCCESS;
+  readonly user: TUser
+}
+
+export interface IGetUserUserFailed {
+  readonly type: typeof GET_USER_FAILED;
+}
+
+export interface IUpdateUserRequest {
+  readonly type: typeof UPDATE_USER_REQUEST;
+}
+
+export interface IUpdateUserSuccess {
+  readonly type: typeof UPDATE_USER_SUCCESS;
+  readonly user: TUser
+}
+
+export interface IUpdateUserFailed {
+  readonly type: typeof UPDATE_USER_FAILED;
+}
+
+export interface IUpdatePasswordRequest {
+  readonly type: typeof UPDATE_PWD_REQUEST;
+}
+
+export interface IUpdatePasswordSuccess {
+  readonly type: typeof UPDATE_PWD_SUCCESS;
+}
+
+export interface IUpdatePasswordFailed {
+  readonly type: typeof UPDATE_PWD_FAILED;
+}
+
+export interface ISubmitPasswordRequest {
+  readonly type: typeof SUBMIT_PWD_REQUEST;
+}
+
+export interface ISubmitPasswordSuccess {
+  readonly type: typeof SUBMIT_PWD_SUCCESS;
+}
+
+export interface ISubmitPasswordFailed {
+  readonly type: typeof SUBMIT_PWD_FAILED;
+}
+
+export interface IUpdateTokenRequest {
+  readonly type: typeof UPDATE_TOKEN_REQUEST;
+}
+
+export interface IUpdateTokenSuccess {
+  readonly type: typeof UPDATE_TOKEN_SUCCESS;
+}
+
+export interface IUpdateTokenFailed {
+  readonly type: typeof UPDATE_TOKEN_FAILED;
+}
+
+export interface ISetPassword {
+  readonly type: typeof SET_PASSWORD;
+  readonly password: string;
+}
+
+export type TAuthActions =
+| IRegisterRequest
+| IRegisterSuccess
+| IRegisterFailed
+| ILoginRequest
+| ILoginSuccess
+| ILoginFailed
+| ILogoutRequest
+| ILogoutSuccess
+| ILogoutFailed
+| IGetUserRequest
+| IGetUserSuccess
+| IGetUserUserFailed
+| IUpdateUserRequest
+| IUpdateUserSuccess
+| IUpdateUserFailed
+| IUpdatePasswordRequest
+| IUpdatePasswordSuccess
+| IUpdatePasswordFailed
+| ISubmitPasswordRequest
+| ISubmitPasswordSuccess
+| ISubmitPasswordFailed
+| IUpdateTokenRequest
+| IUpdateTokenSuccess
+| IUpdateTokenFailed
+| ISetPassword;
+
+export const registerUser = ({name, email, password}: TUserRequest) => {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: REGISTER_REQUEST
     });
-    registerRequest(name, email, password)
+    registerRequest({name, email, password})
       .then(res => {
         if (res && res.success) {
           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
@@ -82,12 +212,12 @@ export const registerUser = ({name, email, password}) => {
   };
 }
 
-export const loginUser = ({email, password}) => {
-  return function(dispatch) {
+export const loginUser = ({email, password}: Omit<TUserRequest, 'name'>) => {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: LOGIN_REQUEST
     });
-    loginRequest(email, password)
+    loginRequest({email, password})
       .then(res => {
         if (res && res.success) {
           setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
@@ -115,8 +245,8 @@ export const loginUser = ({email, password}) => {
   };
 }
 
-export const logoutUser = (refreshToken) => {
-  return function(dispatch) {
+export const logoutUser = (refreshToken: string) => {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: LOGOUT_REQUEST
     });
@@ -144,7 +274,7 @@ export const logoutUser = (refreshToken) => {
 }
 
 export const getUserInfo = () => {
-  return function(dispatch) {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: GET_USER_REQUEST
     });
@@ -157,7 +287,7 @@ export const getUserInfo = () => {
           user: res.user
         });
       } else {
-        const refreshToken = getCookie("refreshToken");
+        const refreshToken = getCookie("refreshToken")!;
         updateTokenRequest(refreshToken)
           .then(res => {
             if (res && res.success) {
@@ -209,8 +339,8 @@ export const getUserInfo = () => {
   };
 }
 
-export const updateUserInfo = ({ name, email, password }) => {
-  return function(dispatch) {
+export const updateUserInfo = ({ name, email, password }: TUserRequest) => {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST
     });
@@ -227,7 +357,7 @@ export const updateUserInfo = ({ name, email, password }) => {
           password: password
         });
       } else {
-        const refreshToken = getCookie("refreshToken");
+        const refreshToken = getCookie("refreshToken")!;
         updateTokenRequest(refreshToken)
           .then(res => {
             if (res && res.success) {
@@ -283,8 +413,8 @@ export const updateUserInfo = ({ name, email, password }) => {
   };
 }
 
-export const updatePassword = ({ email }) => {
-  return function(dispatch) {
+export const updatePassword = ({ email }: Pick<TUserRequest, 'email'>) => {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_PWD_REQUEST
     });
@@ -310,8 +440,8 @@ export const updatePassword = ({ email }) => {
   };
 }
 
-export const submitPassword = ({ password, token }) => {
-  return function(dispatch) {
+export const submitPassword = ({ password, token }: TPasswordResetRequest) => {
+  return function(dispatch: AppDispatch) {
     dispatch({
       type: SUBMIT_PWD_REQUEST
     });
@@ -337,33 +467,31 @@ export const submitPassword = ({ password, token }) => {
   };
 }
 
-export async function updateToken(dispatch) {
+export async function updateToken(dispatch: AppDispatch) {
+  dispatch({
+    type: UPDATE_TOKEN_REQUEST
+  });
+  const refreshToken = getCookie("refreshToken")!;
+  await updateTokenRequest(refreshToken)
+    .then(res => {
+      console.log(res);
+      if (res && res.success) {
+        setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
+        setCookie("refreshToken", res.refreshToken);
+        dispatch({
+          type: UPDATE_TOKEN_SUCCESS,
+        });
 
+      } else {
+        dispatch({
+          type: UPDATE_TOKEN_FAILED
+        });
+      }
+    })
+  .catch(e => {
     dispatch({
-      type: UPDATE_TOKEN_REQUEST
+      type: UPDATE_TOKEN_FAILED
     });
-    const refreshToken = getCookie("refreshToken");
-    await updateTokenRequest(refreshToken)
-      .then(res => {
-        console.log(res);
-        if (res && res.success) {
-          setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
-          setCookie("refreshToken", res.refreshToken);
-          dispatch({
-            type: UPDATE_TOKEN_SUCCESS,
-          });
-
-        } else {
-          dispatch({
-            type: UPDATE_TOKEN_FAILED
-          });
-        }
-      })
-    .catch(e => {
-      dispatch({
-        type: UPDATE_TOKEN_FAILED
-      });
-      console.log(`Ошибка при обновлении accessToken: ${e}`);
-    });
-
+    console.log(`Ошибка при обновлении accessToken: ${e}`);
+  });
 }
