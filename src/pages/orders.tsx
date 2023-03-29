@@ -1,6 +1,6 @@
 import styles from './orders.module.css';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from '../services/hooks';
+import { useDispatch, useSelector } from '../hooks';
 import {
   wsUserConnect,
   wsUserClose,

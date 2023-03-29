@@ -1,6 +1,6 @@
 import styles from './feed-order.module.css';
 import { useMemo, FC } from 'react';
-import { useSelector } from '../../services/hooks'
+import { useSelector } from '../../hooks'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getAllIngredients } from '../../utils/state';
 import Price from '../common/price/price';

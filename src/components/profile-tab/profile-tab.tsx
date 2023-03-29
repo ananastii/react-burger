@@ -1,6 +1,6 @@
 import styles from './profile-tab.module.css';
 import { NavLink } from "react-router-dom";
-import { useDispatch } from '../../services/hooks';
+import { useDispatch } from '../../hooks';
 import { logoutUser } from '../../services/actions/auth';
 import { getCookie } from '../../utils/cookies';
 import { FC, SyntheticEvent } from 'react';

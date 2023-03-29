@@ -1,7 +1,7 @@
 import styles from './order-details.module.css';
 import { useLocation, useParams, matchPath } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from '../../services/hooks';
+import { useSelector, useDispatch } from '../../hooks';
 import Preview from '../common/preview/preview';
 import Price from '../common/price/price';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -63,6 +63,7 @@ const OrderDetails = () => {
         }
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, isFeedConnected, isOrdersConnected]);
 
   const order = useMemo(
@@ -73,6 +74,7 @@ const OrderDetails = () => {
           || "not found"
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [feed, id]
   );
 
@@ -91,14 +93,14 @@ const OrderDetails = () => {
         return total
       }, {})
       || null,
-    [order]
+    [location.state?.ingredientsQty, order?.ingredients]
   );
 
   const totalPrice = useMemo(
     () => location.state?.totalPrice ||
       ingredientsInfo?.reduce((price, item) => price + item.price*ingredientsQty[item._id], 0)
       || 0,
-    [ingredientsInfo, ingredientsQty]
+    [ingredientsInfo, ingredientsQty, location.state?.totalPrice]
   );
 
   const statusDecoration = useMemo(

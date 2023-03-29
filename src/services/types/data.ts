@@ -34,6 +34,13 @@ export type TOrderData = {
   createdAt: string,
 }
 
+export type TFormValues = {
+  email?: string,
+  name?: string,
+  password?: string,
+  token?: string
+}
+
 export type TUser = {
   name: string;
   email: string;

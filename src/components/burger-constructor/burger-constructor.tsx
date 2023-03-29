@@ -5,7 +5,7 @@ import styles from './burger-constructor.module.css';
 import OrderConfirm from '../order-confirm/order-confirm';
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import TotalPrice from '../total-price/total-price';
-import { useDispatch, useSelector } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../hooks';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
 import { resetOrderId } from '../../services/actions/order';

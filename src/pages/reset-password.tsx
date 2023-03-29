@@ -1,7 +1,7 @@
 import styles from './form.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { SyntheticEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from '../services/hooks';
+import { useDispatch, useSelector } from '../hooks';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { submitPassword } from '../services/actions/auth';
 import { getPwdResetRequested, getPwdSubmitSuccess } from '../utils/state';

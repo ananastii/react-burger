@@ -1,6 +1,6 @@
 import styles from './form.module.css';
 import { Link } from 'react-router-dom';
-import { useDispatch } from '../services/hooks';
+import { useDispatch } from '../hooks';
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from '../services/actions/auth';
 import { useForm } from '../hooks/useForm';

@@ -1,5 +1,5 @@
 import styles from './profile.module.css';
-import { useSelector, useDispatch } from '../services/hooks';
+import { useSelector, useDispatch } from '../hooks';
 import { SyntheticEvent, useState } from 'react';
 import ProfileTab from "../components/profile-tab/profile-tab";
 import { Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -36,6 +36,7 @@ export const ProfilePage = () => {
       setValues({name: userInfo.name, email: userInfo.email, password: "******"});
     } else
       setValues(formInit);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo, password]);
 
   const handleChangeProfile = (e: SyntheticEvent) => {
@@ -62,7 +63,7 @@ export const ProfilePage = () => {
           type="text"
           placeholder="Имя"
           onChange={handleChangeProfile}
-          value={values.name}
+          value={values.name!}
           name="name"
           icon="EditIcon"
           extraClass={`mb-6 ${styles.input}`}
@@ -71,7 +72,7 @@ export const ProfilePage = () => {
           type="email"
           placeholder="Логин"
           onChange={handleChangeProfile}
-          value={values.email}
+          value={values.email!}
           name="email"
           icon="EditIcon"
           extraClass={`mb-6 ${styles.input}`}
@@ -79,7 +80,7 @@ export const ProfilePage = () => {
         <PasswordInput
           placeholder="Пароль"
           onChange={handleChangeProfile}
-          value={values.password}
+          value={values.password!}
           name="password"
           icon="EditIcon"
           extraClass={styles.input}

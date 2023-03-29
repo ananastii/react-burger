@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../hooks';
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef, FC } from 'react';
 import styles from './constructor-ingredient.module.css';

@@ -1,6 +1,6 @@
 import { Outlet, Navigate, useLocation} from 'react-router-dom';
 import { FC, useEffect } from 'react';
-import { useSelector, useDispatch } from '../../services/hooks';
+import { useSelector, useDispatch } from '../../hooks';
 import { getUser } from '../../utils/state';
 import { getUserInfo } from '../../services/actions/auth';
 import { getCookie } from '../../utils/cookies';

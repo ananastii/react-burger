@@ -1,6 +1,6 @@
 import styles from './total-price.module.css';
 import { FC } from 'react';
-import { useDispatch, useSelector } from '../../services/hooks';
+import { useDispatch, useSelector } from '../../hooks';
 import { useNavigate, useLocation } from "react-router-dom";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { checkoutOrder } from '../../services/actions/order';

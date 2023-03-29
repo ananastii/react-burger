@@ -43,9 +43,8 @@ import {
   SET_PASSWORD
 } from '../constants/auth';
 
-import { TUserRequest, TPasswordResetRequest } from '../types/auth';
 import { AppDispatch } from '../types';
-import { TUser } from '../types/data';
+import { TFormValues, TUser } from '../types/data';
 
 export interface IRegisterRequest {
   readonly type: typeof REGISTER_REQUEST;
@@ -149,7 +148,7 @@ export interface IUpdateTokenFailed {
 
 export interface ISetPassword {
   readonly type: typeof SET_PASSWORD;
-  readonly password: string;
+  readonly password: string | undefined;
 }
 
 export type TAuthActions =
@@ -179,7 +178,7 @@ export type TAuthActions =
 | IUpdateTokenFailed
 | ISetPassword;
 
-export const registerUser = ({name, email, password}: TUserRequest) => {
+export const registerUser = ({name, email, password}: TFormValues) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: REGISTER_REQUEST
@@ -212,7 +211,7 @@ export const registerUser = ({name, email, password}: TUserRequest) => {
   };
 }
 
-export const loginUser = ({email, password}: Omit<TUserRequest, 'name'>) => {
+export const loginUser = ({email, password}: TFormValues) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: LOGIN_REQUEST
@@ -339,7 +338,7 @@ export const getUserInfo = () => {
   };
 }
 
-export const updateUserInfo = ({ name, email, password }: TUserRequest) => {
+export const updateUserInfo = ({ name, email, password }: TFormValues) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST
@@ -413,7 +412,7 @@ export const updateUserInfo = ({ name, email, password }: TUserRequest) => {
   };
 }
 
-export const updatePassword = ({ email }: Pick<TUserRequest, 'email'>) => {
+export const updatePassword = ({ email }: TFormValues) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_PWD_REQUEST
@@ -440,7 +439,7 @@ export const updatePassword = ({ email }: Pick<TUserRequest, 'email'>) => {
   };
 }
 
-export const submitPassword = ({ password, token }: TPasswordResetRequest) => {
+export const submitPassword = ({ password, token }: TFormValues) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: SUBMIT_PWD_REQUEST

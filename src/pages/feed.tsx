@@ -1,6 +1,6 @@
 import styles from './feed.module.css';
 import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from '../services/hooks';
+import { useDispatch, useSelector } from '../hooks';
 import TwoColumns from '../components/two-columns/two-columns';
 import {
   wsConnect,

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from '../../services/hooks';
+import { useDispatch } from '../../hooks';
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Layout from '../layout/layout';
 import ProtectedRouteElement from "../protected-route/protected-route";

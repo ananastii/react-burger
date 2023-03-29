@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useSelector } from '../../services/hooks';
+import { useSelector } from '../../hooks';
 import styles from './burger-ingredients.module.css';
 import IngredientsTab from '../ingredients-tab/ingredients-tab';
 import IngredientsList from '../ingredients-list/ingredients-list';

@@ -1,7 +1,7 @@
 import styles from './ingredient-details.module.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useSelector } from '../../services/hooks';
+import { useSelector } from '../../hooks';
 import { getAllIngredients } from '../../utils/state';
 
 const IngredientDetails = () => {

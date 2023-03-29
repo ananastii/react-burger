@@ -5,15 +5,8 @@ export type TTokens = {
   refreshToken: string;
 }
 
-export type TUserRequest = TUser & { password: string }
-
 export type TUserResponce = TTokens & {
   user: TUser
-}
-
-export type TPasswordResetRequest = {
-  password: string;
-  token: string;
 }
 
 export type TDefaultResponce = {
