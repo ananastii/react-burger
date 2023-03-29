@@ -44,7 +44,7 @@ export const checkoutOrder = (ingredients: TOrderCheckout) => {
       if (res.success) {
         dispatch({
           type: ORDER_CHECKOUT_SUCCESS,
-          id: res.order
+          id: res.order.number
         });
       } else {
         const refreshToken = getCookie("refreshToken");
