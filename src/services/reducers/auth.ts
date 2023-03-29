@@ -30,7 +30,7 @@ import { TAuthState } from '../types/state';
 
 const initialState: TAuthState = {
   user: null,
-  password: null,
+  password: '',
   authRequest: false,
   authFailed: false,
   pwdResetRequested: false,

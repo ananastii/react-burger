@@ -31,7 +31,10 @@ export const wsReducer = (state = initialState, action: TWsActions) => {
     case WS_CONNECTION_CLOSED:
       return {
         ...state,
-        state: initialState
+        wsConnected: false,
+        orders: [],
+        total: null,
+        totalToday: null,
       };
 
     case WS_GET_MESSAGE:

@@ -1,30 +1,33 @@
-import { TIngredientData, TIngredientFilling, TOrderData, TUser } from "./data";
+import { TIngredientData, TIngredientFilling, TIngredientInfo, TOrderData, TUser } from "./data";
 
 export type TIngredientsState = {
-  ingredients: Array<TIngredientData>;
-  ingredientsRequest: boolean;
-  ingredientsFailed: boolean;
+  ingredients: Array<TIngredientData>,
+  ingredientsRequest: boolean,
+  ingredientsFailed: boolean,
 }
 
 export type TConstructorState = {
-  fillings: Array<TIngredientFilling>;
-  bun: TIngredientData | null;
+  fillings: Array<TIngredientFilling>,
+  bun: {
+    info: TIngredientInfo,
+    id: string,
+  } | null,
 }
 
 export type TOrderState = {
   orderRequest: boolean,
   orderFailed: boolean,
   orderId: number | null,
-  openModal: boolean
+  openModal: boolean,
 };
 
 export type TAuthState = {
   user: TUser | null,
-  password: string | null,
-  authRequest: false,
-  authFailed: false,
-  pwdResetRequested: false,
-  pwdSubmitSuccess: false,
+  password: string | undefined,
+  authRequest: boolean,
+  authFailed: boolean,
+  pwdResetRequested: boolean,
+  pwdSubmitSuccess: boolean,
 };
 
 export type TWsState = {

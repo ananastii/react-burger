@@ -1,18 +1,18 @@
 export type TIngredientType = 'bun' | 'sauce' | 'main';
 
 export type TIngredientInfo = {
-  _id: string;
-  name: string;
-  type: TIngredientType;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v: number;
+  readonly _id: string;
+  readonly name: string;
+  readonly type: TIngredientType;
+  readonly proteins: number;
+  readonly fat: number;
+  readonly carbohydrates: number;
+  readonly calories: number;
+  readonly price: number;
+  readonly image: string;
+  readonly image_mobile: string;
+  readonly image_large: string;
+  readonly __v: number;
 }
 
 export type TIngredientData = {
@@ -26,12 +26,12 @@ export type TIngredientFilling = {
 }
 
 export type TOrderData = {
-  ingredients: string[],
-  _id: string,
-  name: string,
-  status: string,
-  number: number,
-  createdAt: string,
+  readonly ingredients: string[],
+  readonly _id: string,
+  readonly name: string,
+  readonly status: string,
+  readonly number: number,
+  readonly createdAt: string,
 }
 
 export type TFormValues = {

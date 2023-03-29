@@ -31,7 +31,10 @@ export const wsUserReducer = (state = initialState, action: TWsUserActions) => {
     case WS_USER_CONNECTION_CLOSED:
       return {
         ...state,
-        state: initialState
+        wsConnected: false,
+        orders: [],
+        total: null,
+        totalToday: null,
       };
 
     case WS_USER_GET_MESSAGE:
