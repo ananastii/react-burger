@@ -1,8 +1,8 @@
 import styles from './profile.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useSelector, useDispatch } from '../services/hooks';
+import { SyntheticEvent, useState } from 'react';
 import ProfileTab from "../components/profile-tab/profile-tab";
-import { Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUser } from '../utils/state';
 import { updateUserInfo } from '../services/actions/auth';
 import { useEffect } from 'react';
@@ -38,7 +38,7 @@ export const ProfilePage = () => {
       setValues(formInit);
   }, [userInfo, password]);
 
-  const handleChangeProfile = e => {
+  const handleChangeProfile = (e: SyntheticEvent) => {
     handleChange(e);
     setIsChanged(true);
   }
@@ -48,7 +48,7 @@ export const ProfilePage = () => {
     setIsChanged(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(updateUserInfo(values))
     setIsChanged(false);
@@ -67,7 +67,8 @@ export const ProfilePage = () => {
           icon="EditIcon"
           extraClass={`mb-6 ${styles.input}`}
         />
-        <EmailInput
+        <Input
+          type="email"
           placeholder="Логин"
           onChange={handleChangeProfile}
           value={values.email}

@@ -10,7 +10,6 @@ import FeedOrder from '../components/feed-order/feed-order';
 import { getOrdersFeed, getTotal, getTotalToday } from '../utils/state';
 import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-
 export const FeedPage = () => {
 
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ export const FeedPage = () => {
       dispatch(wsClose());
   }, [dispatch]);
 
-  const ordersStatus = useMemo(() => feed.reduce((list, order) => {
+  const ordersStatus = useMemo(() => feed.reduce((list: {doneOrders: number[], pendingOrders: number[]}, order) => {
     order.status === "done" ?
       list.doneOrders.push(order.number) :
       (order.status === "pending" && list.pendingOrders.push(order.number));

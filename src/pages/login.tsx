@@ -1,9 +1,10 @@
 import styles from './form.module.css';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../services/hooks';
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from '../services/actions/auth';
 import { useForm } from '../hooks/useForm';
+import { SyntheticEvent } from 'react';
 
 export const LoginPage = () => {
 
@@ -11,7 +12,7 @@ export const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const submitLogin = (e) => {
+  const submitLogin = (e: SyntheticEvent) => {
     e.preventDefault();
 
     dispatch(loginUser(values));

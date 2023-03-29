@@ -1,9 +1,10 @@
 import styles from './form.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../services/hooks';
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updatePassword } from '../services/actions/auth';
 import { useForm } from '../hooks/useForm';
+import { SyntheticEvent } from 'react';
 
 export const ForgotPasswordPage = () => {
 
@@ -12,7 +13,7 @@ export const ForgotPasswordPage = () => {
 
   const {values, handleChange} = useForm({});
 
-  const handlePasswordUpdate = (e) => {
+  const handlePasswordUpdate = (e: SyntheticEvent) => {
     e.preventDefault();
 
     dispatch(updatePassword(values));

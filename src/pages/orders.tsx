@@ -1,5 +1,5 @@
 import styles from './orders.module.css';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../services/hooks';
 import {
   wsUserConnect,
