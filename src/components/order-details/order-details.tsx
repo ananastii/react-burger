@@ -46,21 +46,19 @@ const OrderDetails = () => {
   useEffect(() => {
     if ( isUserOrder) {
       if (!isDataSet && !isFeedConnected) {
-        dispatch(wsConnect);
+        dispatch(wsUserConnect());
       };
       if(!isDataSet && isFeedConnected) {
-        return () => {
-          dispatch(wsClose);
-        }
+        return () =>
+        dispatch(wsUserClose());
       }
     } else {
       if (!isDataSet && !isOrdersConnected) {
-        dispatch(wsUserConnect);
+        dispatch(wsConnect());
       };
       if(!isDataSet && isOrdersConnected) {
-        return () => {
-          dispatch(wsUserClose);
-        }
+        return () =>
+        dispatch(wsClose());
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
