@@ -39,7 +39,7 @@ export type TUser = {
   email: string;
 }
 
-export type TOrderCheckout = string[]
+export type TOrderCheckout = (string | undefined)[]
 
 export type TWsMessage = {
   orders: TOrderData[];

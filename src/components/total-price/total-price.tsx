@@ -1,17 +1,21 @@
 import styles from './total-price.module.css';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC } from 'react';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useNavigate, useLocation } from "react-router-dom";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { checkoutOrder } from '../../services/actions/order';
 import { getConstructor, getUser } from '../../utils/state';
 import { getCookie } from '../../utils/cookies';
 
-const TotalPrice = ({price}) => {
+type TTotalPrice = {
+  price: number,
+}
+
+const TotalPrice: FC<TTotalPrice> = ({price}) => {
 
   const { fillings, bun } = useSelector(getConstructor);
   const user = useSelector(getUser);
-  const { pathname } = useLocation;
+  const { pathname } = useLocation();
   const refreshToken = getCookie("refreshToken");
 
   const dispatch = useDispatch();
@@ -38,10 +42,6 @@ const TotalPrice = ({price}) => {
       <Button type="primary" size="large" htmlType="button" onClick={handleOrderClick} disabled={!price}>Оформить заказ</Button>
     </div>
   )
-};
-
-TotalPrice.propTypes = {
-  price: PropTypes.number.isRequired
 };
 
 export default TotalPrice;

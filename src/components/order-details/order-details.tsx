@@ -1,7 +1,7 @@
 import styles from './order-details.module.css';
 import { useLocation, useParams, matchPath } from 'react-router-dom';
 import { useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import Preview from '../common/preview/preview';
 import Price from '../common/price/price';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -49,16 +49,18 @@ const OrderDetails = () => {
         dispatch(wsConnect);
       };
       if(!isDataSet && isFeedConnected) {
-        return () =>
-        dispatch(wsClose);
+        return () => {
+          dispatch(wsClose);
+        }
       }
     } else {
       if (!isDataSet && !isOrdersConnected) {
         dispatch(wsUserConnect);
       };
       if(!isDataSet && isOrdersConnected) {
-        return () =>
-        dispatch(wsUserClose);
+        return () => {
+          dispatch(wsUserClose);
+        }
       }
     }
   }, [dispatch, isFeedConnected, isOrdersConnected]);
@@ -84,7 +86,7 @@ const OrderDetails = () => {
 
   const ingredientsQty = useMemo(
     () => location.state?.ingredientsQty ||
-      order?.ingredients?.reduce((total, cur) => {
+      order?.ingredients?.reduce((total: {[key: string] : number}, cur: string) => {
         total[cur] = (total[cur] || 0) + 1;
         return total
       }, {})

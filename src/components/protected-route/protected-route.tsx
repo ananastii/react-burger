@@ -1,12 +1,14 @@
 import { Outlet, Navigate, useLocation} from 'react-router-dom';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { FC, useEffect } from 'react';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { getUser } from '../../utils/state';
 import { getUserInfo } from '../../services/actions/auth';
 import { getCookie } from '../../utils/cookies';
-import PropTypes from 'prop-types';
+type TProtectedRouteElement = {
+  isUserAllowed: Boolean,
+}
 
-const ProtectedRouteElement = ({isUserAllowed}) => {
+const ProtectedRouteElement: FC<TProtectedRouteElement> = ({isUserAllowed}) => {
 
   const user = useSelector(getUser);
   const { state, pathname} = useLocation();
@@ -35,10 +37,6 @@ const ProtectedRouteElement = ({isUserAllowed}) => {
   return (
     <Outlet/>
   )
-};
-
-ProtectedRouteElement.propTypes = {
-  isUserAllowed: PropTypes.bool.isRequired
 };
 
 export default ProtectedRouteElement;

@@ -1,16 +1,20 @@
 import styles from './feed-order.module.css';
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useMemo, FC } from 'react';
+import { useSelector } from '../../services/hooks'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getAllIngredients } from '../../utils/state';
 import Price from '../common/price/price';
 import Preview from '../common/preview/preview';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { styleStatus } from '../../utils/components';
-import PropTypes from 'prop-types';
-import { orderPropTypes } from '../../utils/types';
+import { TOrderData } from '../../services/types/data';
 
-const FeedOrder = ({order, showStatus}) => {
+type TFeedOrder = {
+  order: TOrderData,
+  showStatus: boolean
+}
+
+const FeedOrder: FC<TFeedOrder> = ({order, showStatus}) => {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,7 +26,7 @@ const FeedOrder = ({order, showStatus}) => {
     .map((item) => item.info);
 
   const ingredientsQty = useMemo(
-    () => order?.ingredients?.reduce((total, cur) => {
+    () => order?.ingredients?.reduce((total: {[key: string] : number}, cur: string) => {
       total[cur] = (total[cur] || 0) + 1;
       return total
       }, {}),
@@ -65,7 +69,7 @@ const FeedOrder = ({order, showStatus}) => {
         <ul className={`${styles.row}`}>
           { ingredientsInfo.slice(0, 6).map((item, index) => (
             <li className={`${styles.preview}`} key={item._id}>
-              <Preview image={item.image} residue={(index===5)*(ingredientsInfo.length - 5)}/>
+              <Preview image={item.image} residue={index===5 ? (ingredientsInfo.length - 5) : 0}/>
             </li>
             ))
           }
@@ -74,11 +78,6 @@ const FeedOrder = ({order, showStatus}) => {
       </div>
     </li>
   )
-};
-
-FeedOrder.propTypes = {
-  order: orderPropTypes.isRequired,
-  showStatus: PropTypes.bool
 };
 
 export default FeedOrder;

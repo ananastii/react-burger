@@ -1,17 +1,18 @@
 import { useMemo } from 'react';
-import { useDrop } from "react-dnd";
+import { DropTargetMonitor, useDrop } from "react-dnd";
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 import OrderConfirm from '../order-confirm/order-confirm';
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import TotalPrice from '../total-price/total-price';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { addIngredient, resetOrderIngredients } from '../../services/actions/burger-constructor';
 import { resetOrderId } from '../../services/actions/order';
 import { increaseCount, setCount } from '../../services/actions/ingredients';
 import { getAllIngredients } from '../../utils/state';
 import { getConstructor, getOrder } from '../../utils/state';
+import { TIngredientData } from '../../services/types/data';
 
 const BurgerConstructor = () =>  {
 
@@ -22,18 +23,18 @@ const BurgerConstructor = () =>  {
 
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
-    collect: monitor => ({
+    collect: (monitor: DropTargetMonitor) => ({
       isHover: monitor.isOver()
     }),
-    drop(ingredient) {
-      dispatch(addIngredient(ingredient));
-      if (ingredient.type !== 'bun' ) {
-        dispatch(increaseCount(ingredient._id, 1))
+    drop(ingredient: TIngredientData) {
+      dispatch(addIngredient(ingredient.info));
+      if (ingredient.info.type !== 'bun' ) {
+        dispatch(increaseCount(ingredient.info._id, 1))
       } else {
-        dispatch(setCount(ingredient._id, 2));
+        dispatch(setCount(ingredient.info._id, 2));
         ingredients.forEach(item =>
           item.info.type === 'bun' &&
-          item.info._id !== ingredient._id &&
+          item.info._id !== ingredient.info._id &&
           dispatch(setCount(item.info._id, 0))
         );
       }
@@ -43,7 +44,7 @@ const BurgerConstructor = () =>  {
   // orderCheckout
   const { openModal, orderFailed } = useSelector(getOrder);
 
-  const closeOrderModal = (orderFailed) => {
+  const closeOrderModal = (orderFailed: boolean) => {
     dispatch(resetOrderId());
     if (!orderFailed) {
       dispatch(resetOrderIngredients());
@@ -71,7 +72,6 @@ const BurgerConstructor = () =>  {
                 isLocked={true}
                 text={`${bun.info.name} (верх)`}
                 price={bun.info.price}
-                index={bun.info._id}
                 thumbnail={bun.info.image}
               />
             </div>
@@ -90,7 +90,6 @@ const BurgerConstructor = () =>  {
               isLocked={true}
               text={`${bun.info.name} (верх)`}
               price={bun.info.price}
-              index={bun.info._id}
               thumbnail={bun.info.image}
             />
           </div>}

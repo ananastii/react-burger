@@ -1,9 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import styles from './burger-ingredients.module.css';
 import IngredientsTab from '../ingredients-tab/ingredients-tab';
 import IngredientsList from '../ingredients-list/ingredients-list';
 import { getAllIngredients } from '../../utils/state';
+
+type TdistanceAll = {
+  [key: string] : number;
+}
 
 const BurgerIngredients = () => {
 
@@ -13,38 +17,38 @@ const BurgerIngredients = () => {
   const mains = ingredients.filter((item) => item.info.type === 'main');
 
   // Navigation through tabs
-  const [currentTab, setCurrentTab] = useState('buns');
-  const [scrollEdge, setScrollEdge] = useState();
+  const [currentTab, setCurrentTab] = useState<string>('buns');
+  const [scrollEdge, setScrollEdge] = useState<number>(0);
 
-  const handleTabClick = (id) => {
+  const handleTabClick = (id: string) => {
     setCurrentTab(id);
-    document.querySelector(`#${id}`).scrollIntoView({behavior: 'smooth'});
+    document.querySelector(`#${id}`)?.scrollIntoView({behavior: 'smooth'});
   }
 
-  const refTab = useRef();
-  const refBunsHeader = useRef();
-  const refSaucesHeader = useRef();
-  const refMainsHeader = useRef();
+  const refTab = useRef<HTMLDivElement>(null);
+  const refBunsHeader = useRef<HTMLHeadingElement>(null);
+  const refSaucesHeader = useRef<HTMLHeadingElement>(null);
+  const refMainsHeader = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    setScrollEdge(refTab.current.getBoundingClientRect().bottom);
+    refTab && setScrollEdge(refTab.current!.getBoundingClientRect().bottom);
   }, []);
 
 
   const handleTabScroll = () => {
     // for the perfect precision can use half of header's in calculations
-    let bunsHeaderDist = Math.abs(scrollEdge - refBunsHeader.current.getBoundingClientRect().top);
-    let saucesHeaderDist = Math.abs(scrollEdge - refSaucesHeader.current.getBoundingClientRect().top);
-    let mainsHeaderDist = Math.abs(scrollEdge - refMainsHeader.current.getBoundingClientRect().top);
+    let bunsHeaderDist = Math.abs(scrollEdge - refBunsHeader.current!.getBoundingClientRect().top);
+    let saucesHeaderDist = Math.abs(scrollEdge - refSaucesHeader.current!.getBoundingClientRect().top);
+    let mainsHeaderDist = Math.abs(scrollEdge - refMainsHeader.current!.getBoundingClientRect().top);
 
-    const distancesAll = {
+    const distancesAll: TdistanceAll = {
       'buns': bunsHeaderDist,
       'sauces': saucesHeaderDist,
       'mains': mainsHeaderDist
     };
 
     const closestPos = Math.min(bunsHeaderDist, saucesHeaderDist, mainsHeaderDist);
-    const activeTabId = Object.keys(distancesAll).find(key => distancesAll[key] === closestPos);
+    const activeTabId = Object.keys(distancesAll).find(key => distancesAll[key] === closestPos) || 'bun';
 
     setCurrentTab(activeTabId);
   }

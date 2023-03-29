@@ -1,9 +1,14 @@
-import React from 'react';
+import { FC, Ref } from 'react';
 import styles from './ingredients-tab.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 
-function IngredientsTab({currentTab, setCurrent, refTab}) {
+type TIngredientTab = {
+  currentTab: string,
+  setCurrent: (value: string) => void,
+  refTab: Ref<HTMLDivElement>
+}
+
+const IngredientsTab: FC<TIngredientTab> = ({currentTab, setCurrent, refTab})  => {
 
   return (
     <div className={`${styles.tabs} mt-5 text_type_main-default`} ref={refTab}>
@@ -18,13 +23,6 @@ function IngredientsTab({currentTab, setCurrent, refTab}) {
       </Tab>
     </div>
   )
-};
-
-IngredientsTab.propTypes = {
-  setCurrent: PropTypes.func.isRequired,
-  currentTab: PropTypes.string.isRequired,
-  refTab:  PropTypes.shape(
-    { current: PropTypes.instanceOf(Element) }).isRequired,
 };
 
 export default IngredientsTab;

@@ -9,7 +9,7 @@ import { store } from './utils/store';
 
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root')
+  document.getElementById('root') as HTMLElement
 );
 
 root.render(

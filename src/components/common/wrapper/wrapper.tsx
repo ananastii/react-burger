@@ -1,17 +1,17 @@
 import styles from './wrapper.module.css';
-import PropTypes from 'prop-types';
+import { FC, ReactNode } from 'react';
 
-const Wrapper = ({children}) => {
+type TWrapper = {
+    children: ReactNode,
+}
+
+const Wrapper: FC<TWrapper> = ({children}) => {
 
   return (
     <main className={`${styles.wrapper} pt-30`}>
       {children}
     </main>
   )
-};
-
-Wrapper.propTypes = {
-  children: PropTypes.node.isRequired
 };
 
 export default Wrapper;

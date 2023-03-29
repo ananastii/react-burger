@@ -1,5 +1,5 @@
 import styles from './order-confirm.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import { getOrder } from '../../utils/state';
 
 function OrderConfirm () {

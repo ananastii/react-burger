@@ -1,8 +1,13 @@
 import styles from './price.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 
-const Price = ({price, count}) => {
+type TPrice = {
+  price: number,
+  count?: number
+}
+
+const Price: FC<TPrice> = ({price, count = 0}) => {
 
   return (
     <div className={`${styles.price} mb-1 text text_type_main-default`}>
@@ -13,11 +18,6 @@ const Price = ({price, count}) => {
       <CurrencyIcon type="primary" />
     </div>
   )
-};
-
-Price.propTypes = {
-  price: PropTypes.number.isRequired,
-  count: PropTypes.number
 };
 
 export default Price;

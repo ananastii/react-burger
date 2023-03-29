@@ -1,11 +1,16 @@
 import styles from './profile-tab.module.css';
 import { NavLink } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { logoutUser } from '../../services/actions/auth';
 import { getCookie } from '../../utils/cookies';
-import PropTypes from "prop-types";
+import { FC, SyntheticEvent } from 'react';
 
-const ProfileTab = ({description, extraClass}) => {
+type TProfileTab = {
+  description: string,
+  extraClass?: string
+}
+
+const ProfileTab: FC<TProfileTab> = ({description, extraClass}) => {
 
   const dispatch = useDispatch();
 
@@ -13,9 +18,9 @@ const ProfileTab = ({description, extraClass}) => {
   const activeClassName = "text_color_primary";
   const inactiveClassName = "text_color_inactive";
 
-  const refreshToken = getCookie("refreshToken");
+  const refreshToken = getCookie("refreshToken")!;
 
-  const handleLogout = (e) => {
+  const handleLogout = (e: SyntheticEvent) => {
     e.preventDefault();
     dispatch(logoutUser(refreshToken));
   }
@@ -59,11 +64,5 @@ const ProfileTab = ({description, extraClass}) => {
     </div>
   );
 }
-
-ProfileTab.propTypes = {
-  description: PropTypes.string.isRequired,
-  extraClass: PropTypes.string
-};
-
 
 export default ProfileTab;

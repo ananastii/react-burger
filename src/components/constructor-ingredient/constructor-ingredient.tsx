@@ -1,15 +1,19 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useDrag, useDrop } from 'react-dnd'
-import { useRef} from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { useDrag, useDrop } from 'react-dnd';
+import { useRef, FC } from 'react';
 import styles from './constructor-ingredient.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { deleteIngredient, moveIngredient } from '../../services/actions/burger-constructor';
 import { decreaseCount } from '../../services/actions/ingredients';
-import { ingredientPropTypes } from '../../utils/types';
 import { getFillings } from '../../utils/state';
+import { TIngredientFilling  } from '../../services/types/data';
 
-const ConstructorIngredient = ({data, index}) => {
+type TConstructorIngredient = {
+  data: TIngredientFilling,
+  index: number
+}
+
+const ConstructorIngredient: FC<TConstructorIngredient> = ({data, index}) => {
 
   const {_id, name, price, image } = data.info;
 
@@ -17,18 +21,18 @@ const ConstructorIngredient = ({data, index}) => {
 
   const dispatch = useDispatch();
 
-  const handleDelete = (constructorId, ingredientId) => {
-    dispatch(deleteIngredient(constructorId));
-    dispatch(decreaseCount(ingredientId, 1));
+  const handleDelete = () => {
+    dispatch(deleteIngredient(fillingId));
+    dispatch(decreaseCount(_id, 1));
   }
 
-  const ref = useRef(null);
-  const id = data.id;
+  const ref = useRef<HTMLLIElement>(null);
+  const fillingId = data.id;
 
   const [{ isDragging }, dragRef] = useDrag({
     type: 'item',
     item: () => {
-      return { id, index }
+      return { fillingId, index }
     },
     collect: (monitor) => ({
         isDragging: monitor.isDragging(),
@@ -37,13 +41,13 @@ const ConstructorIngredient = ({data, index}) => {
 
   const [, dropRef] = useDrop({
     accept: 'item',
-    hover: (item, monitor) => {
+    hover: (item: TConstructorIngredient, monitor) => {
         const dragIndex = item.index
         const hoverIndex = index
-        const hoverBoundingRect = ref.current?.getBoundingClientRect()
+        const hoverBoundingRect = ref.current!.getBoundingClientRect()
         const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
         const clientOffset = monitor.getClientOffset()
-        const hoverClientY = clientOffset.y - hoverBoundingRect.top
+        const hoverClientY = clientOffset!.y - hoverBoundingRect.top
 
         if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return
         if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return
@@ -62,20 +66,11 @@ const ConstructorIngredient = ({data, index}) => {
         isLocked={false}
         text={name}
         price={price}
-        index={_id}
         thumbnail={image}
-        handleClose={() => handleDelete(data.id, _id)}
+        handleClose={handleDelete}
       />
     </li>
   )
-};
-
-ConstructorIngredient.propTypes = {
-  data: PropTypes.shape({
-    info: ingredientPropTypes.isRequired,
-    id: PropTypes.string.isRequired
-  }),
-  index: PropTypes.number.isRequired
 };
 
 export default ConstructorIngredient;

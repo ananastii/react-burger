@@ -5,7 +5,7 @@ import {
   RESET_INGREDIENTS,
   MOVE_INGREDIENT
 } from '../constants/burger-constructor';
-import { TIngredientData, TIngredientFilling } from "../types/data";
+import { TIngredientData, TIngredientFilling, TIngredientInfo } from "../types/data";
 
 export interface IAddIngredient {
   readonly type: typeof ADD_INGREDIENT;
@@ -33,7 +33,7 @@ export type TConstructorActions =
 | IResetIngredient
 | IMoveIngredient;
 
-export const addIngredient = (ingredient: TIngredientData) => ({
+export const addIngredient = (ingredient: TIngredientInfo) => ({
   type: ADD_INGREDIENT,
   data: {info: ingredient, id: uuid()}
 });

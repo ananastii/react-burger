@@ -1,11 +1,16 @@
 import styles from './preview.module.css';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 
-const Preview = ({image, residue}) => {
+type TPreview = {
+  image: string,
+  residue?: number
+}
+
+const Preview: FC<TPreview> = ({image, residue = 0 }) => {
 
   const imgBack = {
     backgroundImage: `url(${image})`,
-    opacity: residue > 0 ? 0.6 : 1,
+    opacity: residue ? 0.6 : 1,
   };
 
   return (
@@ -18,11 +23,6 @@ const Preview = ({image, residue}) => {
       )}
     </div>
   )
-};
-
-Preview.propTypes = {
-  image: PropTypes.string.isRequired,
-  residue: PropTypes.number
 };
 
 export default Preview;
