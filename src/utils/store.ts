@@ -2,7 +2,7 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { rootReducer } from '../services/reducers';
-import { socketMiddleware } from '../services/middleware/socketMiddleware.js';
+import { socketMiddleware } from '../services/middleware/socketMiddleware';
 import { UrlWS } from './constants';
 import {
   WS_CONNECTION_CLOSED,
@@ -20,23 +20,7 @@ import {
   WS_USER_GET_MESSAGE,
 } from '../services/constants/wsUser';
 
-interface IWs {
-  wsInit: typeof WS_CONNECTION_START;
-  onOpen: typeof WS_CONNECTION_SUCCESS;
-  onClose: typeof WS_CONNECTION_CLOSED;
-  onError: typeof WS_CONNECTION_ERROR;
-  onMessage: typeof WS_GET_MESSAGE;
-}
-
-interface IWsUser {
-  wsInitUser: typeof WS_USER_CONNECTION_START;
-  onOpen: typeof WS_USER_CONNECTION_SUCCESS;
-  onClose: typeof WS_USER_CONNECTION_CLOSED;
-  onError: typeof WS_USER_CONNECTION_ERROR;
-  onMessage: typeof WS_USER_GET_MESSAGE;
-}
-
-const wsActions: IWs = {
+export const wsActions = {
   wsInit: WS_CONNECTION_START,
   onOpen: WS_CONNECTION_SUCCESS,
   onClose: WS_CONNECTION_CLOSED,
@@ -44,7 +28,7 @@ const wsActions: IWs = {
   onMessage: WS_GET_MESSAGE,
 };
 
-const userWsActions: IWsUser = {
+export const userWsActions = {
   wsInitUser: WS_USER_CONNECTION_START,
   onOpen: WS_USER_CONNECTION_SUCCESS,
   onClose: WS_USER_CONNECTION_CLOSED,

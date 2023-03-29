@@ -1,9 +1,19 @@
 import { getCookie } from '../../utils/cookies';
 import { updateToken } from '../actions/auth';
+import { Middleware } from 'redux';
 
-export const socketMiddleware = (wsUrl, wsActions) => {
+type TWsActions = {
+  wsInit?: string,
+  onOpen: string,
+  onClose: string,
+  onError: string,
+  onMessage: string,
+  wsInitUser?: string,
+}
+
+export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middleware => {
   return store => {
-    let socket = null;
+    let socket: WebSocket | null = null;
 
     return next => action => {
 
@@ -21,24 +31,26 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       }
 
       if (socket) {
-        socket.onopen = event => {
+        socket.onopen = (event: Event) => {
           dispatch({ type: onOpen, payload: event });
           console.log(`Соединение открыто`);
         };
 
-        socket.onerror = event => {
+        socket.onerror = (event: Event) => {
           dispatch({ type: onError, payload: event });
-          console.log(`Ошибка ${event.message}`);
+          if (event instanceof ErrorEvent) {
+            console.log(`Ошибка ${event.message}`);
+          }
         };
 
-        socket.onmessage = event => {
+        socket.onmessage = (event: MessageEvent) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
 
           if (!success) {
             if (restParsedData.message === "Invalid or missing token") {
-              socket.close(1000, "некорректный токен, попытка обновления")
+              socket?.close(1000, "некорректный токен, попытка обновления")
               updateToken(dispatch)
               .then(() => {
                   dispatch({ type: wsInitUser });

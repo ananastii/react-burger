@@ -1,6 +1,6 @@
 import styles from './feed.module.css';
 import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../services/hooks';
 import TwoColumns from '../components/two-columns/two-columns';
 import {
   wsConnect,
@@ -20,9 +20,9 @@ export const FeedPage = () => {
   const totalToday = useSelector(getTotalToday);
 
   useEffect(() => {
-    dispatch(wsConnect);
+    dispatch(wsConnect());
     return () =>
-      dispatch(wsClose);
+      dispatch(wsClose());
   }, [dispatch]);
 
   const ordersStatus = useMemo(() => feed.reduce((list, order) => {

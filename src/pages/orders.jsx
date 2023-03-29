@@ -1,6 +1,6 @@
 import styles from './orders.module.css';
 import { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../services/hooks';
 import {
   wsUserConnect,
   wsUserClose,
@@ -18,9 +18,9 @@ export const OrdersPage = () => {
 
 
   useEffect(() => {
-    dispatch(wsUserConnect);
+    dispatch(wsUserConnect());
     return () =>
-      dispatch(wsUserClose);
+      dispatch(wsUserClose());
   }, [dispatch]);
 
   return (
