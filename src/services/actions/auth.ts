@@ -44,7 +44,7 @@ import {
 } from '../constants/auth';
 
 import { AppDispatch } from '../types';
-import { TFormValues, TUser } from '../types/data';
+import { TForgotFormState, TLoginFormState, TResetFormState, TUser, TUserFormState } from '../types/data';
 
 export interface IRegisterRequest {
   readonly type: typeof REGISTER_REQUEST;
@@ -178,7 +178,7 @@ export type TAuthActions =
 | IUpdateTokenFailed
 | ISetPassword;
 
-export const registerUser = ({name, email, password}: TFormValues) => {
+export const registerUser = ({name, email, password}: TUserFormState) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: REGISTER_REQUEST
@@ -211,7 +211,7 @@ export const registerUser = ({name, email, password}: TFormValues) => {
   };
 }
 
-export const loginUser = ({email, password}: TFormValues) => {
+export const loginUser = ({email, password}: TLoginFormState) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: LOGIN_REQUEST
@@ -338,7 +338,7 @@ export const getUserInfo = () => {
   };
 }
 
-export const updateUserInfo = ({ name, email, password }: TFormValues) => {
+export const updateUserInfo = ({ name, email, password }: TUserFormState) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST
@@ -412,7 +412,7 @@ export const updateUserInfo = ({ name, email, password }: TFormValues) => {
   };
 }
 
-export const updatePassword = ({ email }: TFormValues) => {
+export const updatePassword = ({ email }: TForgotFormState) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_PWD_REQUEST
@@ -439,7 +439,7 @@ export const updatePassword = ({ email }: TFormValues) => {
   };
 }
 
-export const submitPassword = ({ password, token }: TFormValues) => {
+export const submitPassword = ({ password, token }: TResetFormState) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: SUBMIT_PWD_REQUEST

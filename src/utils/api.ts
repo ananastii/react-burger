@@ -1,5 +1,5 @@
 import { Url } from "./constants";
-import { TFormValues, TIngredientInfo, TOrderCheckout } from "../services/types/data";
+import { TForgotFormState, TIngredientInfo, TLoginFormState, TOrderCheckout, TResetFormState, TUserFormState } from "../services/types/data";
 import {
   TUserResponce,
   TTokens,
@@ -39,7 +39,7 @@ const placeOrderRequest = (ingredients: TOrderCheckout) => {
   })
 };
 
-const registerRequest = ({name, email, password}: TFormValues) => {
+const registerRequest = ({name, email, password}: TUserFormState) => {
   return fetch(Url.Register, {
     method: 'POST',
     headers: {
@@ -50,7 +50,7 @@ const registerRequest = ({name, email, password}: TFormValues) => {
   .then(res => checkResponse<TUserResponce>(res))
 };
 
-const loginRequest = ({email, password}:  TFormValues) => {
+const loginRequest = ({email, password}:  TLoginFormState) => {
   return fetch(Url.Login, {
     method: 'POST',
     headers: {
@@ -83,7 +83,7 @@ const getUserRequest = () => {
   })
 };
 
-const updateUserRequest = ({ name, email, password }: TFormValues) => {
+const updateUserRequest = ({ name, email, password }: TUserFormState) => {
   const accessToken = getCookie("accessToken");
   return fetch(Url.User, {
     method: "PATCH",
@@ -95,7 +95,7 @@ const updateUserRequest = ({ name, email, password }: TFormValues) => {
   })
 };
 
-const pwdResetRequest = ({ email }: TFormValues) => {
+const pwdResetRequest = ({ email }: TForgotFormState) => {
   return fetch(Url.PwdReset, {
     method: "POST",
     headers: {
@@ -106,7 +106,7 @@ const pwdResetRequest = ({ email }: TFormValues) => {
   .then(res => checkResponse<TDefaultResponce>(res));
 };
 
-const pwdSubmitRequest = ({ password, token }: TFormValues) => {;
+const pwdSubmitRequest = ({ password, token }: TResetFormState) => {;
   return fetch(Url.PwdSubmit, {
     method: "POST",
     headers: {
