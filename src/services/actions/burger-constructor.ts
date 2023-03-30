@@ -5,7 +5,7 @@ import {
   RESET_INGREDIENTS,
   MOVE_INGREDIENT
 } from '../constants/burger-constructor';
-import { TIngredientData, TIngredientFilling, TIngredientInfo } from "../types/data";
+import { TIngredientFilling, TIngredientInfo } from "../types/data";
 
 export interface IAddIngredient {
   readonly type: typeof ADD_INGREDIENT;
@@ -15,7 +15,6 @@ export interface IAddIngredient {
 export interface IDeleteIngredient {
   id: string;
   readonly type: typeof DELETE_INGREDIENT;
-  readonly data: Array<TIngredientData>;
 }
 
 export interface IResetIngredient {
