@@ -1,12 +1,13 @@
-import { SyntheticEvent, useState } from "react";
-import { TFormValues } from "../services/types/data";
+import { ChangeEvent, useState } from "react";
 
-export function useForm(inputValues: TFormValues) {
-  const [values, setValues] = useState<TFormValues>(inputValues);
+export function useForm<T>(inputValues: T) {
 
-  const handleChange = (e: SyntheticEvent) => {
-    const {value, name} = e.target as HTMLInputElement;
+  const [values, setValues] = useState<T>(inputValues);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {value, name} = event.target;
     setValues({...values, [name]: value});
   };
+
   return {values, handleChange, setValues};
 }

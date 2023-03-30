@@ -1,6 +1,6 @@
 import styles from './profile.module.css';
 import { useSelector, useDispatch } from '../hooks';
-import { SyntheticEvent, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import ProfileTab from "../components/profile-tab/profile-tab";
 import { Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUser } from '../utils/state';
@@ -8,6 +8,7 @@ import { updateUserInfo } from '../services/actions/auth';
 import { useEffect } from 'react';
 import { getPassword } from '../utils/state';
 import { useForm } from '../hooks/useForm';
+import { TUserFormState } from '../services/types/data';
 
 export const ProfilePage = () => {
 
@@ -16,18 +17,17 @@ export const ProfilePage = () => {
   const userInfo = useSelector(getUser);
   const password = useSelector(getPassword);
 
-  const formInit = {
+  const initialFormState: TUserFormState = {
     name: userInfo?.name || '',
     email: userInfo?.email || '',
     password: password || '******'
   };
 
-  const {values, handleChange, setValues} = useForm(formInit);
+  const {values, handleChange, setValues} = useForm<TUserFormState>(initialFormState);
 
   const [isChanged, setIsChanged] = useState(false);
 
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     if (userInfo && password) {
@@ -35,21 +35,23 @@ export const ProfilePage = () => {
     } else if (userInfo) {
       setValues({name: userInfo.name, email: userInfo.email, password: "******"});
     } else
-      setValues(formInit);
+      setValues(initialFormState);
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // TODO missing dependency to avoid rerender cycle
   }, [userInfo, password]);
 
-  const handleChangeProfile = (e: SyntheticEvent) => {
+  const handleChangeProfile = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e);
     setIsChanged(true);
   }
 
   const handleCancel = () => {
-    setValues(formInit);
+    setValues(initialFormState);
     setIsChanged(false);
   };
 
   const handleSubmit = (e: SyntheticEvent) => {
+    console.log(typeof values.name);
     e.preventDefault();
     dispatch(updateUserInfo(values))
     setIsChanged(false);
@@ -63,7 +65,7 @@ export const ProfilePage = () => {
           type="text"
           placeholder="Имя"
           onChange={handleChangeProfile}
-          value={values.name!}
+          value={values.name}
           name="name"
           icon="EditIcon"
           extraClass={`mb-6 ${styles.input}`}
@@ -72,7 +74,7 @@ export const ProfilePage = () => {
           type="email"
           placeholder="Логин"
           onChange={handleChangeProfile}
-          value={values.email!}
+          value={values.email}
           name="email"
           icon="EditIcon"
           extraClass={`mb-6 ${styles.input}`}
@@ -80,7 +82,7 @@ export const ProfilePage = () => {
         <PasswordInput
           placeholder="Пароль"
           onChange={handleChangeProfile}
-          value={values.password!}
+          value={values.password}
           name="password"
           icon="EditIcon"
           extraClass={styles.input}

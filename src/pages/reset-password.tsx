@@ -6,13 +6,19 @@ import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burg
 import { submitPassword } from '../services/actions/auth';
 import { getPwdResetRequested, getPwdSubmitSuccess } from '../utils/state';
 import { useForm } from '../hooks/useForm';
+import { TResetFormState } from '../services/types/data';
 
 export const ResetPasswordPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {values, handleChange} = useForm({});
+  const initialFormState: TResetFormState = {
+    password: '',
+    token: '',
+  }
+
+  const {values, handleChange} = useForm<TResetFormState>(initialFormState);
   const pwdResetRequested = useSelector(getPwdResetRequested);
   const pwdSubmitSuccess = useSelector(getPwdSubmitSuccess);
 
@@ -41,14 +47,14 @@ export const ResetPasswordPage = () => {
         Восстановление пароля
       </h1>
       <PasswordInput
-        value={values?.password || ''}
+        value={values.password}
         name="password"
         placeholder="Введите новый пароль"
         onChange={handleChange}
         extraClass="mb-6"
       />
       <Input
-        value={values?.token || ''}
+        value={values.token}
         type="text"
         name="token"
         placeholder="Введите код из письма"

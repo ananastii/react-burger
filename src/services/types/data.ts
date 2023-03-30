@@ -41,6 +41,26 @@ export type TFormValues = {
   token?: string
 }
 
+export type TLoginFormState = {
+  email: string,
+  password: string,
+}
+
+export type TUserFormState = {
+  name: string,
+  email: string,
+  password: string,
+}
+
+export type TForgotFormState = {
+  email: string,
+}
+
+export type TResetFormState = {
+  password: string,
+  token: string,
+}
+
 export type TUser = {
   name: string;
   email: string;

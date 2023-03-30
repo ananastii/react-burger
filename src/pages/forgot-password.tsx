@@ -5,13 +5,18 @@ import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-comp
 import { updatePassword } from '../services/actions/auth';
 import { useForm } from '../hooks/useForm';
 import { SyntheticEvent } from 'react';
+import { TForgotFormState } from '../services/types/data';
 
 export const ForgotPasswordPage = () => {
+
+  const initialFormState: TForgotFormState = {
+    email: '',
+  }
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {values, handleChange} = useForm({});
+  const {values, handleChange} = useForm<TForgotFormState>(initialFormState);
 
   const handlePasswordUpdate = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -27,7 +32,7 @@ export const ForgotPasswordPage = () => {
           Восстановление пароля
         </h1>
         <EmailInput
-          value={values?.email || ''}
+          value={values.email}
           name="email"
           onChange={handleChange}
           extraClass="mb-6"

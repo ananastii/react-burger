@@ -5,10 +5,16 @@ import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer
 import { loginUser } from '../services/actions/auth';
 import { useForm } from '../hooks/useForm';
 import { SyntheticEvent } from 'react';
+import { TLoginFormState } from '../services/types/data';
 
 export const LoginPage = () => {
 
-  const {values, handleChange} = useForm({});
+  const initialFormState: TLoginFormState = {
+    email: '',
+    password: '',
+  }
+
+  const {values, handleChange} = useForm<TLoginFormState>(initialFormState);
 
   const dispatch = useDispatch();
 
@@ -24,13 +30,13 @@ export const LoginPage = () => {
         Вход
       </h1>
       <EmailInput
-        value={values?.email || ''}
+        value={values.email}
         name="email"
         onChange={handleChange}
         extraClass="mb-6"
       />
       <PasswordInput
-        value={values?.password || ''}
+        value={values.password}
         name="password"
         onChange={handleChange}
         extraClass="mb-6"

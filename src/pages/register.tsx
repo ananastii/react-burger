@@ -5,10 +5,17 @@ import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-de
 import { registerUser } from '../services/actions/auth';
 import { useForm } from '../hooks/useForm';
 import { SyntheticEvent } from 'react';
+import { TUserFormState } from '../services/types/data';
 
 export const RegisterPage = () => {
 
-  const {values, handleChange} = useForm({});
+  const initialFormState: TUserFormState = {
+    name: '',
+    email: '',
+    password: '',
+  };
+
+  const {values, handleChange} = useForm<TUserFormState>(initialFormState);
 
   const dispatch = useDispatch();
 
@@ -24,7 +31,7 @@ export const RegisterPage = () => {
         Регистрация
       </h1>
       <Input
-        value={values?.name || ''}
+        value={values.name}
         name="name"
         placeholder="Имя"
         type="text"
@@ -32,13 +39,13 @@ export const RegisterPage = () => {
         extraClass="mb-6"
       />
       <EmailInput
-        value={values?.email || ''}
+        value={values.email}
         name="email"
         onChange={handleChange}
         extraClass="mb-6"
       />
       <PasswordInput
-        value={values?.password || ''}
+        value={values.password}
         name="password"
         onChange={handleChange}
         extraClass="mb-6"
