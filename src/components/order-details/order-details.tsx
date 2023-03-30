@@ -8,9 +8,7 @@ import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-component
 import { styleStatus } from '../../utils/components';
 import {
   getOrdersFeed,
-  getWsFeedConnected,
   getOrdersUser,
-  getWsOrdersConnected,
   getAllIngredients
 } from '../../utils/state';
 import {
@@ -30,9 +28,6 @@ const OrderDetails = () => {
   const { id } = useParams();
 
   const isUserOrder = matchPath({ path: "/profile/orders/:id" }, location.pathname);
-
-  const isFeedConnected = useSelector(getWsFeedConnected);
-  const isOrdersConnected = useSelector(getWsOrdersConnected);
 
   const ordersAll = useSelector(getOrdersFeed);
   const ordersUser = useSelector(getOrdersUser);

@@ -36,8 +36,8 @@ export const ProfilePage = () => {
       setValues({name: userInfo.name, email: userInfo.email, password: "******"});
     } else
       setValues(initialFormState);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   // TODO missing dependency to avoid rerender cycle
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo, password]);
 
   const handleChangeProfile = (e: ChangeEvent<HTMLInputElement>) => {

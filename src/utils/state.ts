@@ -11,6 +11,4 @@ export const getPwdSubmitSuccess = (store: TStoreAuth) => store.auth.pwdSubmitSu
 export const getOrdersFeed = (store: TStoreWs) => store.wsAll.orders;
 export const getTotal = (store: TStoreWs) => store.wsAll.total;
 export const getTotalToday = (store: TStoreWs) => store.wsAll.totalToday;
-export const getWsFeedConnected = (store: TStoreWs) => store.wsAll.wsConnected;
 export const getOrdersUser = (store: TStoreWsUser) => store.wsUser.orders;
-export const getWsOrdersConnected = (store: TStoreWsUser) => store.wsUser.wsConnected;

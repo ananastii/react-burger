@@ -24,7 +24,7 @@ const Modal: FC<TModal> = ({onClose, children}) => {
     return () => {
       document.removeEventListener('keydown', onEscKeydown);
     };
-  }, []);
+  }, [onClose]);
 
 
   return modalContainer && ReactDOM.createPortal (

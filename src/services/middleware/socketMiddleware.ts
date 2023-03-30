@@ -18,7 +18,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsActions): Middlewa
     return next => action => {
 
       const { dispatch } = store;
-      const { type, payload } = action;
+      const { type } = action;
       const { wsInit, onOpen, onClose, onError, onMessage, wsInitUser } = wsActions;
 
       if (type === wsInit) {
