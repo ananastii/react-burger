@@ -20,8 +20,9 @@ export const FeedPage = () => {
 
   useEffect(() => {
     dispatch(wsConnect());
-    return () =>
+    return () => {
       dispatch(wsClose());
+    }
   }, [dispatch]);
 
   const ordersStatus = useMemo(() => feed.reduce((list: {doneOrders: number[], pendingOrders: number[]}, order) => {

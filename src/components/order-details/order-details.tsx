@@ -43,26 +43,26 @@ const OrderDetails = () => {
 
   const isDataSet = location.state ? true : false;
 
+  const isShowOrderModal = isUserOrder && !isDataSet;
+  const isShowFeedModal = !isUserOrder && !isDataSet;
+
   useEffect(() => {
-    if ( isUserOrder) {
-      if (!isDataSet && !isFeedConnected) {
-        dispatch(wsUserConnect());
-      };
-      if(!isDataSet && isFeedConnected) {
-        return () =>
+    if (isShowOrderModal) {
+      dispatch(wsUserConnect());
+
+      return () => {
         dispatch(wsUserClose());
-      }
-    } else {
-      if (!isDataSet && !isOrdersConnected) {
-        dispatch(wsConnect());
       };
-      if(!isDataSet && isOrdersConnected) {
-        return () =>
-        dispatch(wsClose());
-      }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, isFeedConnected, isOrdersConnected]);
+
+    if (isShowFeedModal) {
+      dispatch(wsConnect());
+
+      return () => {
+        dispatch(wsClose());
+      };
+    }
+  }, [dispatch, isShowFeedModal, isShowOrderModal]);
 
   const order = useMemo(
     () => {

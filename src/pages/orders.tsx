@@ -19,8 +19,9 @@ export const OrdersPage = () => {
 
   useEffect(() => {
     dispatch(wsUserConnect());
-    return () =>
+    return () => {
       dispatch(wsUserClose());
+    }
   }, [dispatch]);
 
   return (
