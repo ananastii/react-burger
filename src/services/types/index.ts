@@ -1,4 +1,4 @@
-import { ThunkAction } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { store } from '../../utils/store';
 import { TIngredientsActions } from '../actions/ingredients';
 import { TConstructorActions } from '../actions/burger-constructor';
@@ -19,4 +19,4 @@ type TAppActions =
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, TAppActions>;
 
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = ThunkDispatch<RootState, never, TAppActions>;
