@@ -1,21 +1,39 @@
-# React Burger
+# [Stellar Burgers](https://dorkemk.github.io/react-burger)
 
-Учебный проект, выполеннный на курсе Яндекс.Практикума
+Виртуальная бургерная - проект, выполеннный на курсе Яндекс.Практикума - виртуальная бургерная.
+Десктоп-версия. В ней можно:
+- просмотреть список компонентов и подробную информацию при клике на компонент
+- просмотреть ленту выполненных заказов и подробную информацию при клике на заказ
+- зарегистрироваться
+для зарегистрированных пользователей:
+- создавать заказ
+- авторизовываться и выходить из приложения
+- изменять данные профиля
+- просматривать свои заказы
 
-## Demo
-[Stellar Burgers](https://dorkemk.github.io/react-burger)
+Реквизиты для входа, если не хочется регистрироваться:
+- email: burgeruser@example.com
+- пароль: 111111
 
-## Installation
+## Технологии
+Проект свёрстан с использованием готовой [библиотеки компонентов](https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/)
+Проект прошёл несколько итераций рефакторинга по мере освоения новых технологий:
+1. Моковые данные -> запросы к API
+2. Context -> Redux
+3. PropTypes -> TypeScript
 
-`npm install` - to install packages
-`npm start` - to run the app in the development mode
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-`npm run build` - to build the app for production to the `build` folder.\
+**Используемые библиотеки:**
+- React
+- React-Redux
+- Redux-Thunk
+- React-DnD
+- UUID
+- React-Router v6
 
-## Technologies
-Libraries:
-- redux & react-redux
-- redux-thunk
-- react-dnd & react-dnd-html5-backend
-- uuid
-- react-router v6
+## Установка
+
+`npm install` - становить пакеты
+
+`npm start` - запустить приложение в режиме разработки
+
+[http://localhost:3000](http://localhost:3000) - просмотр приложения в браузере
