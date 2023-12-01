@@ -1,4 +1,4 @@
-# [Stellar Burgers](https://dorkemk.github.io/react-burger)
+# [Stellar Burgers](https://ananastii.github.io/react-burger)
 
 Виртуальная бургерная - проект, выполеннный на курсе Яндекс.Практикума - виртуальная бургерная.
 Десктоп-версия. В ней можно:
