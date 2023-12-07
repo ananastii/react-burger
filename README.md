@@ -9,7 +9,8 @@ Desktop version. In this project, you can:
 - View a list of components and detailed information by clicking on a component.
 - View a feed of completed orders and detailed information by clicking on an order.
 - Register as a user.
-For registered users:
+
+  For registered users:
 - Create orders.
 - Log in and log out of the application.
 - Modify profile information.
@@ -21,27 +22,34 @@ Login credentials if you don't want to register:
 
 ## Technologies
 The project was built using a ready-made [component library](https://yandex-practicum.github.io/react-developer-burger-ui-components/docs/).
-The project underwent several iterations of refactoring as new technologies were learned:
+
+The project underwent several iterations of refactoring as I was acquiring skills in new technologies:
 1. Mock data -> API requests
 2. Context -> Redux
 3. PropTypes -> TypeScript
 
-**Used libraries:**
+**Libraries used:**
 - React
-- React-Redux
-- Redux-Thunk
-- React-DnD
+- React Redux
+- Redux Thunk
+- React Router
+- React DnD
 - UUID
-- React-Router v6
+- React Router v6
 
 ## Installation
 
 `npm install` - install packages
 
-`npm start` - start the application in development mode
+`npm start` - run the application in development mode
 
-[http://localhost:3000](http://localhost:3000) - view the application in the browser
+[http://localhost:3000](http://localhost:3000) - view the application in browser
 
+## Future plans
+
+As I am learning new technologies, I plan to:
+- style draggable elements
+- switch from Redux to Redux Toolkit
 ___
 
 # Космическая Бургерная
@@ -70,11 +78,12 @@ ___
 
 **Используемые библиотеки:**
 - React
-- React-Redux
-- Redux-Thunk
-- React-DnD
+- React Redux
+- Redux Thunk
+- React Router
+- React DnD
 - UUID
-- React-Router v6
+- React Router v6
 
 ## Установка
 
@@ -84,4 +93,8 @@ ___
 
 [http://localhost:3000](http://localhost:3000) - просмотр приложения в браузере
 
+## Планы
 
+Продолжая изучать новые технологии, я планирую:
+- стилизовать перетаскиваемые элементы
+- перевести проект на Redux Toolkit
