@@ -50,6 +50,7 @@ The project underwent several iterations of refactoring as I was acquiring skill
 As I am learning new technologies, I plan to:
 - style draggable elements
 - switch from Redux to Redux Toolkit
+
 And I also want to make user experience better:
 - make pages responcive
 - add return button if the order doesn't exist
